@@ -11,7 +11,8 @@
 |       ├── templates   # Section of the page that will be used on more than one page (ex: navbar)
 ├── db                  # Database initializer
 ├── lib                 # Helper
-├── res                 # Css and Javascript container
+├── res                 # Css, image and Javascript container
 |   ├── css
 |   ├── js
+|   ├── image
 ```

@@ -16,7 +16,7 @@
                   <div class="logo-medsos text-center mt-3">
                       <img src="../assets/sosial media/instagram.png" alt="" height="64px" />
                       <img src="../assets/sosial media/facebook.png" class="ps-4 pe-4" alt="" height="64px" />
-                      <img src="../assets/sosial media/twitter.png" alt="" height="64px" />
+                      <img src="../assets/sosial media/twitter.png" alt="" height="54px" />
                   </div>
               </div>
           </div>

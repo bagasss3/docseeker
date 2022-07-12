@@ -18,3 +18,13 @@ Route::get('/', function () {
         'title' => 'Homepage'
     ]);
 });
+Route::get('/item', function () {
+    return view('item', [
+        'title' => 'SHOES'
+    ]);
+});
+Route::get('/selected-item', function () {
+    return view('selected-item', [
+        'title' => 'SELECTED ITEM'
+    ]);
+});

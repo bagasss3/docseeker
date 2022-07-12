@@ -16,6 +16,7 @@ h6 {
 
 p {
     font-family: "Rasa", serif;
+    margin: 0;
 }
 a {
     text-decoration: none;
@@ -69,4 +70,31 @@ a {
 
 .logo-medsos {
     padding: 0px 20px;
+}
+
+/* item page */
+/* box content */
+.box-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    height: 320px;
+    width: 300px;
+    margin: 0rem 2rem;
+}
+
+.content-header {
+    text-align: left;
+}
+.text-price {
+    font-weight: bold;
+    font-size: 28px;
+    padding: 20px;
+}
+
+.btn-secondary {
+    background-color: #e4e4e4;
+    border-color: #e4e4e4;
+    border-radius: 6px;
+    padding: 10px 20px;
 }

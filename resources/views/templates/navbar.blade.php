@@ -12,14 +12,14 @@
            <a href="" class="text-white my-auto">
                <h6 class="">BAGS</h6>
            </a>
-           <a href="" class="my-auto">
+           <a href="{{url('/')}}" class="my-auto">
                <img src="../assets/img/Logo.png" alt="" height="48px" />
            </a>
 
            <a href="" class="text-white my-auto">
                <h6 class="">SHOES</h6>
            </a>
-           <a href="" class="text-white my-auto">
+           <a href="{{url('item')}}" class="text-white my-auto">
                <h6 class="">SUNGLASSES</h6>
            </a>
            <a href="" class="text-white my-auto">

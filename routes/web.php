@@ -18,3 +18,8 @@ Route::get('/', function () {
         'title' => 'Homepage'
     ]);
 });
+Route::get('/item', function () {
+    return view('item', [
+        'title' => 'SHOES'
+    ]);
+});

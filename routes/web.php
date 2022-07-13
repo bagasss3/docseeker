@@ -23,3 +23,8 @@ Route::get('/item', function () {
         'title' => 'SHOES'
     ]);
 });
+Route::get('/selected-item', function () {
+    return view('selected-item', [
+        'title' => 'SELECTED ITEM'
+    ]);
+});

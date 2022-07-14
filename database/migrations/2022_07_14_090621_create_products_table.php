@@ -21,7 +21,6 @@ class CreateProductsTable extends Migration
             $table->integer('product_harga');
             $table->text('product_desc')->nullable();
             $table->text('product_image');
-            $table->text('product_keywords');
             $table->integer('stock');
         });
     }

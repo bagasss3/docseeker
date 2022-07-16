@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,16 +19,6 @@ Route::get('/', function () {
         'title' => 'Homepage'
     ]);
 });
-Route::get('/item', function () {
-    return view('item', [
-        'title' => 'SHOES'
-    ]);
-});
-Route::get('/selected-item', function () {
-    return view('selected-item', [
-        'title' => 'SELECTED ITEM'
-    ]);
-});
 
 Route::get('/login', function () {
     return view('login', [
@@ -40,3 +31,7 @@ Route::get('/register', function () {
         'title' => 'REGISTER PAGE'
     ]);
 });
+
+Route::get('/product', [ProductController::class,'index'])->name('product.index');
+Route::post('/product', [ProductController::class,'store']);
+Route::get('/product/{id}', [ProductController::class,'show'])->name('product.show');

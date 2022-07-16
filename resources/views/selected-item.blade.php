@@ -41,18 +41,14 @@
         <div class="col-lg-6 mt-5 text-start ">
             <!-- content -->
             <div class="header-detail mb-4">
-                <h3 class="fw-bold">SALVATORE FERRAGAMO 53mm Square Sunglasses</h3>
-                <p class="text-primary mt-3 h3 fw-bold">IDR 1.600.000,-</p>
+                <h3 class="fw-bold">{{ $data->product_title }}</h3>
+                <p class="text-primary mt-3 h3 fw-bold">IDR {{ $data->product_harga }}-</p>
             </div>
 
             <!-- detail -->
             <div class="detail-item text-white">
                 <h5>Details :</h5>
-                <ul class="list-group list-group-flush text-white">
-                    <li class="list-group-item">Classic tortoiseshell pattern builds on the retro look of these essential square shades.</li>
-                    <li class="list-group-item">100% UV protection</li>
-                    <li class="list-group-item">Fixed nose pads</li>
-                </ul>
+                <p>{{$data->product_desc}}</p>
             </div>
 
             <!-- pricing -->

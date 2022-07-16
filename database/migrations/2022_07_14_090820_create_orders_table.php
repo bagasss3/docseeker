@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->integer('qty');
             $table->enum('status',['Accepted','Send','Canceled','Returned','Packed','Finished']);
+            $table->timestamps();
         });
     }
 

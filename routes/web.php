@@ -28,3 +28,15 @@ Route::get('/selected-item', function () {
         'title' => 'SELECTED ITEM'
     ]);
 });
+
+Route::get('/login', function () {
+    return view('login', [
+        'title' => 'LOGIN PAGE'
+    ]);
+});
+
+Route::get('/register', function () {
+    return view('register', [
+        'title' => 'REGISTER PAGE'
+    ]);
+});

@@ -25,7 +25,7 @@
            <a href="" class="text-white my-auto">
                <h6 class="">SALE</h6>
            </a>
-           <a href="" class="text-white my-auto">
+           <a href="{{url('/login')}}" class="text-white my-auto">
                <i class="fa-solid fa-user h3"></i>
            </a>
        </div>

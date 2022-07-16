@@ -23,9 +23,8 @@ class ProductController extends Controller
             case "men":
                 $products = Products::where('product_gender',"0")->get();
                 break;
-            case "women":
+            default:
                 $products = Products::where('product_gender',"1")->get();
-                break;
         }
 
         return view('item', [

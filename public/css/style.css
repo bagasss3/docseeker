@@ -4,6 +4,8 @@ body {
     background-color: #afc4c0;
 }
 
+.btn,
+label,
 h1,
 h2,
 h3,
@@ -97,7 +99,7 @@ a {
 }
 
 .btn-secondary {
-    background-color: #e4e4e4;
+    background-color: #aeaeae;
     border-color: #e4e4e4;
     border-radius: 6px;
     padding: 10px 20px;
@@ -163,4 +165,36 @@ a {
     background-color: #d7d7d7;
     border-color: #d7d7d7;
     color: #8a8a8a;
+}
+
+/* LOGIN */
+.box-login {
+    background-color: #f5f3f3;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: justify;
+    width: 550px;
+    height: 500px;
+}
+
+.box-register {
+    width: 100%;
+    height: 100%;
+}
+
+.form-control {
+    padding: 0.8rem 0.75rem;
+}
+
+.btn-register {
+    font-size: 18px;
+    padding: 1.125rem;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary.active,
+.open > .dropdown-toggle.btn-secondary {
+    color: #fff !important;
 }

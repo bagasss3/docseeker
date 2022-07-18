@@ -18,7 +18,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('index', [
-        'title' => 'Homepage'
+        'title' => 'HOMEPAGE'
     ]);
 });
 
@@ -34,10 +34,22 @@ Route::get('/register', function () {
     ]);
 })->middleware('guest');
 
-Route::get('/product', [ProductController::class,'index'])->name('product.index');
-Route::post('/product', [ProductController::class,'store']);
-Route::get('/product/{id}', [ProductController::class,'show'])->name('product.show');
+Route::get('/shopping-cart', function () {
+    return view('shopping-cart', [
+        'title' => 'YOUR SHOPPING CART'
+    ]);
+});
 
-Route::post('/register', [UserController::class,'store'])->name('user.store');
+Route::get('/checkout', function () {
+    return view('checkout', [
+        'title' => 'Your Order'
+    ]);
+});
+
+Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+Route::post('/product', [ProductController::class, 'store']);
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+
+Route::post('/register', [UserController::class, 'store'])->name('user.store');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
-Route::post('/logout',[AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');

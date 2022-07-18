@@ -5,6 +5,11 @@ body {
 }
 
 .btn,
+button,
+input,
+optgroup,
+select,
+textarea,
 label,
 h1,
 h2,
@@ -30,6 +35,12 @@ a {
 
 .text-primary {
     color: #5a5959 !important;
+}
+
+.active {
+    font-size: 18px;
+    color: #000000 !important;
+    font-weight: bold;
 }
 
 /* search */
@@ -69,9 +80,17 @@ a {
     background: #dadada;
 }
 
+.line-2 {
+    background: #7a7a7a;
+}
+
 .form-control {
     background-color: #d7d7d7;
     color: #9c9494;
+}
+.form-control-2 {
+    background-color: #f7f6f6;
+    color: #e5e0e0;
 }
 
 .logo-medsos {
@@ -177,13 +196,13 @@ a {
     height: 500px;
 }
 
+.form-control-login {
+    padding: 0.75rem 0.75rem;
+}
+
 .box-register {
     width: 100%;
     height: 100%;
-}
-
-.form-control {
-    padding: 0.8rem 0.75rem;
 }
 
 .btn-register {
@@ -197,4 +216,62 @@ a {
 .btn-secondary.active,
 .open > .dropdown-toggle.btn-secondary {
     color: #fff !important;
+}
+
+/* shopping bag */
+.box-shopping-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    height: 110px;
+    width: 130px;
+}
+
+.btn-success {
+    background-color: #03ac0e;
+    border-color: #0ab519;
+    border-radius: 6px;
+    padding: 10px 20px;
+}
+
+.nav-link {
+    color: #000;
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: #000;
+}
+
+.box-checkout-item {
+    padding: 30px;
+    border-radius: 12px;
+    text-align: justify;
+    max-width: 550px;
+    height: 470px;
+    background: #dadada;
+}
+
+.form-control-checkout {
+    border: 1px solid #989898;
+}
+
+.header-checkout {
+    padding: 15px 0px;
+}
+
+.tax {
+    height: 260px;
+}
+
+.grand-total {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
 }

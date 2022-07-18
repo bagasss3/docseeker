@@ -54,7 +54,7 @@
             <!-- pricing -->
             <div class=" text-white d-flex mt-4">
                 <h6 class="my-auto me-4">Quantity</h6>
-                <div class="input-group inline-group">
+                <div class="inline-group input-group my-auto">
                     <div class="input-group-prepend">
                         <button class="btn btn-secondary-2 btn-minus">
                             <i class="fa fa-minus"></i>

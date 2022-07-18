@@ -6,7 +6,10 @@
                <i class="fa-solid fa-magnifying-glass"></i>
            </button>
        </div>
-       <div class="shopping ms-4 text-dark">
-           <i class="fa-solid fa-bag-shopping h2 text-dark rm my-auto"></i>
+       <div class="ms-4 my-auto shopping text-dark">
+           <a href="{{url('/shopping-cart')}}">
+               <i class="fa-solid fa-bag-shopping h2 text-dark rm my-auto"></i>
+
+           </a>
        </div>
    </div>

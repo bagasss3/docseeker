@@ -25,7 +25,16 @@
            <a href="" class="text-white my-auto">
                <h6 class="">SALE</h6>
            </a>
-           <a href="{{url('/login')}}" class="text-white my-auto">
-               <i class="fa-solid fa-user h3"></i>
-           </a>
+            @auth
+                <form action="/logout" method="post">
+                    @csrf
+                    <button type="submit">
+                        Logout
+                    </button>
+                </form>
+            @else
+                <a href="{{url('/login')}}" class="text-white my-auto">
+                    <i class="fa-solid fa-user h3"></i>
+                </a>
+            @endauth
        </div>

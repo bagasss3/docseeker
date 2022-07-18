@@ -8,6 +8,18 @@
 
 <!-- content -->
 <div class="container ">
+    @if(session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
+    @endif
+    @if(session()->has('info'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('info') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
+    @endif
     <div class="d-flex justify-content-center row">
         <div class="col-lg-3 me-5 mt-5 text-center">
             <div class="title">

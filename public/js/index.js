@@ -5,3 +5,5 @@ $(".btn-plus, .btn-minus").on("click", function (e) {
         input[0][isNegative ? "stepDown" : "stepUp"]();
     }
 });
+
+// active menu

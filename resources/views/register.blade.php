@@ -16,21 +16,21 @@
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label for="fName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" name="first_name" id="fName" aria-describedby="fNameHelp" placeholder="Enter Firts Name">
+                        <input type="text" class="form-control form-control-login" name="first_name" id="fName" aria-describedby="fNameHelp" placeholder="Enter Firts Name">
                     </div>
                     <div class="mb-3">
                         <label for="lName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" name="last_name" id="lName" aria-describedby="lNameHelp" placeholder="Enter Last Name">
+                        <input type="text" class="form-control form-control-login" name="last_name" id="lName" aria-describedby="lNameHelp" placeholder="Enter Last Name">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter E-mail">
+                        <input type="email" class="form-control form-control-login" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter E-mail">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
+                        <input type="password" class="form-control form-control-login" name="password" id="password" placeholder="Enter Password">
                     </div>
                 </div>
             </div>

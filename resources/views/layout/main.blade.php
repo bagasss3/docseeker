@@ -30,6 +30,14 @@
     <script src="{{ asset('js/index.js') }}">
 
     </script>
+
+    <script>
+        $(".navbar__nav .nav__menu").on("click", function(e) {
+            $(".navbar__nav").find(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        e.preventDefault();
+    </script>
 </body>
 
 </html>

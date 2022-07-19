@@ -52,7 +52,7 @@
             ?>
         </div>
         <div class="action-button ">
-            <a href="{{url('/product/{id}')}}">
+            <a href="{{route('product.show',['id'=>$product->id])}}">
                 <button type="button" class="btn btn-primary">Edit</button>
             </a>
             <button type="button" class="btn btn-danger">Delete</button>

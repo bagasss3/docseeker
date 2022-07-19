@@ -80,7 +80,13 @@
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input class="form-control  text-center" min="0" name="qty" value="1" type="number">
+                        @if($data->is_edit){
+                        <input class="form-control  text-center" min="1" name="qty" value="$data->qty" type="number">
+                        }
+                        @else{
+                        <input class="form-control  text-center" min="1" name="qty" value="1" type="number">
+                        }
+                        @endif
                         <div class="input-group-append">
                             <button class="btn btn-secondary-2 btn-plus" type="button">
                                 <i class="fa fa-plus"></i>

@@ -37,7 +37,7 @@ a {
     color: #5a5959 !important;
 }
 
-.active {
+.top-header a .active {
     font-size: 18px;
     color: #000000 !important;
     font-weight: bold;
@@ -192,7 +192,7 @@ a {
     padding: 30px;
     border-radius: 12px;
     text-align: justify;
-    width: 550px;
+    width: 470px;
     height: 500px;
 }
 

@@ -139,7 +139,7 @@
             $total = 0;
             ?>
             @foreach($data as $product)
-            <div class="d-flex" style="gap: 1em;">
+            <div class="d-flex mb-3" style="gap: 1em;">
                 <div class="box-shopping-item shadow">
                     <div class="my-2">
                         @if($product->product_cat == 0)

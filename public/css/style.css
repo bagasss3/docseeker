@@ -144,7 +144,7 @@ a {
     padding: 20px;
     border-radius: 16px;
     height: 130px;
-    width: 130px;
+    max-width: 100%;
     margin: 0rem 2rem;
 }
 
@@ -225,6 +225,12 @@ a {
     border-radius: 16px;
     height: 110px;
     width: 130px;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #d7d7d7;
+    color: #000;
 }
 
 .btn-success {

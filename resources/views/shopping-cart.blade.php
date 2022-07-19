@@ -17,7 +17,7 @@
     $total = 0;
     ?>
     @foreach($data as $product)
-    <div class="d-flex justify-content-between mb-4 mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
         <div class="box-shopping-item shadow">
             <div class="my-2">
                 @if($product->product_cat == 0)
@@ -29,27 +29,33 @@
                 @endif
             </div>
         </div>
-        <div class="name-shopping-item my-auto">
+        <div class=" name-shopping-item w-25">
             <h5 class="fw-bold">{{ $product->product_title }}</h5>
         </div>
-        <div class="inline-group input-group my-auto">
+        <div class="inline-group input-group ">
             <div class="input-group-prepend">
-                <button class="btn btn-secondary-2 btn-minus">
+                <button class="btn btn-secondary-2 btn-minus" disabled>
                     <i class="fa fa-minus"></i>
                 </button>
             </div>
-            <input class="form-control  text-center" min="0" name="quantity" value="{{ $product->qty }}" type="number">
+            <input class="form-control  text-center" min="0" name="quantity" value="{{ $product->qty }}" type="number" disabled>
             <div class="input-group-append">
-                <button class="btn btn-secondary-2 btn-plus">
+                <button class="btn btn-secondary-2 btn-plus" disabled>
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
         </div>
-        <div class="price-shopping-cart my-auto">
+        <div class="price-shopping-cart ">
             <p class="text-primary h3" style="margin-bottom: 0;">IDR {{ $product->product_harga * $product->qty}},-</p>
             <?php
             $total += $product->product_harga * $product->qty;
             ?>
+        </div>
+        <div class="action-button ">
+            <a href="{{url('/product/{id}')}}">
+                <button type="button" class="btn btn-primary">Edit</button>
+            </a>
+            <button type="button" class="btn btn-danger">Delete</button>
         </div>
     </div>
     @endforeach

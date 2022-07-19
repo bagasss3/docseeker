@@ -15,11 +15,11 @@
                 <a href="">
                     <div class="box-display-2 mx-auto my-2 row-relative shadow ">
                         @if($data->product_cat == 0)
-                        <img src="../assets/img/shoes.svg" alt="" height="64px" />
+                        <img src="../assets/img/shoes.svg" class="" alt="" height="82px" />
                         @elseif($data->product_cat == 1)
-                        <img src="../assets/img/bag.svg" alt="" height="64px" />
+                        <img src="../assets/img/bag.svg" class="" alt="" height="82px" />
                         @else
-                        <img src="../assets/img/glasses.svg" alt="" height="64px" />
+                        <img src="../assets/img/glasses.svg" class="" alt="" height="82px" />
                         @endif
                     </div>
                 </a>
@@ -27,11 +27,11 @@
                 <a href="">
                     <div class="box-display-2 shadow row-relative mx-auto shadow mt-4">
                         @if($data->product_cat == 0)
-                        <img src="../assets/img/shoes.svg" alt="" height="64px" />
+                        <img src="../assets/img/shoes.svg" alt="" height="82px" />
                         @elseif($data->product_cat == 1)
-                        <img src="../assets/img/bag.svg" alt="" height="64px" />
+                        <img src="../assets/img/tas 2.svg" alt="" height="82px" />
                         @else
-                        <img src="../assets/img/glasses.svg" alt="" height="64px" />
+                        <img src="../assets/img/glasses.svg" alt="" height="82px" />
                         @endif
                     </div>
                 </a>

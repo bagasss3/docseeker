@@ -25,7 +25,7 @@
                 <div class="content-header mt-2 ">
                     <h5 class="pt-2 pb-2">{{ $product->product_title }}</h5>
                     <div class="price">
-                        <p class="text-price text-center">IDR {{ $product->product_harga }}</p>
+                        <p class="text-price text-center number-format">{{ $product->product_harga }}</p>
                     </div>
                 </div>
             </a>

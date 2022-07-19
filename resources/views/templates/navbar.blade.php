@@ -1,28 +1,28 @@
        <!-- navbar  -->
        <div id="topheader" class="container d-flex justify-content-between mt-4 navbar__nav" id="menu">
-           <a href="" class="text-white my-auto nav__menu h6 " data-target="shop-brand">
+           <a href="" class="text-white my-auto nav__menu h6" data-target="shop-brand" >
                SHOP BY BRAND
            </a>
-           <a href="{{url('/product/?category=women')}}" class="text-white my-auto nav__menu h6" data-target="ladies">
+           <a href="{{url('/product/?category=women')}}" class="text-white my-auto nav__menu h6" data-target="ladies"  data-locations="category=women">
                LADIES
            </a>
-           <a href="{{url('/product/?category=men')}}" class="text-white my-auto nav__menu h6" data-target="mens">
+           <a href="{{url('/product/?category=men')}}" class="text-white my-auto nav__menu h6" data-target="mens" data-locations="category=men">
                MEN’S
            </a>
-           <a href="{{url('/product/?category=bags')}}" class="text-white my-auto nav__menu h6" data-target="bags">
+           <a href="{{url('/product/?category=bags')}}" class="text-white my-auto nav__menu h6" data-target="bags" data-locations="category=bags">
                BAGS
            </a>
            <a href="{{url('/')}}" class="my-auto nav__menu active" data-intersection="welcome">
                <img src="../assets/img/Logo.png" alt="" height="48px" />
            </a>
 
-           <a href="{{url('/product/?category=shoes')}}" class="text-white my-auto nav__menu h6" data-target="shoes">
+           <a href="{{url('/product/?category=shoes')}}" class="text-white my-auto nav__menu h6" data-target="shoes" data-locations="category=shoes">
                SHOES
            </a>
-           <a href="{{url('/product/?category=glasses')}}" class="text-white my-auto nav__menu h6" data-target="sunglasses">
+           <a href="{{url('/product/?category=glasses')}}" class="text-white my-auto nav__menu h6" data-target="sunglasses" data-locations="category=glasses">
                SUNGLASSES
            </a>
-           <a href="" class="text-white my-auto nav__menu h6" data-target="sale">
+           <a href="" class="text-white my-auto nav__menu h6" data-target="sale" >
                SALE
            </a>
            @auth

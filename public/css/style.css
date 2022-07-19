@@ -25,6 +25,7 @@ p {
     font-family: "Rasa", serif;
     margin: 0;
 }
+
 a {
     text-decoration: none;
 }
@@ -88,6 +89,7 @@ a {
     background-color: #d7d7d7;
     color: #9c9494;
 }
+
 .form-control-2 {
     background-color: #f7f6f6;
     color: #e5e0e0;
@@ -111,6 +113,7 @@ a {
 .content-header {
     text-align: left;
 }
+
 .text-price {
     font-weight: bold;
     font-size: 28px;
@@ -123,6 +126,7 @@ a {
     border-radius: 6px;
     padding: 10px 20px;
 }
+
 .btn-dark {
     color: #bfbfbf;
     font-size: 24px;
@@ -139,6 +143,7 @@ a {
     width: 300px;
     margin: 0rem 2rem;
 }
+
 .box-display-2 {
     background-color: #fff;
     padding: 20px;
@@ -244,6 +249,12 @@ a {
     color: #000;
 }
 
+.nav__active {
+    color: black !important;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .nav-link:hover {
     color: #fff;
 }
@@ -251,6 +262,11 @@ a {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     background-color: #000;
+}
+
+.checkout-menu {
+    padding: 0.75rem 1rem;
+    border-radius: 9px;
 }
 
 .box-checkout-item {
@@ -280,4 +296,12 @@ a {
     right: 0;
     left: 0;
     margin: auto;
+}
+
+.form-tab-control__active {
+    background-color: #000;
+}
+
+.opacity-75 {
+    opacity: 75%;
 }

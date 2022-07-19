@@ -55,7 +55,11 @@
             <a href="{{route('product.show',['id'=>$product->product_id])}}">
                 <button type="button" class="btn btn-primary">Edit</button>
             </a>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <form action="{{ route('cart.delete',['id'=>$product->product_id]) }}" method="post">
+                @csrf
+                @method('delete')
+                <button class="btn btn-danger">Delete</button>
+            </form>
         </div>
     </div>
     @endforeach

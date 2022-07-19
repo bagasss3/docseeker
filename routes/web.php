@@ -47,4 +47,6 @@ Route::post('/login', [AuthController::class, 'authenticate'])->name('authentica
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
 
 Route::post('/shopping-cart/{id}', [CartController::class, 'store'])->name('cart.store')->middleware('auth');
-Route::get('/shopping-cart', [CartController::class, 'index'])->middleware('auth');
+Route::put('/shopping-cart/{id}', [CartController::class, 'update'])->name('cart.update')->middleware('auth');
+Route::get('/shopping-cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
+Route::delete('/shopping-cart/{id}', [CartController::class, 'delete'])->name('cart.delete')->middleware('auth');

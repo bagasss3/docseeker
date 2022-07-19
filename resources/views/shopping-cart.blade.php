@@ -51,8 +51,8 @@
             $total += $product->product_harga * $product->qty;
             ?>
         </div>
-        <div class="action-button ">
-            <a href="{{route('product.show',['id'=>$product->id])}}">
+        <div class="action-button">
+            <a href="{{route('product.show',['id'=>$product->product_id])}}">
                 <button type="button" class="btn btn-primary">Edit</button>
             </a>
             <button type="button" class="btn btn-danger">Delete</button>

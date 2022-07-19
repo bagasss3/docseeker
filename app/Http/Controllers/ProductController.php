@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -34,11 +35,24 @@ class ProductController extends Controller
         ]);
     }
 
-    public function show($id, Products $product)
+    public function show($id, Products $product, Request $request)
     {
+        $existProduct = Cart::join('products', 'cart.product_id', '=', 'products.id')
+            ->where('user_id', $request->user()->id)
+            ->where('product_id', $id)
+            ->first();
+
+        if ($existProduct) {
+            return view('selected-item', [
+                'title' => 'Edit Item',
+                'data' => $existProduct,
+                'is_edit' => true
+            ]);
+        }
         return view('selected-item', [
             'title' => 'SELECTED ITEM',
-            'data' => $product->find($id)
+            'data' => $product->find($id),
+            'is_edit' => false
         ]);
     }
 

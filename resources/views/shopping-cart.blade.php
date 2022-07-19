@@ -46,12 +46,13 @@
             </div>
         </div>
         <div class="price-shopping-cart ">
-            <p class="text-primary h3" style="margin-bottom: 0;">IDR {{ $product->product_harga * $product->qty}},-</p>
+            <p class="text-primary h3 number-format" style="margin-bottom: 0;"> {{ $product->product_harga *
+                $product->qty}}</p>
             <?php
             $total += $product->product_harga * $product->qty;
             ?>
         </div>
-        <div class="action-button">
+        <div class="action-button d-flex" style="gap: 1em;">
             <a href="{{route('product.show',['id'=>$product->product_id])}}">
                 <button type="button" class="btn btn-primary">Edit</button>
             </a>
@@ -66,7 +67,7 @@
     <div class="line" style="margin-top: .25rem;margin-bottom: .5rem;"></div>
     <div class="d-flex justify-content-between mt-3">
         <p class="h4 text-primary ">Total Harga</p>
-        <h3 class="fw-bold">IDR {{ $total }},-</h3>
+        <h3 class="fw-bold number-format">{{ $total }}</h3>
     </div>
 
     <div class="button-shopping-cart loadmore mt-4 text-end">

@@ -13,7 +13,8 @@
             <!-- another content -->
             <div class="another-content">
                 <a href="">
-                    <div class="box-display-2 mx-auto my-2 row-relative shadow ">
+                    <div class="box-display-2 mx-auto my-2 row-relative shadow side-image"
+                        data-side-image-positions="1">
                         @if($data->product_cat == 0)
                         <img src="../assets/img/shoes.svg" class="" alt="" height="82px" />
                         @elseif($data->product_cat == 1)
@@ -25,7 +26,8 @@
                 </a>
 
                 <a href="">
-                    <div class="box-display-2 shadow row-relative mx-auto shadow mt-4">
+                    <div class="box-display-2 shadow row-relative mx-auto shadow mt-4 side-image opacity-75"
+                        data-side-image-positions="2">
                         @if($data->product_cat == 0)
                         <img src="../assets/img/shoes.svg" alt="" height="82px" />
                         @elseif($data->product_cat == 1)
@@ -39,7 +41,7 @@
             </div>
             <!-- displayed content -->
             <a href="" class="text-dark">
-                <div class="box-display shadow">
+                <div class="box-display shadow main-image">
                     <div class=" my-5">
                         @if($data->product_cat == 0)
                         <img src="../assets/img/shoes.svg" alt="" height="128px" />
@@ -60,7 +62,7 @@
             <!-- content -->
             <div class="header-detail mb-4">
                 <h3 class="fw-bold">{{ $data->product_title }}</h3>
-                <p class="text-primary mt-3 h3 fw-bold">IDR {{ $data->product_harga }}-</p>
+                <p class="text-primary mt-3 h3 fw-bold number-format">{{ $data->product_harga }}</p>
             </div>
 
             <!-- detail -->

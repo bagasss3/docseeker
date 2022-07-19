@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,17 +36,7 @@ Route::get('/register', function () {
     ]);
 })->middleware('guest');
 
-Route::get('/shopping-cart', function () {
-    return view('shopping-cart', [
-        'title' => 'YOUR SHOPPING CART'
-    ]);
-});
-
-Route::get('/checkout', function () {
-    return view('checkout', [
-        'title' => 'Your Order'
-    ]);
-});
+Route::get('/checkout', [PaymentController::class, 'index'])->middleware('auth');
 
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 Route::post('/product', [ProductController::class, 'store']);
@@ -53,3 +45,6 @@ Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.s
 Route::post('/register', [UserController::class, 'store'])->name('user.store');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
+
+Route::post('/shopping-cart/{id}', [CartController::class, 'store'])->name('cart.store')->middleware('auth');
+Route::get('/shopping-cart', [CartController::class, 'index'])->middleware('auth');

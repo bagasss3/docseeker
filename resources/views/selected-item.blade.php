@@ -70,34 +70,43 @@
             </div>
 
             <!-- pricing -->
-            <form action="{{ route('cart.store',['id'=>$data->id]) }}" method="post">
-                @csrf
-                <div class=" text-white d-flex mt-4">
-                    <h6 class="my-auto me-4">Quantity</h6>
-                    <div class="inline-group input-group my-auto">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-secondary-2 btn-minus" type="button">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        @if($data->is_edit){
-                        <input class="form-control  text-center" min="1" name="qty" value="$data->qty" type="number">
-                        }
-                        @else{
-                        <input class="form-control  text-center" min="1" name="qty" value="1" type="number">
-                        }
-                        @endif
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary-2 btn-plus" type="button">
-                                <i class="fa fa-plus"></i>
-                            </button>
+            @if($is_edit)
+            <form action="{{ route('cart.update',['id'=>$data->id]) }}" method="post">
+                @method('put')
+                @else
+                <form action="{{ route('cart.store',['id'=>$data->id]) }}" method="post">
+                    @endif
+                    @csrf
+                    <div class=" text-white d-flex mt-4">
+                        <h6 class="my-auto me-4">Quantity</h6>
+                        <div class="inline-group input-group my-auto">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-secondary-2 btn-minus" type="button">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            @if($is_edit)
+                            <input class="form-control  text-center" min="1" name="qty" value="{{$data->qty}}" type="number">
+                            @else
+                            <input class="form-control  text-center" min="1" name="qty" value="1" type="number">
+                            @endif
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary-2 btn-plus" type="button">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="pricing mt-2">
-                    <button type="submit" class="btn btn-dark shadow-lg">Add To Bag</button>
-                </div>
-            </form>
+                    <div class="pricing mt-2">
+                        <button type="submit" class="btn btn-dark shadow-lg">
+                            @if($is_edit)
+                            Update Product
+                            @else
+                            Add To Bag
+                            @endif
+                        </button>
+                    </div>
+                </form>
         </div>
 
     </div>

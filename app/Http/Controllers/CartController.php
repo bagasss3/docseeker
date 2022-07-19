@@ -67,4 +67,54 @@ class CartController extends Controller
         }
         return redirect()->intended('/shopping-cart');
     }
+
+    public function update($id, Request $request)
+    {
+        //Validating input
+        $request->validate(
+            [
+                'qty' => 'required',
+            ],
+            [
+                'qty.required' => 'Quantity harus diisi',
+            ]
+        );
+
+        $product = Products::find($id);
+        //dd($product);
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'msg' => "Data tidak ditemukan"
+            ]);
+        }
+
+        $existProduct = Cart::where('user_id', $request->user()->id)
+            ->where('product_id', $id)
+            ->first();
+
+        //dd($existProduct);
+        $existProduct->qty = $request->qty;
+        $existProduct->save();
+        return redirect()->intended('/shopping-cart');
+    }
+
+    public function delete($id, Request $request)
+    {
+        $product = Products::find($id);
+        //dd($product);
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'msg' => "Data tidak ditemukan"
+            ]);
+        }
+
+        $existProduct = Cart::where('user_id', $request->user()->id)
+            ->where('product_id', $id)
+            ->first();
+
+        $existProduct->delete();
+        return redirect(route('cart.index'));
+    }
 }

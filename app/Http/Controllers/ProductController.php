@@ -8,41 +8,44 @@ use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $category = request('category');
-        switch($category){
+        switch ($category) {
             case "shoes":
-                $products = Products::where('product_cat',"0")->get();
+                $products = Products::where('product_cat', "0")->latest()->get();
                 break;
             case "bags":
-                $products = Products::where('product_cat',"1")->get();
+                $products = Products::where('product_cat', "1")->latest()->get();
                 break;
             case "glasses":
-                $products = Products::where('product_cat',"2")->get();
+                $products = Products::where('product_cat', "2")->latest()->get();
                 break;
             case "men":
-                $products = Products::where('product_gender',"0")->get();
+                $products = Products::where('product_gender', "0")->latest()->get();
                 break;
             default:
-                $products = Products::where('product_gender',"1")->get();
+                $products = Products::where('product_gender', "1")->latest()->get();
         }
 
         return view('item', [
             'title' => $category,
-            'data'=> $products,
+            'data' => $products,
         ]);
     }
 
-    public function show($id, Products $product){
+    public function show($id, Products $product)
+    {
         return view('selected-item', [
             'title' => 'SELECTED ITEM',
             'data' => $product->find($id)
         ]);
     }
 
-    public function store(Request $request){
-       //Validating input
-       $request->validate(
+    public function store(Request $request)
+    {
+        //Validating input
+        $request->validate(
             [
                 'product_cat' => 'in:0,1,2',
                 'product_gender' => 'in:0,1',
@@ -74,17 +77,17 @@ class ProductController extends Controller
             'product_desc' => $request->product_desc,
             'stock' => $request->stock,
         ];
-        
+
         $store = Products::create($data);
-        if(!$store){
+        if (!$store) {
             return response()->json([
-                'success'=>false,
-                'msg'=>"Data tidak berhasil disimpan"
+                'success' => false,
+                'msg' => "Data tidak berhasil disimpan"
             ]);
         }
         return response()->json([
-            'success'=>true,
-            'data'=>$data
-        ]);    
+            'success' => true,
+            'data' => $data
+        ]);
     }
 }

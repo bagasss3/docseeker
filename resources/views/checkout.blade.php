@@ -135,17 +135,31 @@
                 <h5 class=" text-end text-primary">Order Summary</h5>
                 <div class="line" style="margin-top: .25rem;margin-bottom: .5rem;"></div>
             </div>
+            <?php
+            $total = 0;
+            ?>
+            @foreach($data as $product)
             <div class="d-flex" style="gap: 1em;">
                 <div class="box-shopping-item shadow">
                     <div class="my-2">
+                        @if($product->product_cat == 0)
+                        <img src="../assets/img/shoes.svg" alt="" height="48px" />
+                        @elseif($product->product_cat == 1)
+                        <img src="../assets/img/bag.svg" alt="" height="48px" />
+                        @else
                         <img src="../assets/img/glasses.svg" alt="" height="48px" />
+                        @endif
                     </div>
                 </div>
                 <div class="name-shopping-item my-auto">
-                    <h5 class="fw-bold">Salvatore 53mm Square Sunglasses</h5>
-                    <p class="text-primary h3" style="margin-bottom: 0;">IDR 1.600.000,-</p>
+                    <h5 class="fw-bold">{{ $product->product_title }}</h5>
+                    <p class="text-primary h3" style="margin-bottom: 0;">{{ $product->product_harga * $product->qty}},-</p>
+                    <?php
+                    $total += $product->product_harga * $product->qty;
+                    ?>
                 </div>
             </div>
+            @endforeach
             <div class="input-group mt-3">
                 <input type="text" class="form-control form-control-2 p-3" placeholder="Discount Code or Gift Card" />
                 <button class="btn btn-primary" type="button">
@@ -159,7 +173,7 @@
                 <div class="pricing-total">
                     <div class="d-flex justify-content-between ">
                         <p class="h4">Sub Total</p>
-                        <p class="h4">IDR 1.600.000,-</p>
+                        <p class="h4">IDR {{ $total }},-</p>
                     </div>
                     <div class="d-flex justify-content-between ">
                         <p class="h4">Savings</p>
@@ -173,7 +187,7 @@
                 <div class="grand-total">
                     <div class="d-flex justify-content-between ">
                         <h3 class="fw-bold">Grand Total</h3>
-                        <h3>IDR 1.740.000,-</h3>
+                        <h3>IDR {{ $total + 40000}},-</h3>
                     </div>
                 </div>
             </div>

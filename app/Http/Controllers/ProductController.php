@@ -37,6 +37,13 @@ class ProductController extends Controller
 
     public function show($id, Products $product, Request $request)
     {
+        if (!$request->user()) {
+            return view('selected-item', [
+                'title' => 'SELECTED ITEM',
+                'data' => $product->find($id),
+                'is_edit' => false
+            ]);
+        }
         $existProduct = Cart::join('products', 'cart.product_id', '=', 'products.id')
             ->where('user_id', $request->user()->id)
             ->where('product_id', $id)

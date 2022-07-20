@@ -53,14 +53,20 @@
             ?>
         </div>
         <div class="action-button d-flex" style="gap: 1em;">
-            <a href="{{route('product.show',['id'=>$product->product_id])}}">
-                <button type="button" class="btn btn-primary">Edit</button>
-            </a>
-            <form action="{{ route('cart.delete',['id'=>$product->product_id]) }}" method="post">
-                @csrf
-                @method('delete')
-                <button class="btn btn-danger">Delete</button>
-            </form>
+            @if($product->product_cat==0)
+            <a href="{{route('product.show',['id'=>$product->product_id])}}?category=shoes">
+                @elseif($product->product_cat==1)
+                <a href="{{route('product.show',['id'=>$product->product_id])}}?category=bags">
+                    @else
+                    <a href="{{route('product.show',['id'=>$product->product_id])}}?category=glasses">
+                        @endif
+                        <button type="button" class="btn btn-primary">Edit</button>
+                    </a>
+                    <form action="{{ route('cart.delete',['id'=>$product->product_id]) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
         </div>
     </div>
     @endforeach

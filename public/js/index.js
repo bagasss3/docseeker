@@ -22,7 +22,7 @@ function numberWithCommas(x) {
 }
 const numberToFormat = document.querySelectorAll(".number-format");
 numberToFormat.forEach((item) => {
-    item.innerHTML = `RP. ${numberWithCommas(item.innerHTML)},-`;
+    item.innerHTML = `IDR ${numberWithCommas(item.innerHTML)},-`;
 });
 
 // multi step form

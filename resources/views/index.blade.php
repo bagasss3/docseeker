@@ -61,7 +61,7 @@
         </div>
         <div class="col-lg-3   text-center">
             <div class="title">
-                <h2 class="fw-bold mb-2">NEW ARRIVAL ITEM</h2>
+                <h2 class="fw-bold mb-2">NEW ARRIVAL</h2>
             </div>
             <div class="content-container shadow row-relative mx-auto">
                 <img src="../assets/img/new item.svg" alt="" class="img" />

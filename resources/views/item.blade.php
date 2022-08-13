@@ -16,7 +16,7 @@
                 @elseif($product->product_cat==1)
                 <a href="{{route('product.show',['id'=>$product->id])}}?category=bags" class="text-dark">
                     @else
-                    <a href="{{route('product.show',['id'=>$product->product_id])}}?category=glasses">
+                    <a href="{{route('product.show',['id'=>$product->id])}}?category=glasses" class="text-dark">
                         @endif
                         <div class="row-relative mx-auto">
                             @if($product->product_cat == 0)

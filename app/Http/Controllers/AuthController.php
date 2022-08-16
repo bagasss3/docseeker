@@ -25,12 +25,41 @@ class AuthController extends Controller
          );
 
         //Authenticating
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/');
         } else {
             return back()->with(['info' => 'Email atau Password salah']);
         };
+    }
+
+    public function authenticateAdmin(Request $request)
+    {
+        //Validatin input
+        $credentials = $request->validate(
+            [
+             'name' => 'required',
+             'password' => 'required|max:20'
+            ],
+            [
+             'name.required' => 'nama harus diisi',
+             'password.required' => 'Password harus diisi',
+             'password.max' => 'Password Maksimal 20 karakter'
+            ]
+         );
+
+        //Authenticating
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return response()->json([
+                'success' => true,
+                'msg' => "Login berhasil"
+            ]);        
+        } else {
+            return response()->json([
+                'success' => false,
+                'msg' => "Login gagal"
+            ]);        };
     }
 
     public function logout(){

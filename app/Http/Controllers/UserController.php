@@ -44,4 +44,10 @@ class UserController extends Controller
         return redirect('/login');
 
     }
+
+    public function show(Request $request, User $user){
+       return response()->json([
+        'data'=>$user->find($request->user()->id)
+       ]);
+    }
 }

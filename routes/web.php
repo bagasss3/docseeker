@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
 
 /*
@@ -36,10 +37,10 @@ Route::get('/register', function () {
     ]);
 })->middleware('guest');
 
+Route::get('/profile',[UserController::class, 'show'])->middleware('auth');
 Route::get('/checkout', [PaymentController::class, 'index'])->middleware('auth');
 
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
-Route::post('/product', [ProductController::class, 'store']);
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
 Route::post('/register', [UserController::class, 'store'])->name('user.store');
@@ -50,3 +51,11 @@ Route::post('/shopping-cart/{id}', [CartController::class, 'store'])->name('cart
 Route::put('/shopping-cart/{id}', [CartController::class, 'update'])->name('cart.update')->middleware('auth');
 Route::get('/shopping-cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
 Route::delete('/shopping-cart/{id}', [CartController::class, 'delete'])->name('cart.delete')->middleware('auth');
+
+Route::post('/login-admin', [AuthController::class, 'authenticateAdmin'])->name('authenticateAdmin');
+Route::post('/admin-product', [AdminController::class, 'store'])->middleware(['auth','is_admin']);
+Route::post('/create-admin',[AdminController::class, 'create']);
+Route::put('/admin-product/{id}', [AdminController::class, 'update'])->middleware(['auth','is_admin']);
+Route::delete('/admin-product/{id}', [AdminController::class, 'delete'])->middleware(['auth','is_admin']);
+Route::get('/admin-product', [AdminController::class, 'index']);//->middleware(['auth','is_admin']);
+Route::get('/admin-product/{id}', [AdminController::class, 'show'])->middleware(['auth','is_admin']);

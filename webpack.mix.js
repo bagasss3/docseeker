@@ -19,4 +19,11 @@ mix.js("resources/js/app.js", "public/js").postCss(
     ]
 );
 
+mix.js("resources/js/adminLte.core.js", "public/js/vendor");
+
+mix.js("resources/js/datatables.js", "public/js/vendor");
+
+mix.postCss("resources/css/adminLte.core.css", "public/css/vendor");
+mix.postCss("resources/css/datatables.css", "public/css/vendor");
+
 mix.browserSync("127.0.0.1:8000");

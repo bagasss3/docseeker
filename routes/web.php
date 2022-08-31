@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CheckOngkirController;
+use App\Models\Products;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,10 +39,10 @@ Route::get('/register', function () {
     ]);
 })->middleware('guest');
 
-Route::get('/profile',[UserController::class, 'show'])->middleware('auth');
+Route::get('/profile', [UserController::class, 'show'])->middleware('auth');
 Route::get('/checkout', [PaymentController::class, 'index'])->middleware('auth');
-Route::get('/cities/{id}',[CheckOngkirController::class, 'getCities']);
-Route::get('/cost-ongkir',[CheckOngkirController::class, 'check_ongkir']);
+Route::get('/cities/{id}', [CheckOngkirController::class, 'getCities']);
+Route::get('/cost-ongkir', [CheckOngkirController::class, 'check_ongkir']);
 
 
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
@@ -57,9 +58,33 @@ Route::get('/shopping-cart', [CartController::class, 'index'])->name('cart.index
 Route::delete('/shopping-cart/{id}', [CartController::class, 'delete'])->name('cart.delete')->middleware('auth');
 
 Route::post('/login-admin', [AuthController::class, 'authenticateAdmin'])->name('authenticateAdmin');
-Route::post('/admin-product', [AdminController::class, 'store'])->middleware(['auth','is_admin']);
-Route::post('/create-admin',[AdminController::class, 'create']);
-Route::put('/admin-product/{id}', [AdminController::class, 'update'])->middleware(['auth','is_admin']);
-Route::delete('/admin-product/{id}', [AdminController::class, 'delete'])->middleware(['auth','is_admin']);
-Route::get('/admin-product', [AdminController::class, 'index']);//->middleware(['auth','is_admin']);
-Route::get('/admin-product/{id}', [AdminController::class, 'show'])->middleware(['auth','is_admin']);
+Route::post('/admin-product', [AdminController::class, 'store'])->middleware(['auth', 'is_admin']);
+Route::post('/create-admin', [AdminController::class, 'create']);
+Route::put('/admin-product/{id}', [AdminController::class, 'update'])->middleware(['auth', 'is_admin']);
+Route::delete('/admin-product/{id}', [AdminController::class, 'delete'])->middleware(['auth', 'is_admin']);
+Route::get('/admin-product', [AdminController::class, 'index']); //->middleware(['auth','is_admin']);
+Route::get('/admin-product/{id}', [AdminController::class, 'show'])->middleware(['auth', 'is_admin']);
+
+
+// NEW
+Route::get('/dashboard', function () {
+    return view('dashboard.main', [
+        'title' => 'Dashboard',
+        "products" => Products::all(),
+        "active_link" => "/dashboard",
+    ]);
+});
+
+Route::get("/dashboard/product", function () {
+    return view('dashboard.crudProduct', [
+        'title' => 'Product',
+        "products" => Products::all(),
+        "active_link" => "/dashboard/product",
+    ]);
+});
+Route::get("/dashboard/profile", function () {
+    return view('dashboard.profile', [
+        'title' => 'Profile',
+        "active_link" => "/dashboard/profile",
+    ]);
+});

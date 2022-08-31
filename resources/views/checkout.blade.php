@@ -11,7 +11,7 @@
         <div class="col-lg-5 mt-4 mb-4 me-3 ms-2">
             <div class="header-checkout">
                 <ul style="display: flex; justify-content: space-between; align-items: center;list-style-type: none; color: white;  padding: 0px;margin: 0;">
-                    <li class="checkout-menu" data-form-tab-control=" 1">1. Shipping Addres</li>
+                    <li class="checkout-menu cursor-pointer" data-form-tab-control=" 1">1. Shipping Addres</li>
                     <li class="checkout-menu" data-form-tab-control=" 2">2. Delivery</li>
                     <li class="checkout-menu" data-form-tab-control=" 3">3. Payment</li>
                 </ul>
@@ -20,13 +20,13 @@
             <form action="" style="background-color: #dadada; border-radius: 1rem; padding: 2.5rem 1.5rem; min-height: 30rem;">
                 <div class="d-none" data-form-sections="1">
                     <div class="mb-4">
-                        <input type="email" class="form-control form-control-checkout " name="email" id="email" aria-describedby="emailHelp" placeholder="E-mail">
+                        <input type="email" class="form-control form-control-checkout" name="email" id="email" aria-describedby="emailHelp" placeholder="E-mail" data-error-message="ini ngak boleh kosong">
                     </div>
                     <div class="mb-4">
                         <input type="number" class="form-control form-control-checkout" name="number" id="number" placeholder="Number">
                     </div>
                     <div class="mb-4 d-flex justify-content-between" style="gap: 1em;">
-                        <input type="text" class="form-control form-control-checkout" name="fName" id="fName" placeholder="Firts Name">
+                        <input type="text" class="form-control form-control-checkout" name="fName" id="firstName" placeholder="Firts Name">
                         <input type="text" class="form-control form-control-checkout" name="lName" id="lName" placeholder="Last Name">
                     </div>
                     <div class="mb-4">
@@ -47,8 +47,8 @@
                         <h4 class="text-center fw-bold">DELIVERY DETAILS :</h4>
                         <div class="form-check mt-3 d-flex justify-content-between">
                             <div>
-                                <input type="radio" class="form-check-input" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label h5" for="flexRadioDefault1">
+                                <input type="radio" class="form-check-input" name="delivery" id="Instant Courier" checked>
+                                <label class="form-check-label h5" for="Instant Courier">
                                     Instant Courier :
                                 </label>
                             </div>
@@ -56,8 +56,8 @@
                         </div>
                         <div class="form-check  d-flex justify-content-between">
                             <div>
-                                <input type="radio" class="form-check-input" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label h5" for="flexRadioDefault1">
+                                <input type="radio" class="form-check-input" name="delivery" id="Sameday">
+                                <label class="form-check-label h5" for="Sameday">
                                     Sameday &#09&#09 &#09:
                                 </label>
                             </div>
@@ -65,8 +65,8 @@
                         </div>
                         <div class="form-check  d-flex justify-content-between">
                             <div>
-                                <input type="radio" class="form-check-input" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label h5" for="flexRadioDefault1">
+                                <input type="radio" class="form-check-input" name="delivery" id="JNE">
+                                <label class="form-check-label h5" for="JNE">
                                     JNE :
                                 </label>
                             </div>
@@ -78,38 +78,56 @@
                 <div class="d-none" data-form-sections="3">
                     <div class="delivery-header mt-3 mb-3">
                         <h4 class="text-center fw-bold">PAYMENTS DETAILS :</h4>
-                        <div class="form-check mt-3 d-flex justify-content-between">
-                            <div>
-                                <input type="radio" class="form-check-input" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label h5" for="flexRadioDefault1">
-                                    Instant Courier :
+                        <div class="form-payment-details-container">
+                            <div class="form-check form-payment-details-choose">
+
+                                <input type="radio" class="form-check-input" name="payment" id="dana" checked>
+                                <label class="form-check-label h5" for="dana">
+                                    <img src={{ asset('assets/img/dana.png') }} alt="" height="70px">
                                 </label>
+                                <div class="ck-bok-payment"></div>
+
                             </div>
-                            <h5>Rp 40.000,-</h5>
-                        </div>
-                        <div class="form-check  d-flex justify-content-between">
-                            <div>
-                                <input type="radio" class="form-check-input" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label h5" for="flexRadioDefault1">
-                                    Sameday &#09&#09 &#09:
+                            <div class="form-check form-payment-details-choose">
+
+                                <input type="radio" class="form-check-input" name="payment" id="ovo">
+                                <label class="form-check-label h5" for="ovo">
+                                    <img src={{ asset('assets/img/ovo.png') }} alt="" height="70px">
                                 </label>
+                                <div class="ck-bok-payment"></div>
+
                             </div>
-                            <h5>Rp 40.000,-</h5>
-                        </div>
-                        <div class="form-check  d-flex justify-content-between">
-                            <div>
-                                <input type="radio" class="form-check-input" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label h5" for="flexRadioDefault1">
-                                    JNE :
+                            <div class="form-check form-payment-details-choose">
+
+                                <input type="radio" class="form-check-input" name="payment" id="sea-bank">
+                                <label class="form-check-label h5" for="sea-bank">
+                                    <img src={{ asset('assets/img/sea-bank.png') }} alt="" height="70px">
                                 </label>
+                                <div class="ck-bok-payment"></div>
+
+
                             </div>
-                            <h5>Rp 20.000,-</h5>
+                            <div class="form-check form-payment-details-choose">
+
+                                <input type="radio" class="form-check-input" name="payment" id="s-pay">
+                                <label class="form-check-label h5" for="s-pay">
+                                    <img src={{ asset('assets/img/s-pay.png') }} alt="" height="60px">
+                                </label>
+                                <div class="ck-bok-payment"></div>
+
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </form>
 
-            <button class="btn btn-info fw-bold shadow-sm text-white w-100 btn-lg btn-next-multistep-form" style="margin:15px 0 ;">Continue</button>
+            <div style="display: flex; justify-content: space-between">
+
+                <button class="btn fw-bold shadow-sm text-white  btn-lg btn-back-multistep-form" style="margin:15px 0 ; width: calc(30% - 5px);background-color: #000">back</button>
+                <button class="btn btn-info fw-bold shadow-sm text-white  btn-lg btn-next-multistep-form" style="margin:15px 0 ; width: calc(70% - 5px);">Continue</button>
+
+            </div>
         </div>
         <div class="col-lg-5 mt-4 mb-4 me-3 ms-2">
             <div class="header-checkout">
@@ -134,8 +152,8 @@
                 </div>
                 <div class="name-shopping-item my-auto">
                     <h5 class="fw-bold">{{ $product->product_title }}</h5>
-                    <p class="text-primary h3 number-format" style="margin-bottom: 0;">
-                        {{ $product->product_harga * $product->qty }}
+                    <p class="text-primary h3 " style="margin-bottom: 0;">
+                        {{ rupiah($product->product_harga * $product->qty) }}
                     </p>
                     <?php
                     $total += $product->product_harga * $product->qty;
@@ -156,7 +174,7 @@
                 <div class="pricing-total">
                     <div class="d-flex justify-content-between ">
                         <p class="h4">Sub Total</p>
-                        <p class="h4 number-format">{{ $total }}</p>
+                        <p class="h4 ">{{ rupiah($total) }}</p>
                     </div>
                     <div class="d-flex justify-content-between ">
                         <p class="h4">Savings</p>
@@ -164,13 +182,13 @@
                     </div>
                     <div class="d-flex justify-content-between ">
                         <p class="h4">Shipping cost</p>
-                        <p class="h4 number-format">40.000</p>
+                        <p class="h4 ">40.000</p>
                     </div>
                 </div>
                 <div class="grand-total">
                     <div class="d-flex justify-content-between ">
                         <h3 class="fw-bold">Grand Total</h3>
-                        <h3 class="number-format">{{ $total + 40000 }}</h3>
+                        <h3 class="">{{ rupiah($total + 40000) }}</h3>
                     </div>
                 </div>
             </div>

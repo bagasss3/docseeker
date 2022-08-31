@@ -44,6 +44,7 @@ Route::get('/checkout', [PaymentController::class, 'index'])->middleware('auth')
 Route::get('/cities/{id}', [CheckOngkirController::class, 'getCities']);
 Route::get('/cost-ongkir', [CheckOngkirController::class, 'check_ongkir']);
 
+
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 

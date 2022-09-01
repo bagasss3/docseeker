@@ -34,7 +34,7 @@ document.addEventListener("click", (e) => {
     const id = target.getAttribute("data-id");
     // console.log(text, id);
 
-    const url = `/api/products/${id}`;
+    const url = `/admin/product/${id}`;
 
     modalForm.setAttribute("action", url);
     modalText.innerHTML = text;
@@ -43,14 +43,22 @@ document.addEventListener("click", (e) => {
 // End modal delete
 
 // Edit modal
-const /**@typeof {HTMLFormElement} */ editForm = document.querySelector("#edit-form");
-const /**@typeof {HTMLInputElement} */ editName = document.querySelector("#name");
-const /**@typeof {HTMLInputElement} */ editHarga = document.querySelector("#harga");
-const /**@typeof {HTMLInputElement} */ editStock = document.querySelector("#stock");
-const /**@typeof {HTMLInputElement} */ editCategory = document.querySelector("#category");
-const /**@typeof {HTMLInputElement} */ editGender = document.querySelector("#gender");
-const /**@typeof {HTMLInputElement} */ editbrand = document.querySelector("#brand");
-const /**@typeof {HTMLTextAreaElement} */ editDesc = document.querySelector("#desc");
+const /**@typeof {HTMLFormElement} */ editForm =
+        document.querySelector("#edit-form");
+const /**@typeof {HTMLInputElement} */ editName =
+        document.querySelector("#name");
+const /**@typeof {HTMLInputElement} */ editHarga =
+        document.querySelector("#harga");
+const /**@typeof {HTMLInputElement} */ editStock =
+        document.querySelector("#stock");
+const /**@typeof {HTMLInputElement} */ editCategory =
+        document.querySelector("#category");
+const /**@typeof {HTMLInputElement} */ editGender =
+        document.querySelector("#gender");
+const /**@typeof {HTMLInputElement} */ editbrand =
+        document.querySelector("#brand");
+const /**@typeof {HTMLTextAreaElement} */ editDesc =
+        document.querySelector("#desc");
 
 document.addEventListener("click", (e) => {
     /**
@@ -63,9 +71,9 @@ document.addEventListener("click", (e) => {
     const id = target.getAttribute("data-id");
 
     const url = `/api/products/${id}`;
-
-    editForm.setAttribute("action", url);
-    fetch(url)
+    const urlUpdate = `/admin/product/${id}`;
+    editForm.setAttribute("action", urlUpdate);
+    fetch(urlUpdate)
         .then((response) => response.json())
         .then((data) => {
             editName.value = data.product_title;

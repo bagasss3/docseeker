@@ -16,28 +16,19 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $category = request('category');
-        switch ($category) {
-            case "shoes":
-                $products = Products::where('product_cat', "0")->latest()->get();
-                break;
-            case "bags":
-                $products = Products::where('product_cat', "1")->latest()->get();
-                break;
-            case "glasses":
-                $products = Products::where('product_cat', "2")->latest()->get();
-                break;
-            case "men":
-                $products = Products::where('product_gender', "0")->latest()->get();
-                break;
-            case "women":
-                $products = Products::where('product_gender', "1")->latest()->get();
-            default:
-                $products = Products::latest()->get();
-        }
-        return response()->json([
-            'success'=>true,
-            'data'=>$products
+        return view('dashboard.crudProduct', [
+            'title' => 'Product',
+            "products" => Products::all(),
+            "active_link" => "/admin/product",
+        ]);
+    }
+
+    public function dashboard()
+    {
+        return view('dashboard.main', [
+            'title' => 'Dashboard',
+            "products" => Products::all(),
+            "active_link" => "/admin/dashboard",
         ]);
     }
 
@@ -50,34 +41,34 @@ class AdminController extends Controller
     {
         $request->validate(
             [
-             'name' => 'required|min:3|max:100',
-             'password' => 'required|max:20'
+                'name' => 'required|min:3|max:100',
+                'password' => 'required|max:20',
             ],
             [
-             'name.required'=> 'First name harus diisi',
-             'name.min' => 'Minimal 3 karakter',
-             'name.max' => 'Maksimal 100 karakter',
-             'password.required' => 'Password harus diisi',
-             'password.max' => 'Password Maksimal 20 karakter'
+                'name.required' => 'First name harus diisi',
+                'name.min' => 'Minimal 3 karakter',
+                'name.max' => 'Maksimal 100 karakter',
+                'password.required' => 'Password harus diisi',
+                'password.max' => 'Password Maksimal 20 karakter',
             ]
-         );
- 
-         $data = [
-             'role_id'=>1,
-             'name'=>$request->name,
-             'password'=>Hash::make($request->password),
-         ];
-         $store = Admin::create($data);
- 
-         if(!$store) {
-             return response()->json([
-                 'success'=>false,
-                 'msg'=>"Admin tidak berhasil disimpan"
-             ]);
-         }
-         return response()->json([
-            'success'=>true,
-            'msg'=>"Admin berhasil dibuat"
+        );
+
+        $data = [
+            'role_id' => 1,
+            'name' => $request->name,
+            'password' => Hash::make($request->password),
+        ];
+        $store = Admin::create($data);
+
+        if (!$store) {
+            return response()->json([
+                'success' => false,
+                'msg' => "Admin tidak berhasil disimpan",
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'msg' => "Admin berhasil dibuat",
         ]);
     }
 
@@ -97,8 +88,8 @@ class AdminController extends Controller
                 'product_brand' => 'required',
                 'product_title' => 'required',
                 'product_harga' => 'required',
-                'product_image' => 'required',
-                'stock' => 'required'
+                // 'product_image' => 'required',
+                'stock' => 'required',
             ],
             [
                 'product_cat' => 'Product_cat harus diisi',
@@ -106,7 +97,7 @@ class AdminController extends Controller
                 'product_brand' => 'Product_brand harus diisi',
                 'product_title' => 'Product_title harus diisi',
                 'product_harga' => 'Product_harga harus diisi',
-                'product_image' => 'Product_image harus diisi',
+                // 'product_image' => 'Product_image harus diisi',
                 'stock' => 'Stock harus diisi',
             ]
         );
@@ -118,7 +109,7 @@ class AdminController extends Controller
             'product_brand' => $request->product_brand,
             'product_title' => $request->product_title,
             'product_harga' => $request->product_harga,
-            'product_image' => $request->product_image,
+            'product_image' => "default",
             'product_desc' => $request->product_desc,
             'stock' => $request->stock,
         ];
@@ -127,13 +118,10 @@ class AdminController extends Controller
         if (!$store) {
             return response()->json([
                 'success' => false,
-                'msg' => "Data tidak berhasil disimpan"
+                'msg' => "Data tidak berhasil disimpan",
             ]);
         }
-        return response()->json([
-            'success' => true,
-            'data' => $data
-        ]);
+        return redirect('/admin/product');
     }
 
     /**
@@ -142,12 +130,9 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id,Products $product)
+    public function show(Products $id)
     {
-        return response()->json([
-            'success'=>true,
-            'data'=>$product->find($id)
-        ]);
+        return $id;
     }
 
     /**
@@ -170,17 +155,16 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id, Products $product)
     {
-        //
-         //Validating input
-         $request->validate(
+        //Validating input
+        $request->validate(
             [
                 'product_cat' => 'in:0,1,2',
                 'product_gender' => 'in:0,1',
                 'product_brand' => 'required',
                 'product_title' => 'required',
                 'product_harga' => 'required',
-                'product_image' => 'required',
-                'stock' => 'required'
+                // 'product_image' => 'required',
+                'stock' => 'required',
             ],
             [
                 'product_cat' => 'Product_cat harus diisi',
@@ -188,7 +172,7 @@ class AdminController extends Controller
                 'product_brand' => 'Product_brand harus diisi',
                 'product_title' => 'Product_title harus diisi',
                 'product_harga' => 'Product_harga harus diisi',
-                'product_image' => 'Product_image harus diisi',
+                // 'product_image' => 'Product_image harus diisi',
                 'stock' => 'Stock harus diisi',
             ]
         );
@@ -200,22 +184,18 @@ class AdminController extends Controller
             'product_brand' => $request->product_brand,
             'product_title' => $request->product_title,
             'product_harga' => $request->product_harga,
-            'product_image' => $request->product_image,
+            // 'product_image' => $request->product_image,
             'product_desc' => $request->product_desc,
             'stock' => $request->stock,
         ];
 
-        if(!$product::find($id)->update($data)){
+        if (!$product::find($id)->update($data)) {
             return response()->json([
                 'success' => false,
-                'msg' => "Data tidak berhasil disimpan"
+                'msg' => "Data tidak berhasil disimpan",
             ]);
         }
-        return response()->json([
-            'success' => true,
-            'msg' => "Data berhasil diupdate"
-        ]);
-
+        return redirect('/admin/product');
     }
 
     /**
@@ -224,7 +204,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         //
         $product = Products::find($id);
@@ -232,19 +212,16 @@ class AdminController extends Controller
         if (!$product) {
             return response()->json([
                 'success' => false,
-                'msg' => "Data tidak ditemukan"
+                'msg' => "Data tidak ditemukan",
             ]);
         }
-        
-        if(!$product->delete()){
+
+        if (!$product->delete()) {
             return response()->json([
                 'success' => false,
-                'msg' => "Data gagal didelete"
+                'msg' => "Data gagal didelete",
             ]);
         }
-        return response()->json([
-            'success' => true,
-            'msg' => "Data berhasil didelete"
-        ]);
+        return redirect('/admin/product');
     }
 }

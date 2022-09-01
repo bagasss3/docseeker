@@ -40,7 +40,16 @@
                     @foreach ($products as $product)
                         <tr>
                             <td>{{ $loop->index + 1 }} </td>
-                            <td>{{ $product->product_cat }}</td>
+                            <td>
+                                @if ($product->product_cat == 0)
+                                    Shoes
+                                @elseif ($product->product_cat == 1)
+                                    Glasses
+                                @else
+                                    Bags
+                                @endif
+                            </td>
+
                             <td>
                                 @if ($product->product_gender == 0)
                                     Wanita
@@ -80,7 +89,7 @@
 
 
     {{-- Modal edit --}}
-    <form method="POST" id="edit-form">
+    <form method="POST" id="edit-form" action="/admin/product">
         @csrf
         @method('PUT')
         <div class="modal fade" id="modal-edit" style="display: none;" aria-hidden="true">
@@ -97,31 +106,31 @@
                             {{-- Input BOSSS --}}
                             <div class="form-group">
                                 <label for="name">name</label>
-                                <input type="text" class="form-control" id="name" placeholder="product name">
+                                <input type="text" class="form-control" id="name" placeholder="product name" name="product_title">
                             </div>
                             <div class="form-group">
                                 <label for="harga">harga</label>
-                                <input type="number" class="form-control" id="harga" placeholder="harga">
+                                <input type="number" class="form-control" id="harga" placeholder="harga" name="product_harga">
                             </div>
                             <div class="form-group">
                                 <label for="stock">stock</label>
-                                <input type="number" class="form-control" id="stock" placeholder="stock">
+                                <input type="number" class="form-control" id="stock" placeholder="stock" name="stock">
                             </div>
                             <div class="form-group">
                                 <label for="category">category</label>
-                                <input type="number" class="form-control" id="category" placeholder="category">
+                                <input type="number" class="form-control" id="category" placeholder="category" name="product_cat">
                             </div>
                             <div class="form-group">
                                 <label for="gender">gender</label>
-                                <input type="number" class="form-control" id="gender" placeholder="gender">
+                                <input type="number" class="form-control" id="gender" placeholder="gender" name="product_gender">
                             </div>
                             <div class="form-group">
                                 <label for="brand">brand</label>
-                                <input type="number" class="form-control" id="brand" placeholder="brand">
+                                <input type="number" class="form-control" id="brand" placeholder="brand" name="product_brand">
                             </div>
                             <div class="form-group">
                                 <label for="desc">Textarea</label>
-                                <textarea id="desc" class="form-control" rows="3" placeholder="descriptions"></textarea>
+                                <textarea id="desc" class="form-control" rows="3" placeholder="descriptions" name="product_desc"></textarea>
                             </div>
 
                         </div>
@@ -141,7 +150,7 @@
     </form>
 
     {{-- Modal new --}}
-    <form method="POST" id="new-form">
+    <form method="POST" id="new-form" action="/admin/product">
         @csrf
         <div class="modal fade" id="modal-new" style="display: none;" aria-hidden="true">
             <div class="modal-dialog">
@@ -156,39 +165,35 @@
                         <div class="card-body">
                             {{-- Input BOSSS --}}
                             <div class="form-group">
-                                <label for="newName">name</label>
-                                <input type="text" class="form-control" id="newName" placeholder="product name">
+                                <label for="name">name</label>
+                                <input type="text" class="form-control" id="name" placeholder="product name" name="product_title">
                             </div>
                             <div class="form-group">
-                                <label for="newHarga">harga</label>
-                                <input type="number" class="form-control" id="newHarga" placeholder="harga">
+                                <label for="harga">harga</label>
+                                <input type="number" class="form-control" id="harga" placeholder="harga" name="product_harga">
                             </div>
                             <div class="form-group">
-                                <label for="newStock">stock</label>
-                                <input type="number" class="form-control" id="newStock" placeholder="stock">
+                                <label for="stock">stock</label>
+                                <input type="number" class="form-control" id="stock" placeholder="stock" name="stock">
                             </div>
                             <div class="form-group">
-                                <label for="newCategory">category</label>
-                                <input type="number" class="form-control" id="newCategory" placeholder="category">
+                                <label for="category">category</label>
+                                <input type="number" class="form-control" id="category" placeholder="category" name="product_cat">
                             </div>
                             <div class="form-group">
-                                <label for="newGender">gender</label>
-                                <input type="number" class="form-control" id="newGender" placeholder="gender">
+                                <label for="gender">gender</label>
+                                <input type="number" class="form-control" id="gender" placeholder="gender" name="product_gender">
                             </div>
                             <div class="form-group">
-                                <label for="newBrand">brand</label>
-                                <input type="number" class="form-control" id="newBrand" placeholder="brand">
+                                <label for="brand">brand</label>
+                                <input type="number" class="form-control" id="brand" placeholder="brand" name="product_brand">
                             </div>
                             <div class="form-group">
-                                <label for="newDesc">Textarea</label>
-                                <textarea id="newDesc" class="form-control" rows="3" placeholder="descriptions"></textarea>
+                                <label for="desc">Textarea</label>
+                                <textarea id="desc" class="form-control" rows="3" placeholder="descriptions" name="product_desc"></textarea>
                             </div>
 
                         </div>
-                        <!-- /.card-body -->
-
-
-                    </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" value="Save">
@@ -215,7 +220,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                    <form action="/product" method="post">
+                    <form action="/admin/product" method="post">
                         @csrf
                         @method('DELETE')
                         <input type="submit" class="btn btn-outline-light" value="Delete">

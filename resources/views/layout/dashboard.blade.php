@@ -43,7 +43,7 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li> --}}
-                @if ($active_link == '/dashboard/product')
+                @if ($active_link == '/admin/product')
                     <li class="nav-item d-none d-sm-inline-block">
                         <button type="button" class="btn btn-block btn-default" data-toggle="modal"
                             data-target="#modal-new">
@@ -101,8 +101,8 @@
                with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
-                            <a href={{ url('/dashboard', []) }}
-                                class="nav-link {{ $active_link == '/dashboard' ? 'active' : null }}">
+                            <a href={{ url('/admin/dashboard', []) }}
+                                class="nav-link {{ $active_link == '/admin/dashboard' ? 'active' : null }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -110,8 +110,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href={{ url('/dashboard/product', []) }}
-                                class="nav-link {{ $active_link == '/dashboard/product' ? 'active' : null }}">
+                            <a href={{ url('/admin/product', []) }}
+                                class="nav-link {{ $active_link == '/admin/product' ? 'active' : null }}">
                                 <i class="nav-icon fas fa-box-open"></i>
                                 <p>
                                     Product
@@ -119,8 +119,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href={{ url('/dashboard/profile', []) }}
-                                class="nav-link {{ $active_link == '/dashboard/profile' ? 'active' : null }}">
+                            <a href={{ url('/admin/profile', []) }}
+                                class="nav-link {{ $active_link == '/admin/profile' ? 'active' : null }}">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     profile
@@ -128,7 +128,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href={{ url('/dashboard/profile', []) }} class="nav-link">
+                            <a href={{ url('/admin/profile', []) }} class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>
                                     log out

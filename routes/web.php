@@ -96,3 +96,17 @@ Route::get("/admin/profile", function () {
         "active_link" => "/admin/profile",
     ]);
 });
+
+Route::get("/admin/login", function () {
+    return view('dashboard.login-admin', [
+        'title' => 'login',
+        "active_link" => "/admin/login",
+    ]);
+});
+
+Route::get("/admin/update-product", function () {
+    return view('dashboard.update-produk', [
+        'title' => 'update produk',
+        "active_link" => "/admin/update-product",
+    ]);
+});

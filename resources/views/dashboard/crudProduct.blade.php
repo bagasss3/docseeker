@@ -118,9 +118,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="gender">Jenis Kelamin</label>
-                                    <select class="form-control">
-                                        <option>Laki-laki</option>
-                                        <option>Perempuan</option>
+                                    <select class="form-control" name="product_gender">
+                                        <option value="0">Women</option>
+                                        <option value="1">Men</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -140,10 +140,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="category">Kategori</label>
-                                    <select class="form-control">
-                                        <option>Tas</option>
-                                        <option>Sepatu</option>
-                                        <option>Kacamata</option>
+                                    <select class="form-control" name="product_cat">
+                                        <option value="0">Shoes</option>
+                                        <option value="1">Glasses</option>
+                                        <option value="2">Bags</option>
                                     </select>
                                 </div>
 

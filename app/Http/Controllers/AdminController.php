@@ -18,7 +18,8 @@ class AdminController extends Controller
     {
         return view('dashboard.crudProduct', [
             'title' => 'Product',
-            "products" => Products::all(),
+            'user' => Auth::guard('admin')->user(),
+            "products" => Products::latest()->get(),
             "active_link" => "/admin/product",
         ]);
     }
@@ -33,6 +34,14 @@ class AdminController extends Controller
         ]);
     }
 
+    public function profile()
+    {
+        return view('dashboard.profile', [
+            'title' => 'Profile',
+            'user' => Auth::guard('admin')->user(),
+            "active_link" => "/admin/profile",
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -144,6 +153,7 @@ class AdminController extends Controller
         ];
         return view('dashboard.update-produk', [
             'title' => 'Update Product',
+            'user' => Auth::guard('admin')->user(),
             'product' => $product->find($id),
             'category' => $category,
             'gender' => $gender,

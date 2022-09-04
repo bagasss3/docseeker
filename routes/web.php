@@ -134,16 +134,7 @@ Route::get('/admin/product/{id}', [AdminController::class, 'show'])
     ->name('admin.show')
     ->middleware(['auth:admin', 'is_admin']);
 
-Route::get("/admin/profile", function () {
-    return view('dashboard.profile', [
-        'title' => 'Profile',
-        "active_link" => "/admin/profile",
-    ]);
-})->middleware(['auth:admin', 'is_admin']);
-
-Route::get("/admin/update", function () {
-    return view('dashboard.update-produk', [
-        'title' => 'update produk',
-        "active_link" => "/admin/update-product",
-    ]);
-})->middleware(['auth:admin', 'is_admin']);
+Route::get("/admin/profile", [AdminController::class, 'profile'])->middleware([
+    'auth:admin',
+    'is_admin',
+]);

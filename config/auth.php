@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -40,10 +39,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'admin'=>[
-            'driver'=>'session',
-            'provider'=>'admin',
-        ]
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
     ],
 
     /*
@@ -100,6 +99,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'admin' => [
+            'provider' => 'admin',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
 
     /*
@@ -114,5 +119,4 @@ return [
     */
 
     'password_timeout' => 10800,
-
 ];

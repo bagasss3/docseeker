@@ -11,10 +11,8 @@ use Illuminate\Notifications\Notifiable;
 class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    public $table = "admin";
 
-    protected $fillable = ['name','password'];
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $fillable = ['name', 'password', 'role_id'];
+    protected $hidden = ['password', 'remember_token'];
 }

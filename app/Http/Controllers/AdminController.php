@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Products;
@@ -26,6 +26,7 @@ class AdminController extends Controller
     public function dashboard()
     {
         return view('dashboard.main', [
+            'user' => Auth::guard('admin')->user(),
             'title' => 'Dashboard',
             "products" => Products::all(),
             "active_link" => "/admin/dashboard",
@@ -130,9 +131,24 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Products $id)
+    public function show($id, Products $product)
     {
-        return $id;
+        $category = [
+            (object) ["id" => 0, "name" => "Shoes"],
+            (object) ["id" => 1, "name" => "Glasses"],
+            (object) ["id" => 2, "name" => "Bags"],
+        ];
+        $gender = [
+            (object) ["id" => 0, "name" => "Women"],
+            (object) ["id" => 1, "name" => "Men"],
+        ];
+        return view('dashboard.update-produk', [
+            'title' => 'Update Product',
+            'product' => $product->find($id),
+            'category' => $category,
+            'gender' => $gender,
+            "active_link" => "/admin/product",
+        ]);
     }
 
     /**

@@ -18,24 +18,27 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form id="quickForm">
+            <form id="quickForm" method="POST" action="{{ route('admin.update', ['id' => $product->id]) }}">
+                @csrf
+                @method('PUT')
                 <div class="card-body">
                     {{-- Input BOSSS --}}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">Nama</label>
-                                <input type="text" class="form-control" id="name" placeholder="product name" name="product_title">
+                                <input type="text" class="form-control" id="name" placeholder="product name" name="product_title" value="{{$product->product_title}}">
                             </div>
                             <div class="form-group">
                                 <label for="stock">Stock</label>
-                                <input type="number" class="form-control" id="stock" placeholder="stock" name="stock" min="1">
+                                <input type="number" class="form-control" id="stock" placeholder="stock" name="stock" min="1" value="{{$product->stock}}">
                             </div>
                             <div class="form-group">
                                 <label for="gender">Jenis Kelamin</label>
-                                <select class="form-control">
-                                    <option>Laki-laki</option>
-                                    <option>Perempuan</option>
+                                <select class="form-control" name="product_gender">
+                                    @foreach($gender as $gend)
+                                        <option value="{{$gend->id}}" {{ $product->product_gender == $gend->id ? 'selected':'' }}>{{$gend->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
@@ -51,20 +54,20 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="harga">Harga</label>
-                                <input type="number" class="form-control" id="harga" placeholder="harga" name="product_harga">
+                                <input type="number" class="form-control" id="harga" placeholder="harga" name="product_harga" value="{{$product->product_harga}}">
                             </div>
                             <div class="form-group">
                                 <label for="category">Kategori</label>
-                                <select class="form-control">
-                                    <option>Tas</option>
-                                    <option>Sepatu</option>
-                                    <option>Kacamata</option>
+                                <select class="form-control" name="product_cat">
+                                    @foreach($category as $cat)
+                                        <option value="{{$cat->id}}" {{ $product->product_cat == $cat->id ? 'selected':'' }}>{{$cat->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label for="brand">Brand</label>
-                                <input type="number" class="form-control" id="brand" placeholder="brand" name="product_brand">
+                                <input type="number" class="form-control" id="brand" placeholder="brand" name="product_brand" value="{{$product->product_brand}}">
                             </div>
 
                             <div class="form-group">
@@ -80,7 +83,7 @@
                     </div>
                     <div class="form-group">
                         <label for="desc">Deskripsi Produk</label>
-                        <textarea id="desc" class="form-control" rows="3" placeholder="descriptions" name="product_desc"></textarea>
+                        <textarea id="desc" class="form-control" rows="3" placeholder="descriptions" name="product_desc">{{$product->product_desc}}</textarea>
                     </div>
 
                 </div>

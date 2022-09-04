@@ -14,15 +14,15 @@ class AuthController extends Controller
         //Validatin input
         $credentials = $request->validate(
             [
-             'email' => 'required|email:dns',
-             'password' => 'required|max:20'
+                'email' => 'required|email:dns',
+                'password' => 'required|max:20',
             ],
             [
-             'email.required' => 'Email harus diisi',
-             'password.required' => 'Password harus diisi',
-             'password.max' => 'Password Maksimal 20 karakter'
+                'email.required' => 'Email harus diisi',
+                'password.required' => 'Password harus diisi',
+                'password.max' => 'Password Maksimal 20 karakter',
             ]
-         );
+        );
 
         //Authenticating
         if (Auth::guard('web')->attempt($credentials)) {
@@ -30,7 +30,7 @@ class AuthController extends Controller
             return redirect()->intended('/');
         } else {
             return back()->with(['info' => 'Email atau Password salah']);
-        };
+        }
     }
 
     public function authenticateAdmin(Request $request)
@@ -38,35 +38,48 @@ class AuthController extends Controller
         //Validatin input
         $credentials = $request->validate(
             [
-             'name' => 'required',
-             'password' => 'required|max:20'
+                'name' => 'required',
+                'password' => 'required|max:20',
             ],
             [
-             'name.required' => 'nama harus diisi',
-             'password.required' => 'Password harus diisi',
-             'password.max' => 'Password Maksimal 20 karakter'
+                'name.required' => 'nama harus diisi',
+                'password.required' => 'Password harus diisi',
+                'password.max' => 'Password Maksimal 20 karakter',
             ]
-         );
-
+        );
         //Authenticating
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            return response()->json([
-                'success' => true,
-                'msg' => "Login berhasil"
-            ]);        
+            return redirect()->intended('/admin/dashboard');
         } else {
             return response()->json([
                 'success' => false,
-                'msg' => "Login gagal"
-            ]);        };
+                'msg' => "Login gagal",
+            ]);
+        }
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
+        request()
+            ->session()
+            ->invalidate();
+        request()
+            ->session()
+            ->regenerateToken();
         return redirect('/');
     }
 
+    public function logoutAdmin()
+    {
+        Auth::logout();
+        request()
+            ->session()
+            ->invalidate();
+        request()
+            ->session()
+            ->regenerateToken();
+        return redirect('/admin/login');
+    }
 }

@@ -15,7 +15,7 @@ class CreateAdminTable extends Migration
     {
         Schema::create('admin', function (Blueprint $table) {
             $table->id();
-            $table->enum('role_id',[0,1])->default(1);
+            $table->enum('role_id', ['0', '1'])->default('1');
             $table->string('name');
             $table->string('password');
             $table->timestamps();

@@ -29,9 +29,10 @@
                 <a href="../../index2.html" class="h1"><b>Docseeker</b></a>
             </div>
             <div class="card-body">
-                <form action="../../index3.html" method="post">
+                <form action="{{route('authenticateAdmin')}}" method="POST">
+                    @csrf
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input type="email" class="form-control" placeholder="Email" name="name">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -39,7 +40,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" class="form-control" placeholder="Password" name="password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -57,11 +58,12 @@
                         </div>
 
                     </div>
+                    <p class="mb-1">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </p>
                 </form>
 
-                <p class="mb-1">
-                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                </p>
+                
             </div>
             <!-- /.login-card-body -->
         </div>

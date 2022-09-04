@@ -77,9 +77,12 @@
 
                     </td>
                     <td class="text-center" style="text-align: center;">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-id="{{ $product->id }}" href="{{url('/admin/update-produk')}}">
-                            <i class="fas fa-pen"></i>
-                        </button>
+                        <a href="{{ route('admin.show', ['id' => $product->id]) }}">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-id="{{ $product->id }}">
+                                <i class="fas fa-pen">
+                                </i>
+                            </button>
+                        </a>
                     </td>
                 </tr>
                 @endforeach

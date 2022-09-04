@@ -15,7 +15,7 @@ class UserController extends Controller
             [
                 'first_name' => 'required|min:3|max:100',
                 'email' => 'required',
-                'password' => 'required|max:20'
+                'password' => 'required|max:20',
             ],
             [
                 'first_name.required' => 'First name harus diisi',
@@ -23,7 +23,7 @@ class UserController extends Controller
                 'first_name.max' => 'Maksimal 100 karakter',
                 'email.required' => 'Email harus diisi',
                 'password.required' => 'Password harus diisi',
-                'password.max' => 'Password Maksimal 20 karakter'
+                'password.max' => 'Password Maksimal 20 karakter',
             ]
         );
 
@@ -39,7 +39,7 @@ class UserController extends Controller
         if (!$store) {
             return response()->json([
                 'success' => false,
-                'msg' => "User tidak berhasil disimpan"
+                'msg' => "User tidak berhasil disimpan",
             ]);
         }
         return redirect('/login');
@@ -48,7 +48,7 @@ class UserController extends Controller
     public function show(Request $request, User $user)
     {
         return view('profile', [
-            'title' => 'PROFILE PAGE'
+            'title' => 'PROFILE PAGE',
         ]);
     }
 }

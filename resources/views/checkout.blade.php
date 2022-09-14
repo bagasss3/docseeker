@@ -10,10 +10,10 @@
     <div class="row d-flex justify-content-center">
         <div class="col-lg-5 mt-4 mb-4 me-3 ms-2">
             <div class="header-checkout">
-                <ul style="display: flex; justify-content: space-between; align-items: center;list-style-type: none; color: white;  padding: 0px;margin: 0;">
-                    <li class="checkout-menu cursor-pointer" data-form-tab-control=" 1">1. Shipping Addres</li>
+                <ul style="list-style-type: none; " class="align-items-center d-flex justify-content-between rm text-white w-100">
+                    <li class=" checkout-menu cursor-pointer" data-form-tab-control=" 1">1. Shipping Addres</li>
                     <li class="checkout-menu" data-form-tab-control=" 2">2. Delivery</li>
-                    <li class="checkout-menu" data-form-tab-control=" 3">3. Payment</li>
+                    <!-- <li class="checkout-menu" data-form-tab-control=" 3">3. Payment</li> -->
                 </ul>
                 <div class="line" style="margin-top: .25rem;margin-bottom: .5rem;"></div>
             </div>
@@ -35,10 +35,16 @@
                     <div class="mb-4">
                         <textarea class="form-control form-control-checkout" id="streetAddres" placeholder="Street Address"></textarea>
                     </div>
-                    <div class=" d-flex justify-content-between" style="gap: 1em;">
+                    <div class="mb-4">
                         <input type="number" class="form-control form-control-checkout" name="zipCode" id="zipCode" placeholder="Zip Code">
-                        <input type="text" class="form-control form-control-checkout" name="city" id="city" placeholder="City">
-                        <input type="text" class="form-control form-control-checkout" name="province" id="province" placeholder="Province">
+                    </div>
+                    <div class=" d-flex justify-content-between" style="gap: 1em;">
+                        <select class="province-select js-states form-control-checkout" style="width: 65%;" name="province" id="province">
+                            <option value=""></option>
+                        </select>
+                        <select class="city-select js-states form-control-checkout" style="width: 55%;" name="city" id="city">
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
 
@@ -75,7 +81,7 @@
                     </div>
                 </div>
 
-                <div class="d-none" data-form-sections="3">
+                <!-- <div class="d-none" data-form-sections="3">
                     <div class="delivery-header mt-3 mb-3">
                         <h4 class="text-center fw-bold">PAYMENTS DETAILS :</h4>
                         <div class="form-payment-details-container">
@@ -119,15 +125,13 @@
                         </div>
 
                     </div>
-                </div>
+                </div> -->
             </form>
 
-            <div style="display: flex; justify-content: space-between">
+            <button class="btn btn-info fw-bold shadow-sm text-white  btn-lg btn-next-multistep-form w-100" style="margin:15px 0 ; ">Continue</button>
+            <button class="btn btn-info fw-bold shadow-sm text-white  btn-lg btn-pay-multistep-form w-100 d-none" style="margin:15px 0 ; " id="btn-pay">Bayar Sekarang</button>
 
-                <button class="btn fw-bold shadow-sm text-white  btn-lg btn-back-multistep-form" style="margin:15px 0 ; width: calc(30% - 5px);background-color: #000">back</button>
-                <button class="btn btn-info fw-bold shadow-sm text-white  btn-lg btn-next-multistep-form" style="margin:15px 0 ; width: calc(70% - 5px);">Continue</button>
 
-            </div>
         </div>
         <div class="col-lg-5 mt-4 mb-4 me-3 ms-2">
             <div class="header-checkout">

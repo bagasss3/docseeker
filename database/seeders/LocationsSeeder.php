@@ -1,5 +1,7 @@
 <?php
+
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
 use App\Models\Province;

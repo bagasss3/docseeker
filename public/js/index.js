@@ -36,7 +36,8 @@ let formPositions = 1;
 const formTabCount = formIndicatorPositions.length;
 const formSections = document.querySelectorAll("[data-form-sections]");
 const nextBtnForm = document.querySelector(".btn-next-multistep-form");
-const backBtnForm = document.querySelector(".btn-back-multistep-form");
+const btnpay = document.querySelector(".btn-pay-multistep-form");
+// const backBtnForm = document.querySelector(".btn-back-multistep-form");
 let firstRender = true;
 
 const dataFormOne = [
@@ -95,6 +96,9 @@ const reRenderForm = () => {
     if (formPositions > formTabCount) {
         formPositions--;
     }
+    btnpay?.classList.add("d-none");
+
+    nextBtnForm?.classList.remove("d-none");
 
     formIndicatorPositions.forEach((item) => {
         const isDataAttrEqualsWithFormPositions =
@@ -142,14 +146,25 @@ document.addEventListener("click", (e) => {
     reRenderForm();
 });
 
-nextBtnForm?.addEventListener("click", () => {
-    formPositions++;
-    reRenderForm();
-});
-backBtnForm?.addEventListener("click", () => {
-    formPositions--;
-    reRenderForm();
-});
+nextBtnForm?.addEventListener(
+    "click",
+    /**
+     * @param {Event & {target: HTMLDivElement}} e
+     */ (e) => {
+        formPositions++;
+        reRenderForm();
+        if (formPositions == 2) {
+            e.target.classList.add("d-none");
+            btnpay?.classList.remove("d-none");
+
+            return;
+        }
+    }
+);
+// backBtnForm?.addEventListener("click", () => {
+//     formPositions--;
+//     reRenderForm();
+// });
 
 // Hapus item ketika tombol ditekan
 // const buttonsDeleteItem = document.querySelectorAll(
@@ -227,3 +242,78 @@ function validateForm(props) {
 
     return result;
 }
+
+//select 2
+// In your Javascript (external .js resource or <script> tag)
+
+const /**@typeof ${HTMLSelectElement} */ inputProvience = document.querySelector(
+        ".province-select"
+    );
+const /**@typeof ${HTMLSelectElement} */ inputCity = document.querySelector(
+        ".city-select"
+    );
+// raja ongkir
+let urlRajaOngkirProvince = "/api/province";
+fetch(urlRajaOngkirProvince, {})
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+        const {
+            rajaongkir: { results: province },
+        } = data;
+        for (const { province: province_name, province_id } of province) {
+            const option = document.createElement("option");
+            option.innerHTML = province_name;
+            option.setAttribute("value", province_id);
+            inputProvience.appendChild(option);
+        }
+        // console.log(inputProvience);
+    })
+    .then((res) => {
+        $(".province-select").select2({
+            placeholder: " Select Province",
+            // allowClear: true,
+        });
+        $(".province-select").on("change.select2", function (e) {
+            // Do something
+            // console.log(this.value);
+            let urlRajaOngkirCity = `/api/city/${this.value}`;
+            fetch(urlRajaOngkirCity, {})
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    const {
+                        rajaongkir: { results: city },
+                    } = data;
+
+                    inputCity.textContent = "";
+                    for (const { city_name, city_id } of city) {
+                        const option = document.createElement("option");
+                        option.innerHTML = city_name;
+                        option.setAttribute("value", city_id);
+                        inputCity.appendChild(option);
+
+                        console.log(city_name);
+                        // Initialize Select2
+                    }
+
+                    // console.log(city);
+                })
+                .then((res) => {
+                    $(".city-select").select2({
+                        placeholder: " Select City",
+                        // allowClear: true,
+                    });
+                });
+        });
+    });
+$(".province-select").select2({
+    placeholder: " Select Province",
+    // allowClear: true,
+});
+$(".city-select").select2({
+    placeholder: " Select City",
+    // allowClear: true,
+});

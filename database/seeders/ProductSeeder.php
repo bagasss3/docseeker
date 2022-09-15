@@ -34,8 +34,8 @@ class ProductSeeder extends Seeder
                 "product_title" => "Kacamata terbaru",
                 "product_harga" => "10000",
                 "product_desc" => "",
-                "product_image" => "xyz",
                 "stock" => 100,
+                "weight" => 10,
             ],
             [
                 "product_cat" => $product_cat["glasses"],
@@ -44,8 +44,8 @@ class ProductSeeder extends Seeder
                 "product_title" => "Kacamata Kurang bagus",
                 "product_harga" => "100000",
                 "product_desc" => "",
-                "product_image" => "xyz",
                 "stock" => 100,
+                "weight" => 10,
             ],
             [
                 "product_cat" => $product_cat["glasses"],
@@ -54,8 +54,8 @@ class ProductSeeder extends Seeder
                 "product_title" => "Kacamata Bagus",
                 "product_harga" => "90000",
                 "product_desc" => "",
-                "product_image" => "xyz",
                 "stock" => 100,
+                "weight" => 10,
             ],
             [
                 "product_cat" => $product_cat["shoes"],
@@ -64,8 +64,8 @@ class ProductSeeder extends Seeder
                 "product_title" => "Sepatu Bagus",
                 "product_harga" => "1000000",
                 "product_desc" => "",
-                "product_image" => "xyz",
                 "stock" => 100,
+                "weight" => 10,
             ],
             [
                 "product_cat" => $product_cat["shoes"],
@@ -74,8 +74,8 @@ class ProductSeeder extends Seeder
                 "product_title" => "Sepatu Wanita",
                 "product_harga" => "50000",
                 "product_desc" => "",
-                "product_image" => "xyz",
                 "stock" => 100,
+                "weight" => 10,
             ],
             [
                 "product_cat" => $product_cat["shoes"],
@@ -84,8 +84,8 @@ class ProductSeeder extends Seeder
                 "product_title" => "Sepatu Mantap",
                 "product_harga" => "200000",
                 "product_desc" => "",
-                "product_image" => "xyz",
                 "stock" => 100,
+                "weight" => 10,
             ],
             [
                 "product_cat" => $product_cat["bags"],
@@ -94,8 +94,8 @@ class ProductSeeder extends Seeder
                 "product_title" => "Tas Mantap",
                 "product_harga" => "25000",
                 "product_desc" => "",
-                "product_image" => "xyz",
                 "stock" => 100,
+                "weight" => 10,
             ],
             [
                 "product_cat" => $product_cat["bags"],
@@ -104,8 +104,8 @@ class ProductSeeder extends Seeder
                 "product_title" => "Tas GG",
                 "product_harga" => "40000",
                 "product_desc" => "",
-                "product_image" => "xyz",
                 "stock" => 100,
+                "weight" => 10,
             ],
         ];
         Products::insert($data);

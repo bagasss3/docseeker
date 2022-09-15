@@ -30,13 +30,14 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>category</th>
-                    <th>gender</th>
-                    <th>brand</th>
+                    <th>Category</th>
+                    <th>Gender</th>
+                    <th>Brand</th>
                     <th>title</th>
-                    <th>harga</th>
-                    <th>desc</th>
-                    <th>stock</th>
+                    <th>Price</th>
+                    <th>Desc</th>
+                    <th>Stock</th>
+                    <th>Weight (Gram)</th>
                     <th>Delete</th>
                     <th>Update</th>
                 </tr>
@@ -67,6 +68,7 @@
                     <td>{{ rupiah($product->product_harga) }}</td>
                     <td>{{ $product->product_desc }}</td>
                     <td>{{ $product->stock }}</td>
+                    <td>{{ $product->weight }}</td>
                     <td class="text-center">
                         {{-- <span class="btn btn-block btn-danger">
                                 <i class="fas fa-trash"></i>
@@ -115,6 +117,10 @@
                                 <div class="form-group">
                                     <label for="stock">Stock</label>
                                     <input type="number" class="form-control" id="stock" placeholder="stock" name="stock" min="1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="stock">weight</label>
+                                    <input type="number" class="form-control" id="weight" placeholder="weight" name="weight" min="1" step=".01">
                                 </div>
                                 <div class="form-group">
                                     <label for="gender">Jenis Kelamin</label>

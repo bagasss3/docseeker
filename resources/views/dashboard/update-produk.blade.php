@@ -34,6 +34,10 @@
                                 <input type="number" class="form-control" id="stock" placeholder="stock" name="stock" min="1" value="{{$product->stock}}">
                             </div>
                             <div class="form-group">
+                                    <label for="stock">weight</label>
+                                    <input type="number" class="form-control" id="weight" placeholder="weight" name="weight" min="1" value="{{$product->weight}}" step=".01">
+                                </div>
+                            <div class="form-group">
                                 <label for="gender">Jenis Kelamin</label>
                                 <select class="form-control" name="product_gender">
                                     @foreach($gender as $gend)

@@ -100,6 +100,7 @@ class AdminController extends Controller
                 'product_harga' => 'required',
                 // 'product_image' => 'required',
                 'stock' => 'required',
+                'weight' => 'required',
             ],
             [
                 'product_cat' => 'Product_cat harus diisi',
@@ -109,6 +110,7 @@ class AdminController extends Controller
                 'product_harga' => 'Product_harga harus diisi',
                 // 'product_image' => 'Product_image harus diisi',
                 'stock' => 'Stock harus diisi',
+                'weight' => 'weight harus diisi',
             ]
         );
 
@@ -119,9 +121,9 @@ class AdminController extends Controller
             'product_brand' => $request->product_brand,
             'product_title' => $request->product_title,
             'product_harga' => $request->product_harga,
-            'product_image' => "default",
             'product_desc' => $request->product_desc,
             'stock' => $request->stock,
+            'weight' => $request->weight,
         ];
 
         $store = Products::create($data);
@@ -191,6 +193,7 @@ class AdminController extends Controller
                 'product_harga' => 'required',
                 // 'product_image' => 'required',
                 'stock' => 'required',
+                'weight' => 'required',
             ],
             [
                 'product_cat' => 'Product_cat harus diisi',
@@ -200,6 +203,7 @@ class AdminController extends Controller
                 'product_harga' => 'Product_harga harus diisi',
                 // 'product_image' => 'Product_image harus diisi',
                 'stock' => 'Stock harus diisi',
+                'weight' => 'weight harus diisi',
             ]
         );
 
@@ -213,6 +217,7 @@ class AdminController extends Controller
             // 'product_image' => $request->product_image,
             'product_desc' => $request->product_desc,
             'stock' => $request->stock,
+            'weight' => $request->weight,
         ];
 
         if (!$product::find($id)->update($data)) {

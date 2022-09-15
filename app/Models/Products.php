@@ -12,6 +12,15 @@ class Products extends Model
     protected $table = 'products';
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-    protected $fillable = ['product_cat', 'product_gender', 'product_brand', 'product_title', 'product_harga', 'product_desc', 'product_image', 'stock'];
-
+    protected $fillable = [
+        'product_cat',
+        'product_gender',
+        'product_brand',
+        'product_title',
+        'product_harga',
+        'product_desc',
+        'product_image',
+        'stock',
+        'weight',
+    ];
 }

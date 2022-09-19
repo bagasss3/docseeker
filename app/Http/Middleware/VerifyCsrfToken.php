@@ -16,5 +16,7 @@ class VerifyCsrfToken extends Middleware
         '/register',
         '/shopping-cart',
         '/create-admin',
+        '/transaction',
+        '/transaction/midtrans-notification',
     ];
 }

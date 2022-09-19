@@ -8,6 +8,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CheckOngkirController;
+use App\Http\Controllers\PaymentCallbackController;
+
 use App\Models\Products;
 
 /*
@@ -137,4 +139,11 @@ Route::get('/admin/product/{id}', [AdminController::class, 'show'])
 Route::get("/admin/profile", [AdminController::class, 'profile'])->middleware([
     'auth:admin',
     'is_admin',
+]);
+
+//Payment Route
+Route::post("/transaction", [PaymentController::class, 'show']);
+Route::post('/transaction/midtrans-notification', [
+    PaymentCallbackController::class,
+    'receive',
 ]);

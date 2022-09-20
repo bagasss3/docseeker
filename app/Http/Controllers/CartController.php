@@ -13,7 +13,7 @@ class CartController extends Controller
     {
         $products = Cart::join('products', 'cart.product_id', '=', 'products.id')
             ->where('user_id', $request->user()->id)
-            ->get(['cart.*', 'products.product_title', 'products.product_cat', 'products.product_harga']);
+            ->get(['cart.*', 'products.product_title', 'products.product_cat', 'products.product_harga', 'products.weight']);
 
         return view('shopping-cart', [
             'title' => 'YOUR SHOPPING CART',

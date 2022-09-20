@@ -1,3 +1,5 @@
+let kota = null;
+
 // tambah kurang item
 $(".btn-plus, .btn-minus").on("click", function (e) {
     const isNegative = $(e.target).closest(".btn-minus").is(".btn-minus");
@@ -17,9 +19,10 @@ navLink.forEach((nav) => {
 });
 
 // Number Format
-// function numberWithCommas(x) {
-//     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-// }
+function numberWithCommas(x) {
+    let rp = "Rp ";
+    return rp + x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
 // const numberToFormat = document.querySelectorAll(".number-format");
 // numberToFormat.forEach((item) => {
 //     item.innerHTML = `IDR ${numberWithCommas(item.innerHTML)},-`;
@@ -85,7 +88,6 @@ const reRenderForm = () => {
         valid = validateForm(dataFormOne);
         // valid = true;
         formPositions = valid ? parseInt(formPositions) : --formPositions;
-        // console.log(valid);
     }
     firstRender = false;
 
@@ -243,9 +245,6 @@ function validateForm(props) {
     return result;
 }
 
-//select 2
-// In your Javascript (external .js resource or <script> tag)
-
 const /**@typeof ${HTMLSelectElement} */ inputProvience = document.querySelector(
         ".province-select"
     );
@@ -294,26 +293,77 @@ fetch(urlRajaOngkirProvince, {})
                         option.innerHTML = city_name;
                         option.setAttribute("value", city_id);
                         inputCity.appendChild(option);
-
-                        console.log(city_name);
-                        // Initialize Select2
                     }
-
-                    // console.log(city);
                 })
                 .then((res) => {
                     $(".city-select").select2({
                         placeholder: " Select City",
-                        // allowClear: true,
+                    });
+
+                    $(".city-select").on("change.select2", function (e) {
+                        kota = e.target.value;
                     });
                 });
         });
     });
 $(".province-select").select2({
     placeholder: " Select Province",
-    // allowClear: true,
 });
 $(".city-select").select2({
     placeholder: " Select City",
-    // allowClear: true,
+});
+
+let total_berat;
+
+document.getElementById("selectCourier").addEventListener("change", (e) => {
+    let urlRajaOngkirWeight = "/weight";
+    fetch(urlRajaOngkirWeight, {})
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            total_berat = data;
+            let urlRajaOngkirCost =
+                "/cost-ongkir?" +
+                new URLSearchParams({
+                    destination: kota,
+                    weight: total_berat,
+                    courier: e.target.value,
+                });
+            let orders = {
+                destination: kota,
+                weight: total_berat,
+                courier: e.target.value,
+            };
+
+            return fetch(urlRajaOngkirCost, {
+                method: "GET",
+                // headers: {
+                //     "Content-Type": "application/json",
+                //     Accept: "application/json",
+                // },
+            });
+        })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            // console.log(data);
+            const costShipping = document.querySelector("[data-description]");
+            costShipping.innerHTML = numberWithCommas(
+                data.raja_ongkir.rajaongkir.results[0].costs[0].cost[0].value
+            );
+
+            const totalHarga =
+                data.total_harga +
+                data.raja_ongkir.rajaongkir.results[0].costs[0].cost[0].value;
+
+            const grandTotal = document.querySelector("[data-total]");
+            grandTotal.innerHTML = numberWithCommas(totalHarga);
+
+            // console.log(data.total_harga);
+            // console.log(
+            //     data.raja_ongkir.rajaongkir.results[0].costs[0].cost[0].value
+            // );
+        });
 });

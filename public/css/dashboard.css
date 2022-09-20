@@ -5,3 +5,17 @@
 .gap-2 {
     gap: 1rem;
 }
+
+.form-submit-button {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+.form-submit-button:hover {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+}

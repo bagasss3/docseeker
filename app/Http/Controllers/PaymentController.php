@@ -29,16 +29,12 @@ class PaymentController extends Controller
                 'products.product_harga',
                 'products.weight',
             ]);
-        $total = 0;
-        foreach ($products as $product) {
-            $total += $product->weight * $product->qty;
-        }
+
         $province = Province::pluck('name', 'province_id');
         return view('checkout', [
             'title' => 'Your Order',
             'data' => $products,
             'province' => $province,
-            'total_weight' => $total,
         ]);
     }
 
@@ -134,7 +130,7 @@ class PaymentController extends Controller
         return response()->json([
             'token' => $snapToken,
             'redirect-url' =>
-                "https://app.sandbox.midtrans.com/snap/v2/vtweb/" . $snapToken,
+            "https://app.sandbox.midtrans.com/snap/v2/vtweb/" . $snapToken,
         ]);
         //return view('orders.show', compact('payments', 'snapToken'));
     }

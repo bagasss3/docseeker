@@ -50,34 +50,13 @@
 
                 <div class="d-none" data-form-sections="2">
                     <div class="delivery-header mt-3 mb-3">
-                        <h4 class="text-center fw-bold">DELIVERY DETAILS :</h4>
-                        <div class="form-check mt-3 d-flex justify-content-between">
-                            <div>
-                                <input type="radio" class="form-check-input" name="delivery" id="Instant Courier" checked>
-                                <label class="form-check-label h5" for="Instant Courier">
-                                    Instant Courier :
-                                </label>
-                            </div>
-                            <h5>Rp 40.000,-</h5>
-                        </div>
-                        <div class="form-check  d-flex justify-content-between">
-                            <div>
-                                <input type="radio" class="form-check-input" name="delivery" id="Sameday">
-                                <label class="form-check-label h5" for="Sameday">
-                                    Sameday &#09&#09 &#09:
-                                </label>
-                            </div>
-                            <h5>Rp 40.000,-</h5>
-                        </div>
-                        <div class="form-check  d-flex justify-content-between">
-                            <div>
-                                <input type="radio" class="form-check-input" name="delivery" id="JNE">
-                                <label class="form-check-label h5" for="JNE">
-                                    JNE :
-                                </label>
-                            </div>
-                            <h5>Rp 20.000,-</h5>
-                        </div>
+                        <h4 class="text-center fw-bold mb-3">DELIVERY DETAILS :</h4>
+                        <select class="form-select" aria-label="select courier" id="selectCourier">
+                            <option selected>Pilih Kurir</option>
+                            <option value="jne">JNE</option>
+                            <option value="pos">POS Indonesia</option>
+                            <option value="tiki">TIKI</option>
+                        </select>
                     </div>
                 </div>
 
@@ -186,13 +165,13 @@
                     </div>
                     <div class="d-flex justify-content-between ">
                         <p class="h4">Shipping cost</p>
-                        <p class="h4 ">40.000</p>
+                        <p class="h4" data-description="">Rp 0</p>
                     </div>
                 </div>
                 <div class="grand-total">
                     <div class="d-flex justify-content-between ">
                         <h3 class="fw-bold">Grand Total</h3>
-                        <h3 class="">{{ rupiah($total + 40000) }}</h3>
+                        <h3 class="" data-total="">{{ rupiah($total) }}</h3>
                     </div>
                 </div>
             </div>

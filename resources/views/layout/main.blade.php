@@ -37,19 +37,10 @@
     <!-- select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <!-- midtrans -->
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-HxPH54n8dPKy3Y3u"></script>
+
     <script src="{{ asset('js/index.js') }}" type="module"></script>
-
-    <!-- <script src="{{ asset('js/snap.js') }}" data-client-key="{{ config('midtrans.client_key') }}">
-        console.log(midtrans.client_key);
-    </script>
-    <script data-client-key="{{ config('midtrans.client_key') }}">
-        const payButton = document.querySelector('#pay-button');
-        payButton.addEventListener('click', function(e) {
-            e.preventDefault();
-
-        })
-    </script> -->
-
 
 </body>
 

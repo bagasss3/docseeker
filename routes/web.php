@@ -254,3 +254,19 @@ Route::get('/total-cost', function (Request $request) {
 
     return $total;
 });
+
+Route::get('/payment-success', function () {
+    return view('payment-success', [
+        'title' => 'PAYMENT SUCCESS PAGE',
+    ]);
+});
+Route::get('/payment-cancel', function () {
+    return view('payment-cancel', [
+        'title' => 'PAYMENT CANCEL PAGE',
+    ]);
+});
+Route::get('/payment-expired', function () {
+    return view('payment-expired', [
+        'title' => 'PAYMENT EXPIRED PAGE',
+    ]);
+});

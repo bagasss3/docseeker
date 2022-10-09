@@ -40,6 +40,7 @@ const formTabCount = formIndicatorPositions.length;
 const formSections = document.querySelectorAll("[data-form-sections]");
 const nextBtnForm = document.querySelector(".btn-next-multistep-form");
 const btnpay = document.querySelector(".btn-pay-multistep-form");
+
 // const backBtnForm = document.querySelector(".btn-back-multistep-form");
 let firstRender = true;
 
@@ -60,10 +61,10 @@ const dataFormOne = [
         key: "#lName",
         fn: ["required"],
     },
-    {
-        key: "#country",
-        fn: ["required"],
-    },
+    // {
+    //     key: "#country",
+    //     fn: ["required"],
+    // },
     {
         key: "#streetAddres",
         fn: ["required"],
@@ -148,6 +149,43 @@ document.addEventListener("click", (e) => {
     reRenderForm();
 });
 
+let email = document.querySelector("#email");
+let number = document.querySelector("#number");
+let fName = document.querySelector("#firstName");
+let lName = document.querySelector("#lName");
+let streetAddres = document.querySelector("#streetAddres");
+let zipCode = document.querySelector("#zipCode");
+
+email.addEventListener("input", function (e) {
+    email = e.target.value;
+    // console.log(email);
+});
+
+number.addEventListener("input", function (e) {
+    number = e.target.value;
+    // console.log(number);
+});
+
+fName.addEventListener("input", function (e) {
+    fName = e.target.value;
+    // console.log(fName);
+});
+
+lName.addEventListener("input", function (e) {
+    lName = e.target.value;
+    // console.log(lName);
+});
+
+streetAddres.addEventListener("input", function (e) {
+    streetAddres = e.target.value;
+    // console.log(streetAddres);
+});
+
+zipCode.addEventListener("input", function (e) {
+    zipCode = e.target.value;
+    // console.log(zipCode);
+});
+
 nextBtnForm?.addEventListener(
     "click",
     /**
@@ -158,7 +196,6 @@ nextBtnForm?.addEventListener(
         if (formPositions == 2) {
             e.target.classList.add("d-none");
             btnpay?.classList.remove("d-none");
-
             return;
         }
     }
@@ -245,125 +282,219 @@ function validateForm(props) {
     return result;
 }
 
-const /**@typeof ${HTMLSelectElement} */ inputProvience = document.querySelector(
-        ".province-select"
-    );
-const /**@typeof ${HTMLSelectElement} */ inputCity = document.querySelector(
-        ".city-select"
-    );
+let total_berat;
+
+const /**@typeof ${HTMLSelectElement} */ inputProvience =
+        document.querySelector(".province-select");
+const /**@typeof ${HTMLSelectElement} */ inputCity =
+        document.querySelector(".city-select");
 // raja ongkir
-let urlRajaOngkirProvince = "/api/province";
-fetch(urlRajaOngkirProvince, {})
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        const {
-            rajaongkir: { results: province },
-        } = data;
-        for (const { province: province_name, province_id } of province) {
-            const option = document.createElement("option");
-            option.innerHTML = province_name;
-            option.setAttribute("value", province_id);
-            inputProvience.appendChild(option);
-        }
-        // console.log(inputProvience);
-    })
-    .then((res) => {
-        $(".province-select").select2({
-            placeholder: " Select Province",
-            // allowClear: true,
-        });
-        $(".province-select").on("change.select2", function (e) {
-            // Do something
-            // console.log(this.value);
-            let urlRajaOngkirCity = `/api/city/${this.value}`;
-            fetch(urlRajaOngkirCity, {})
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    const {
-                        rajaongkir: { results: city },
-                    } = data;
 
-                    inputCity.textContent = "";
-                    for (const { city_name, city_id } of city) {
-                        const option = document.createElement("option");
-                        option.innerHTML = city_name;
-                        option.setAttribute("value", city_id);
-                        inputCity.appendChild(option);
-                    }
-                })
-                .then((res) => {
-                    $(".city-select").select2({
-                        placeholder: " Select City",
-                    });
-
-                    $(".city-select").on("change.select2", function (e) {
-                        kota = e.target.value;
-                    });
-                });
-        });
-    });
-$(".province-select").select2({
+$(inputProvience).select2({
     placeholder: " Select Province",
 });
-$(".city-select").select2({
+
+let selectedProvince = "";
+$(inputProvience).on("change", function (e) {
+    // Do something
+    // console.log(this.value);
+    let urlRajaOngkirCity = `/api/city/${this.value}`;
+
+    selectedProvince = e.target.options[e.target.selectedIndex].innerHTML;
+    // console.log(selectedProvince);
+    fetchNewCity(urlRajaOngkirCity);
+    // console.log(this.value);
+});
+
+$(inputCity).select2({
     placeholder: " Select City",
 });
 
-let total_berat;
+let selectedCity = "";
+$(inputCity).on("change", function (e) {
+    kota = e.target.value;
+    selectedCity = e.target.options[e.target.selectedIndex].innerHTML;
+    // console.log(selectedCity);
+});
 
-document.getElementById("selectCourier").addEventListener("change", (e) => {
-    let urlRajaOngkirWeight = "/weight";
-    fetch(urlRajaOngkirWeight, {})
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            total_berat = data;
-            let urlRajaOngkirCost =
-                "/cost-ongkir?" +
-                new URLSearchParams({
-                    destination: kota,
-                    weight: total_berat,
-                    courier: e.target.value,
-                });
-            let orders = {
-                destination: kota,
-                weight: total_berat,
-                courier: e.target.value,
-            };
+const fetchNewCity = async (url) => {
+    const data = await fetch(url, {}).then((response) => response.json());
 
-            return fetch(urlRajaOngkirCost, {
-                method: "GET",
-                // headers: {
-                //     "Content-Type": "application/json",
-                //     Accept: "application/json",
-                // },
-            });
-        })
-        .then((res) => {
-            return res.json();
-        })
-        .then((data) => {
-            // console.log(data);
-            const costShipping = document.querySelector("[data-description]");
-            costShipping.innerHTML = numberWithCommas(
-                data.raja_ongkir.rajaongkir.results[0].costs[0].cost[0].value
-            );
+    const {
+        rajaongkir: { results: city },
+    } = data;
+    inputCity.textContent = "";
+    kota = city[0].city_id;
+    for (const { city_name, city_id } of city) {
+        const option = document.createElement("option");
+        option.innerHTML = city_name;
+        option.setAttribute("value", city_id);
+        inputCity.appendChild(option);
+    }
+};
 
-            const totalHarga =
-                data.total_harga +
-                data.raja_ongkir.rajaongkir.results[0].costs[0].cost[0].value;
+let urlRajaOngkirProvince = "/api/province";
 
-            const grandTotal = document.querySelector("[data-total]");
-            grandTotal.innerHTML = numberWithCommas(totalHarga);
+const fetchProvince = async () => {
+    const data = await fetch(urlRajaOngkirProvince, {}).then((response) =>
+        response.json()
+    );
 
-            // console.log(data.total_harga);
-            // console.log(
-            //     data.raja_ongkir.rajaongkir.results[0].costs[0].cost[0].value
+    const {
+        rajaongkir: { results: province },
+    } = data;
+    for (const { province: province_name, province_id } of province) {
+        const option = document.createElement("option");
+        option.innerHTML = province_name;
+        option.setAttribute("value", province_id);
+        inputProvience?.appendChild(option);
+    }
+    // console.log(inputProvience);
+};
+
+fetchProvince();
+let totalBerat;
+
+fetch("/weight", {})
+    .then((resp) => resp.json())
+    .then((weight) => {
+        totalBerat = weight;
+    });
+
+const btnSelectService = document.querySelector(".select-service");
+
+const extrackNumberFromText = (text) => {
+    return text.match(/\d/g).join("");
+};
+
+let costShipping = 0;
+let subTotal = 0;
+let selectedService = "";
+
+btnSelectService?.addEventListener("change", function (e) {
+    /**
+     * @type {HTMLOptionElement} costShipping
+     */
+    costShipping = parseInt(e.target.value);
+    // format harga
+    const costShippingElement = document.querySelector("[data-description]");
+    costShippingElement.innerHTML = numberWithCommas(costShipping);
+
+    /**
+     * @type {HTMLHeadingElement} subTotalElement
+     */
+    const subTotalElement = document.querySelector(".helper-temp-class");
+    subTotal = extrackNumberFromText(subTotalElement?.innerText);
+
+    // total harga
+    let totalHarga = parseInt(subTotal) + parseInt(costShipping);
+
+    selectedService = e.target.options[e.target.selectedIndex].innerHTML;
+    const grandTotal = document.querySelector("[data-total]");
+    grandTotal.innerHTML = numberWithCommas(totalHarga);
+});
+
+const btnSelectCourier = document.querySelector(".select-courier");
+
+const fetchRajaOngkirCosts = async (url) => {
+    const data = await fetch(url, {}).then((resp) => resp.json());
+
+    //
+    btnSelectService.classList.remove("d-none");
+    btnSelectService.innerHTML = "";
+    let opt = document.createElement("option");
+    opt.innerHTML = "Pilih Service";
+    opt.selected = true;
+    btnSelectService.appendChild(opt);
+    // console.log(data);
+
+    const elementService = data.raja_ongkir?.rajaongkir.results[0].costs;
+
+    // console.log(data);
+    // console.log(elementService);
+    if (elementService === undefined || elementService.length == 0) {
+        opt.innerHTML = "Service Tidak Tersedia";
+        btnSelectService.setAttribute("disabled", "true");
+    } else {
+        for (const data of elementService) {
+            selectedService = "";
+            selectedService = data.service;
+            let opt = document.createElement("option");
+            opt.innerHTML = selectedService;
+            opt.value = data.cost[0].value;
+            // console.log(opt.value);
+            // console.log(opt.value);
+            // opt.setAttribute(
+            //     "data-harga",
+            //     elementService[i].cost[0].value
             // );
+            btnSelectService.appendChild(opt);
+        }
+    }
+    // console.log(btnSelectService);
+};
+
+let selectedCourier = "";
+btnSelectCourier?.addEventListener("change", (e) => {
+    selectedCourier = e.target.value;
+    const courier = e.target.value;
+    let urlRajaOngkirCost =
+        "/cost-ongkir?" +
+        new URLSearchParams({
+            destination: kota,
+            weight: totalBerat,
+            courier,
         });
+    // console.log(kota, totalBerat, courier);
+    fetchRajaOngkirCosts(urlRajaOngkirCost);
+});
+
+// midtrans
+let urlMidtrans = "/transaction";
+var payButton = document.getElementById("btn-pay");
+payButton?.addEventListener("click", async function () {
+    // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+    const data = {
+        user_id: 3,
+        gross_amount: subTotal,
+        ongkir_service: selectedService,
+        ongkir_courier: selectedCourier,
+        ongkir_cost: costShipping,
+        first_name: fName,
+        last_name: lName,
+        email: email,
+        phone: number,
+        address: streetAddres,
+        zip_code: zipCode,
+        cities: selectedCity,
+        province: selectedProvince,
+        country: "Indonesia",
+    };
+
+    const { token } = await fetch(urlMidtrans, {
+        method: "POST",
+        body: new URLSearchParams(data),
+    }).then((response) => response.json());
+
+    window.snap.pay(token, {
+        onSuccess: function (result) {
+            /* You may add your own implementation here */
+            alert("payment success!");
+            console.log(result);
+        },
+        onPending: function (result) {
+            /* You may add your own implementation here */
+            alert("wating your payment!");
+            console.log(result);
+        },
+        onError: function (result) {
+            /* You may add your own implementation here */
+            alert("payment failed!");
+            console.log(result);
+        },
+        onClose: function () {
+            /* You may add your own implementation here */
+            alert("you closed the popup without finishing the payment");
+        },
+    });
 });

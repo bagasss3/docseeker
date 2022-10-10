@@ -95,7 +95,7 @@
 
 
 {{-- Modal new --}}
-<form method="POST" id="new-form" action="/admin/product">
+<form method="POST" id="new-form" action="/admin/product" enctype="multipart/form-data">
     @csrf
     <div class="modal fade" id="modal-new" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -133,7 +133,7 @@
                                     <label for="exampleInputFile">Foto Produk 1</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                            <input type="file" class="custom-file-input" id="exampleInputFile" multiple name="image[]">
                                             <label class="custom-file-label" for="exampleInputFile">Pilih File</label>
                                         </div>
                                     </div>
@@ -162,7 +162,7 @@
                                     <label for="exampleInputFile">Foto Produk 2</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                            <input type="file" class="custom-file-input" id="exampleInputFile" multiple name="image[]">
                                             <label class="custom-file-label" for="exampleInputFile">Pilih File</label>
                                         </div>
                                     </div>

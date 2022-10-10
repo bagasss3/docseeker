@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class CloudinaryStorage extends Controller
 {
-    private const folder_path = 'tutorial';
+    private const folder_path = 'docseeker/product';
 
     public static function path($path)
     {
@@ -21,6 +21,10 @@ class CloudinaryStorage extends Controller
             ->upload($image, [
                 "public_id" => self::path($public_id),
                 "folder" => self::folder_path,
+                'transformation' => [
+                    'quality' => 'auto',
+                    'fetch_format' => 'auto',
+                ],
             ])
             ->getSecurePath();
 

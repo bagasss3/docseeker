@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CheckOngkirController;
 use App\Http\Controllers\PaymentCallbackController;
+use App\Http\Controllers\ImageController;
 
 use App\Models\Products;
 
@@ -152,12 +153,7 @@ Route::post('/transaction/midtrans-notification', [
 ]);
 
 Route::get('/weight', function (Request $request) {
-    $products = Cart::join(
-        'products',
-        'cart.product_id',
-        '=',
-        'products.id'
-    )
+    $products = Cart::join('products', 'cart.product_id', '=', 'products.id')
         ->where('user_id', $request->user()->id)
         ->get([
             'cart.*',
@@ -180,7 +176,7 @@ Route::get('/cost-ongkir', function (Request $request) {
     $weight = $request->get('weight');
     $courier = $request->get('courier');
 
-    curl_setopt_array($curl, array(
+    curl_setopt_array($curl, [
         CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
@@ -188,13 +184,21 @@ Route::get('/cost-ongkir', function (Request $request) {
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => "origin=" . $origin . "&destination=" . $destination . "&weight=" . $weight . "&courier=" . $courier,
+        CURLOPT_POSTFIELDS =>
+            "origin=" .
+            $origin .
+            "&destination=" .
+            $destination .
+            "&weight=" .
+            $weight .
+            "&courier=" .
+            $courier,
         // CURLOPT_POSTFIELDS => "origin=501&destination=114&weight=1700&courier=jne",
-        CURLOPT_HTTPHEADER => array(
+        CURLOPT_HTTPHEADER => [
             "content-type: application/x-www-form-urlencoded",
-            "key:2d4b91321f678b4462e99881e449e426"
-        ),
-    ));
+            "key:2d4b91321f678b4462e99881e449e426",
+        ],
+    ]);
 
     $response = curl_exec($curl);
     $err = curl_error($curl);
@@ -226,18 +230,13 @@ Route::get('/cost-ongkir', function (Request $request) {
 
         return [
             "total_harga" => $total,
-            "raja_ongkir" => json_decode($response)
+            "raja_ongkir" => json_decode($response),
         ];
     }
 });
 
 Route::get('/total-cost', function (Request $request) {
-    $products = Cart::join(
-        'products',
-        'cart.product_id',
-        '=',
-        'products.id'
-    )
+    $products = Cart::join('products', 'cart.product_id', '=', 'products.id')
         ->where('user_id', $request->user()->id)
         ->get([
             'cart.*',
@@ -270,3 +269,4 @@ Route::get('/payment-expired', function () {
         'title' => 'PAYMENT EXPIRED PAGE',
     ]);
 });
+Route::resource('images', ImageController::class);

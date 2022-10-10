@@ -13,26 +13,14 @@
                 <div class="another-content">
                     <a href="">
                         <div class="box-display-2 mx-auto my-2 row-relative shadow side-image" data-side-image-positions="1">
-                            @if ($data->product_cat == 0)
-                                <img src="../assets/img/shoes.svg" class="" alt="" height="82px" />
-                            @elseif($data->product_cat == 1)
-                                <img src="../assets/img/bag.svg" class="" alt="" height="82px" />
-                            @else
-                                <img src="../assets/img/glasses.svg" class="" alt="" height="82px" />
-                            @endif
+                            <img src="{{ $image1 }}" alt="" height="128px" />
                         </div>
                     </a>
 
                     <a href="">
                         <div class="box-display-2 shadow row-relative mx-auto shadow mt-4 side-image opacity-75"
                             data-side-image-positions="2">
-                            @if ($data->product_cat == 0)
-                                <img src="../assets/img/shoes.svg" alt="" height="82px" />
-                            @elseif($data->product_cat == 1)
-                                <img src="../assets/img/tas 2.svg" alt="" height="82px" />
-                            @else
-                                <img src="../assets/img/glasses.svg" alt="" height="82px" />
-                            @endif
+                            <img src="{{$image2}}" alt="" height="128px" />
                         </div>
                     </a>
 
@@ -41,13 +29,7 @@
                 <a href="" class="text-dark">
                     <div class="box-display shadow main-image">
                         <div class=" my-5">
-                            @if ($data->product_cat == 0)
-                                <img src="../assets/img/shoes.svg" alt="" height="128px" />
-                            @elseif($data->product_cat == 1)
-                                <img src="../assets/img/bag.svg" alt="" height="128px" />
-                            @else
-                                <img src="../assets/img/glasses.svg" alt="" height="128px" />
-                            @endif
+                            <img src="{{$image2}}" alt="" height="128px" />
                         </div>
                         <div class=" mt-2 text-center">
                             <h6 class="fw-bold">2/2</h6>

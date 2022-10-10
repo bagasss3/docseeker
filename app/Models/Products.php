@@ -23,4 +23,9 @@ class Products extends Model
         'stock',
         'weight',
     ];
+
+    public function images()
+    {
+        return $this->hasOne(Image::class, 'product_id', 'id');
+    }
 }

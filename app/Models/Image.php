@@ -10,4 +10,9 @@ class Image extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function products()
+    {
+        return $this->belongsTo(Products::class, 'id', 'product_id');
+    }
 }

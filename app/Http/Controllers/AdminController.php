@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Products;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -133,6 +134,17 @@ class AdminController extends Controller
                 'msg' => "Data tidak berhasil disimpan",
             ]);
         }
+        $cloudinary = ImageController::store(
+            $request->file('image'),
+            $store->id
+        );
+        if (!$cloudinary) {
+            return response()->json([
+                'success' => false,
+                'msg' => "Data tidak berhasil disimpan",
+            ]);
+        }
+
         return redirect('/admin/product');
     }
 

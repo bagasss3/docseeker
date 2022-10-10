@@ -18,13 +18,7 @@
                                 <a href="{{ route('product.show', ['id' => $product->id]) }}?category=glasses" class="text-dark">
                     @endif
                     <div class="row-relative mx-auto">
-                        @if ($product->product_cat == 0)
-                            <img src="../assets/img/shoes.svg" alt="" height="128px" />
-                        @elseif($product->product_cat == 1)
-                            <img src="../assets/img/bag.svg" alt="" height="128px" />
-                        @else
-                            <img src="../assets/img/glasses.svg" alt="" height="128px" />
-                        @endif
+                        <img src="{{$product->images->image}}" alt="" height="128px" />
                     </div>
                     <!-- title n price -->
                     <div class="content-header mt-2 ">

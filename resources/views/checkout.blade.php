@@ -17,10 +17,10 @@
                 </ul>
                 <div class="line" style="margin-top: .25rem;margin-bottom: .5rem;"></div>
             </div>
-            <form action="" style="background-color: #dadada; border-radius: 1rem; padding: 2.5rem 1.5rem; min-height: 30rem;">
+            <form action="" style="background-color: #dadada; border-radius: 1rem; padding: 2.5rem 1.5rem; min-height: 30rem;" name="formBiodata">
                 <div class="d-none" data-form-sections="1">
                     <div class="mb-4">
-                        <input type="email" class="form-control form-control-checkout" name="email" id="email" aria-describedby="emailHelp" placeholder="E-mail" data-error-message="ini ngak boleh kosong">
+                        <input type="email" class="form-control form-control-checkout" name="email" id="email" aria-describedby="emailHelp" placeholder="E-mail" data-error-message="ini ngak boleh kosong" value="">
                     </div>
                     <div class="mb-4">
                         <input type="number" class="form-control form-control-checkout" name="number" id="number" placeholder="Number">
@@ -30,10 +30,10 @@
                         <input type="text" class="form-control form-control-checkout" name="lName" id="lName" placeholder="Last Name">
                     </div>
                     <div class="mb-4">
-                        <input type="text" class="form-control form-control-checkout" name="country" id="country" placeholder="Country">
+                        <input type="text" class="form-control form-control-checkout" name="country" id="country" placeholder="Indonesia" disabled>
                     </div>
                     <div class="mb-4">
-                        <textarea class="form-control form-control-checkout" id="streetAddres" placeholder="Street Address"></textarea>
+                        <textarea class="form-control form-control-checkout" id="streetAddres" name="streetAddres" placeholder="Street Address"></textarea>
                     </div>
                     <div class="mb-4">
                         <input type="number" class="form-control form-control-checkout" name="zipCode" id="zipCode" placeholder="Zip Code">
@@ -51,11 +51,13 @@
                 <div class="d-none" data-form-sections="2">
                     <div class="delivery-header mt-3 mb-3">
                         <h4 class="text-center fw-bold mb-3">DELIVERY DETAILS :</h4>
-                        <select class="form-select" aria-label="select courier" id="selectCourier">
+                        <select class="form-select mb-4 select-courier" aria-label="select courier" id="selectCourier">
                             <option selected>Pilih Kurir</option>
                             <option value="jne">JNE</option>
                             <option value="pos">POS Indonesia</option>
-                            <option value="tiki">TIKI</option>
+                            <option value="tiki">TIKI</option>cost-ongkir
+                        </select>
+                        <select class="form-select mb-4 d-none select-service" aria-label="select service" id="selectService">
                         </select>
                     </div>
                 </div>
@@ -106,8 +108,8 @@
                     </div>
                 </div> -->
             </form>
-
             <button class="btn btn-info fw-bold shadow-sm text-white  btn-lg btn-next-multistep-form w-100" style="margin:15px 0 ; ">Continue</button>
+
             <button class="btn btn-info fw-bold shadow-sm text-white  btn-lg btn-pay-multistep-form w-100 d-none" style="margin:15px 0 ; " id="btn-pay">Bayar Sekarang</button>
 
 
@@ -157,7 +159,7 @@
                 <div class="pricing-total">
                     <div class="d-flex justify-content-between ">
                         <p class="h4">Sub Total</p>
-                        <p class="h4 ">{{ rupiah($total) }}</p>
+                        <p class="h4 helper-temp-class">{{ rupiah($total) }}</p>
                     </div>
                     <div class="d-flex justify-content-between ">
                         <p class="h4">Savings</p>
@@ -178,6 +180,6 @@
 
         </div>
     </div>
-
-    @include('templates.footer')
-    @endsection
+</div>
+@include('templates.footer')
+@endsection

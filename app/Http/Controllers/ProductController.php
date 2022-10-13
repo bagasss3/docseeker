@@ -77,8 +77,8 @@ class ProductController extends Controller
             ->where('product_id', $id)
             ->first();
 
-        $images = Image::where('product_id', $existProduct->id)->get();
         if ($existProduct) {
+            $images = Image::where('product_id', $existProduct->id)->get();
             return view('selected-item', [
                 'title' => 'Edit Item',
                 'data' => $existProduct,
@@ -88,7 +88,7 @@ class ProductController extends Controller
             ]);
         }
         $product = $product->find($id);
-        $images = Image::where('product_id', $existProduct->id)->get();
+        $images = Image::where('product_id', $product->id)->get();
         return view('selected-item', [
             'title' => 'SELECTED ITEM',
             'data' => $product,

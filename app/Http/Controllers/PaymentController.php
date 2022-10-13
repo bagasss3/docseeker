@@ -115,7 +115,7 @@ class PaymentController extends Controller
             foreach ($products as $product) {
                 $data_transaction[] = [
                     'transaction_detail_id' => $storeTransDetail->id,
-                    'product_id' => $product->id,
+                    'product_id' => $product->product_id,
                     'qty' => $product->qty,
                 ];
             }
@@ -130,7 +130,7 @@ class PaymentController extends Controller
         return response()->json([
             'token' => $snapToken,
             'redirect-url' =>
-            "https://app.sandbox.midtrans.com/snap/v2/vtweb/" . $snapToken,
+                "https://app.sandbox.midtrans.com/snap/v2/vtweb/" . $snapToken,
         ]);
         //return view('orders.show', compact('payments', 'snapToken'));
     }

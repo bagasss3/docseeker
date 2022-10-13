@@ -145,6 +145,20 @@ Route::get("/admin/profile", [AdminController::class, 'profile'])->middleware([
     'is_admin',
 ]);
 
+Route::put('/admin/product/image/{id}', [
+    AdminController::class,
+    'updatePicture1',
+])
+    ->name('admin.updatePicture1')
+    ->middleware(['auth:admin', 'is_admin']);
+
+Route::put('/admin/product/image2/{id}', [
+    AdminController::class,
+    'updatePicture2',
+])
+    ->name('admin.updatePicture2')
+    ->middleware(['auth:admin', 'is_admin']);
+
 //Payment Route
 Route::post("/transaction", [PaymentController::class, 'show']);
 Route::post('/transaction/midtrans-notification', [

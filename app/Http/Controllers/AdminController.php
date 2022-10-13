@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Products;
 use App\Http\Controllers\ImageController;
+use App\Models\Image;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -165,12 +166,16 @@ class AdminController extends Controller
             (object) ["id" => 0, "name" => "Women"],
             (object) ["id" => 1, "name" => "Men"],
         ];
+        $findProduct = $product->find($id);
+        $findImageProduct = Image::where('product_id', $findProduct->id)->get();
         return view('dashboard.update-produk', [
             'title' => 'Update Product',
             'user' => Auth::guard('admin')->user(),
-            'product' => $product->find($id),
+            'product' => $findProduct,
             'category' => $category,
             'gender' => $gender,
+            'image1' => $findImageProduct[0]->id,
+            'image2' => $findImageProduct[1]->id,
             "active_link" => "/admin/product",
         ]);
     }
@@ -238,6 +243,42 @@ class AdminController extends Controller
                 'msg' => "Data tidak berhasil disimpan",
             ]);
         }
+        return redirect('/admin/product');
+    }
+
+    public function updatePicture1(Request $request, $id)
+    {
+        //add data to arr
+        $prodImage = Image::find($id);
+        $cloudinary = ImageController::update(
+            $request->file('image1'),
+            $prodImage
+        );
+        if (!$cloudinary) {
+            return response()->json([
+                'success' => false,
+                'msg' => "Data tidak berhasil disimpan",
+            ]);
+        }
+
+        return redirect('/admin/product');
+    }
+
+    public function updatePicture2($request, $id)
+    {
+        //add data to arr
+        $prodImage = Image::find($id);
+        $cloudinary = ImageController::update(
+            $request->file('image2'),
+            $prodImage
+        );
+        if (!$cloudinary) {
+            return response()->json([
+                'success' => false,
+                'msg' => "Data tidak berhasil disimpan",
+            ]);
+        }
+
         return redirect('/admin/product');
     }
 

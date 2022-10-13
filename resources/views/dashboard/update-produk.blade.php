@@ -92,7 +92,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form id="quickForm" method="POST" action="{{ route('admin.update', ['id' => $product->id]) }}">
+            <form id="quickForm" method="POST" action="{{ route('admin.updatePicture1', ['id' => $image1]) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
@@ -102,7 +102,7 @@
                         <label for="exampleInputFile">Foto Produk 1</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile">
+                                <input type="file" class="custom-file-input" id="exampleInputFile" name="image1">
                                 <label class="custom-file-label" for="exampleInputFile">Pilih File</label>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form id="quickForm" method="POST" action="{{ route('admin.update', ['id' => $product->id]) }}">
+            <form id="quickForm" method="POST" action="{{ route('admin.updatePicture2', ['id' => $image2]) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
@@ -135,7 +135,7 @@
                         <label for="exampleInputFile">Foto Produk 2</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile">
+                                <input type="file" class="custom-file-input" id="exampleInputFile" name="image2">
                                 <label class="custom-file-label" for="exampleInputFile">Pilih File</label>
                             </div>
                         </div>

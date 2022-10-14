@@ -18,5 +18,8 @@ class VerifyCsrfToken extends Middleware
         '/create-admin',
         '/transaction',
         '/transaction/midtrans-notification',
+        '/payment-success',
+        '/payment-cancel',
+        '/payment-expired',
     ];
 }

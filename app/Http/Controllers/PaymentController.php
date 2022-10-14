@@ -9,6 +9,7 @@ use App\Models\Transaction_Detail;
 use Illuminate\Http\Request;
 use App\Models\Province;
 use App\Services\Midtrans\CreateSnapTokenService;
+use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
@@ -65,7 +66,7 @@ class PaymentController extends Controller
             $order_id = rand();
             $data = [
                 'order_id' => $order_id,
-                'gross_amount' => $request->total,
+                'gross_amount' => (int) $request->gross_amount,
                 'ongkir_courier' => $request->ongkir_courier,
                 'ongkir_service' => $request->ongkir_service,
                 'ongkir_cost' => $request->ongkir_cost,
@@ -84,7 +85,7 @@ class PaymentController extends Controller
             $snapToken = $midtrans->getSnapToken();
             $payments->snap_token = $snapToken;
             $payments->number = $order_id;
-            $payments->total_price = $request->gross_amount;
+            $payments->total_price = (int) $request->gross_amount;
             $payments->save();
 
             //Save transaction detail

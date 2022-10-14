@@ -456,7 +456,7 @@ payButton?.addEventListener("click", async function () {
     // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
     const data = {
         user_id: 3,
-        gross_amount: subTotal,
+        gross_amount: Number(subTotal) + costShipping,
         ongkir_service: selectedService,
         ongkir_courier: selectedCourier,
         ongkir_cost: costShipping,
@@ -470,6 +470,7 @@ payButton?.addEventListener("click", async function () {
         province: selectedProvince,
         country: "Indonesia",
     };
+    console.log(data);
 
     const { token } = await fetch(urlMidtrans, {
         method: "POST",

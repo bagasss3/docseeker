@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CheckOngkirController;
 use App\Http\Controllers\PaymentCallbackController;
 use App\Http\Controllers\ImageController;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Products;
 
@@ -268,7 +269,13 @@ Route::get('/total-cost', function (Request $request) {
     return $total;
 });
 
+// Callback Redirect After Payment Page
 Route::get('/payment-success', function () {
+    return view('payment-success', [
+        'title' => 'PAYMENT SUCCESS PAGE',
+    ]);
+});
+Route::post('/payment-success', function (Request $request) {
     return view('payment-success', [
         'title' => 'PAYMENT SUCCESS PAGE',
     ]);
@@ -278,9 +285,21 @@ Route::get('/payment-cancel', function () {
         'title' => 'PAYMENT CANCEL PAGE',
     ]);
 });
+Route::post('/payment-cancel', function (Request $request) {
+    return view('payment-cancel', [
+        'title' => 'PAYMENT CANCEL PAGE',
+    ]);
+});
 Route::get('/payment-expired', function () {
     return view('payment-expired', [
         'title' => 'PAYMENT EXPIRED PAGE',
     ]);
 });
+Route::post('/payment-expired', function (Request $request) {
+    return view('payment-expired', [
+        'title' => 'PAYMENT EXPIRED PAGE',
+    ]);
+});
+
+// Image Route
 Route::resource('images', ImageController::class);

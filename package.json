@@ -1,8 +1,8 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
+        "dev": "composer i && npm i && php artisan migrate && php artisan db:seed && npm run development && php artisan serve",
+        "development": "mix && php artisan serve",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",

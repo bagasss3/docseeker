@@ -1,5 +1,9 @@
 {
     "private": true,
+    "engines": {
+        "node": "16.15.0",
+        "npm": "8.5.5"
+    },
     "scripts": {
         "dev": "composer i --ignore-platform-reqs && npm i && php artisan migrate && php artisan db:seed && npm run development && php artisan serve",
         "development": "mix && php artisan serve",

@@ -21,7 +21,7 @@ class CreateTransactionDetailTable extends Migration
                 ->cascadeOnDelete();
             $table->string('first_name', 100);
             $table->string('last_name', 100);
-            $table->string('email', 200);
+            $table->string('email', 100);
             $table->string('phone', 15);
             $table->string('street_address', 100);
             $table->string('country', 50);

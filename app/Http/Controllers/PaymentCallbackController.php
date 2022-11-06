@@ -35,12 +35,8 @@ class PaymentCallbackController extends Controller
                         '=',
                         'payments.id'
                     )
-                    ->where([
-                        ['user_id', '=', 3],
-                        ['payment_id', '=', $payments->id],
-                    ])
-                    ->get(['transaction.id']);
-
+                    ->where([['payment_id', '=', $payments->id]])
+                    ->get(['transaction.id', 'transaction_detail.user_id']);
                 $data_transaction = [];
                 foreach ($transactions as $transaction) {
                     $data_transaction[] = [
@@ -48,8 +44,9 @@ class PaymentCallbackController extends Controller
                         'status' => 'Accepted',
                     ];
                 }
+                $user = $transactions[0]->user_id;
                 Orders::insert($data_transaction);
-                Cart::where('user_id', 3)->delete();
+                Cart::where('user_id', $user)->delete();
             }
 
             if ($callback->isExpire()) {

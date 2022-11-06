@@ -49,7 +49,7 @@ class PaymentController extends Controller
                 '=',
                 'products.id'
             )
-                ->where('user_id', $request->user_id)
+                ->where('user_id', $request->user()->id)
                 ->get([
                     'cart.*',
                     'products.product_title',
@@ -90,7 +90,7 @@ class PaymentController extends Controller
 
             //Save transaction detail
             $data_transaction_detail = [
-                'user_id' => 3,
+                'user_id' => $request->user()->id,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,

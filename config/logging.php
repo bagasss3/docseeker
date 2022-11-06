@@ -5,7 +5,6 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Log Channel
@@ -51,13 +50,10 @@ return [
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
-            'ignore_exceptions' => false,
         ],
-
         'single' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
+            'driver' => 'errorlog',
+            'level' => 'debug',
         ],
 
         'daily' => [
@@ -114,5 +110,4 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
     ],
-
 ];

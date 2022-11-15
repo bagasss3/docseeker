@@ -70,13 +70,10 @@
                     <td>{{ $product->stock }}</td>
                     <td>{{ $product->weight }}</td>
                     <td class="text-center">
-                        {{-- <span class="btn btn-block btn-danger">
-                                <i class="fas fa-trash"></i>
-                            </span> --}}
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-id="{{ $product->id }}" data-message="Apakah kamu yakin ingin menghapus produk ini? ({{ $product->product_title }})" data-target="#modal-danger">
-                            <i class="fas fa-trash"></i>
-                        </button>
 
+                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#modal-delete">
+                            <i class="fas fa-trash"> </i>
+                        </a>
                     </td>
                     <td class="text-center" style="text-align: center;">
                         <a href="{{ route('admin.show', ['id' => $product->id]) }}">
@@ -113,6 +110,11 @@
                                 <div class="form-group">
                                     <label for="name">Nama</label>
                                     <input type="text" class="form-control" id="name" placeholder="product name" name="product_title">
+                                    @error('product_title')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="stock">Stock</label>
@@ -151,6 +153,7 @@
                                         <option value="1">Glasses</option>
                                         <option value="2">Bags</option>
                                     </select>
+
                                 </div>
 
                                 <div class="form-group">
@@ -176,39 +179,39 @@
                     </div>
                     <div class="modal-footer ">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Save">
+                        <button type="submit" class="btn btn-primary">Save</button>
+
                     </div>
                 </div>
                 <!-- /.modal-content -->
             </div>
             <!-- /.modal-dialog -->
         </div>
+    </div>
 </form>
 
 {{-- Modal Delete --}}
-<div class="modal fade" id="modal-danger">
-    <div class="modal-dialog">
-        <div class="modal-content bg-danger">
+
+<div class="modal fade" id="modal-delete" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Konfirmasi</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="deleteModalLongTitle">Hapus Produk</h5>
+
             </div>
             <div class="modal-body">
-                <p>One fine body&hellip;</p>
+                Apakah Kamu yakin ingin menghapus produk ini?
             </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                 <form action="/admin/product" method="post">
                     @csrf
                     @method('DELETE')
-                    <input type="submit" class="btn btn-outline-light" value="Delete">
+                    <input type="submit" class="btn btn-danger" value="Delete">
                 </form>
             </div>
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 @endsection

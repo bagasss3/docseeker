@@ -95,24 +95,26 @@ class AdminController extends Controller
         //Validating input
         $request->validate(
             [
-                'product_cat' => 'in:0,1,2',
-                'product_gender' => 'in:0,1',
+                'product_cat' => 'required|in:0,1,2',
+                'product_gender' => 'required|in:0,1',
                 'product_brand' => 'required',
                 'product_title' => 'required',
                 'product_harga' => 'required',
-                // 'product_image' => 'required',
+                'image' => 'required',
                 'stock' => 'required',
                 'weight' => 'required',
             ],
             [
-                'product_cat' => 'Product_cat harus diisi',
-                'product_gender' => 'Product_gender harus diisi',
-                'product_brand' => 'Product_brand harus diisi',
-                'product_title' => 'Product_title harus diisi',
-                'product_harga' => 'Product_harga harus diisi',
-                // 'product_image' => 'Product_image harus diisi',
-                'stock' => 'Stock harus diisi',
-                'weight' => 'weight harus diisi',
+                'product_cat.required' => 'Product_cat harus diisi',
+                'product_cat.in' => 'Product_cat kategori 0,1,2',
+                'product_gender.required' => 'Product_gender harus diisi',
+                'product_gender.in' => 'Product_gender kategori 0,1',
+                'product_brand.required' => 'Product_brand harus diisi',
+                'product_title.required' => 'Product_title harus diisi',
+                'product_harga.required' => 'Product_harga harus diisi',
+                'image.required' => 'image harus diisi',
+                'stock.required' => 'Stock harus diisi',
+                'weight.required' => 'weight harus diisi',
             ]
         );
 

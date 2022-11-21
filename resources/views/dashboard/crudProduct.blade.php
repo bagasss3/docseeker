@@ -78,9 +78,31 @@
                     <td>{{ $product->product_desc }}</td>
                     <td>{{ $product->stock }}</td>
                     <td>{{ $product->weight }}</td>
-                    <td class="text-center">
+                    {{-- Modal Delete --}}
+                    <div class="modal fade" id="modal-delete-{{$product->id}}" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLongTitle">Hapus Produk</h5>
 
-                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#modal-delete">
+                                </div>
+                                <div class="modal-body">
+                                    Apakah Kamu yakin ingin menghapus produk ini?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                    <form action="{{ route('admin.delete', ['id' => $product->id]) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                    </div>
+                    <td class="text-center">
+                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#modal-delete-{{$product->id}}">
                             <i class="fas fa-trash"> </i>
                         </a>
                     </td>
@@ -199,28 +221,4 @@
     </div>
 </form>
 
-{{-- Modal Delete --}}
-
-<div class="modal fade" id="modal-delete" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLongTitle">Hapus Produk</h5>
-
-            </div>
-            <div class="modal-body">
-                Apakah Kamu yakin ingin menghapus produk ini?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <form action="/admin/product" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <input type="submit" class="btn btn-danger" value="Delete">
-                </form>
-            </div>
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-</div>
 @endsection

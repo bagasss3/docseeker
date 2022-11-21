@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orders;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -49,6 +50,35 @@ class UserController extends Controller
     {
         return view('profile', [
             'title' => 'PROFILE PAGE',
+        ]);
+    }
+
+    public function showOrder(Request $request, User $user)
+    {
+        $orders = Orders::join(
+            'transaction',
+            'orders.transaction_id',
+            '=',
+            'transaction.id'
+        )
+            ->join(
+                'transaction_detail',
+                'transaction.transaction_detail_id',
+                '=',
+                'transaction_detail.id'
+            )
+            ->join('products', 'transaction.product_id', '=', 'products.id')
+            ->where([['transaction_detail.user_id', '=', $request->user()->id]])
+            ->get([
+                'orders.id',
+                'orders.status',
+                'transaction.product_id',
+                'products.product_title',
+                'transaction.qty',
+            ]);
+        return response()->json([
+            'success' => true,
+            'data' => $orders,
         ]);
     }
 }

@@ -76,6 +76,10 @@ Route::post('/register', [UserController::class, 'store'])->name('user.store');
 
 Route::get('/profile', [UserController::class, 'show'])->middleware('auth');
 
+Route::get('/profile/orders', [UserController::class, 'showOrder'])->middleware(
+    'auth'
+);
+
 //Payment Route
 Route::get('/checkout', [PaymentController::class, 'index'])->middleware(
     'auth'
@@ -123,10 +127,9 @@ Route::put('/admin/product/{id}', [AdminController::class, 'update'])
     ->name('admin.update')
     ->middleware(['auth:admin', 'is_admin']);
 
-Route::delete('/admin/product/{id}', [
-    AdminController::class,
-    'delete',
-])->middleware(['auth:admin', 'is_admin']);
+Route::delete('/admin/product/{id}', [AdminController::class, 'delete'])
+    ->name('admin.delete')
+    ->middleware(['auth:admin', 'is_admin']);
 
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
     ->middleware(['auth:admin', 'is_admin'])

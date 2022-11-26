@@ -34,7 +34,7 @@
 
         <!-- loadmore button -->
         <div class="loadmore mt-4 text-center ">
-            <button type="button" class="btn btn-secondary text-dark shadow-lg">Load More</button>
+            {{ $data->links() }}
         </div>
 
     </div>

@@ -15,38 +15,36 @@ class ProductController extends Controller
         $category = request('category');
         switch ($category) {
             case "shoes":
-                $products = Products::with(['images'])
-                    ->where('product_cat', "0")
+                $products = Products::where('product_cat', "0")
                     ->latest()
-                    ->get();
+                    ->simplePaginate(6)
+                    ->withQueryString();
                 break;
             case "bags":
-                $products = Products::with(['images'])
-                    ->where('product_cat', "1")
+                $products = Products::where('product_cat', "1")
                     ->latest()
-                    ->get();
+                    ->simplePaginate(6)
+                    ->withQueryString();
                 break;
             case "glasses":
-                $products = Products::with(['images'])
-                    ->where('product_cat', "2")
+                $products = Products::where('product_cat', "2")
                     ->latest()
-                    ->get();
-                //dd($products[0]->images->image);
+                    ->simplePaginate(6)
+                    ->withQueryString();
                 break;
             case "men":
-                $products = Products::with(['images'])
-                    ->where('product_gender', "0")
+                $products = Products::where('product_gender', "0")
                     ->latest()
-                    ->get();
+                    ->simplePaginate(6)
+                    ->withQueryString();
                 break;
             default:
-                $products = Products::with(['images'])
-                    ->where('product_gender', "1")
+                $products = Products::where('product_gender', "0")
                     ->latest()
-                    ->get();
+                    ->simplePaginate(6)
+                    ->withQueryString();
                 break;
         }
-
         return view('item', [
             'title' => $category,
             'data' => $products,

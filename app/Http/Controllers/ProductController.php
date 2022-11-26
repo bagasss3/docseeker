@@ -33,7 +33,7 @@ class ProductController extends Controller
                     ->withQueryString();
                 break;
             case "men":
-                $products = Products::where('product_gender', "0")
+                $products = Products::where('product_gender', "1")
                     ->latest()
                     ->simplePaginate(6)
                     ->withQueryString();

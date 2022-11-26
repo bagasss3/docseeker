@@ -11,13 +11,19 @@ class CartController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Cart::join('products', 'cart.product_id', '=', 'products.id')
+        $products = Cart::with(['images'])
+            ->join('products', 'cart.product_id', '=', 'products.id')
             ->where('user_id', $request->user()->id)
-            ->get(['cart.*', 'products.product_title', 'products.product_cat', 'products.product_harga', 'products.weight']);
-
+            ->get([
+                'cart.*',
+                'products.product_title',
+                'products.product_cat',
+                'products.product_harga',
+                'products.weight',
+            ]);
         return view('shopping-cart', [
             'title' => 'YOUR SHOPPING CART',
-            'data' => $products
+            'data' => $products,
         ]);
     }
 
@@ -38,7 +44,7 @@ class CartController extends Controller
         if (!$product) {
             return response()->json([
                 'success' => false,
-                'msg' => "Data tidak ditemukan"
+                'msg' => "Data tidak ditemukan",
             ]);
         }
 
@@ -62,7 +68,7 @@ class CartController extends Controller
         if (!$store) {
             return response()->json([
                 'success' => false,
-                'msg' => "Data tidak berhasil disimpan"
+                'msg' => "Data tidak berhasil disimpan",
             ]);
         }
         return redirect()->intended('/shopping-cart');
@@ -85,7 +91,7 @@ class CartController extends Controller
         if (!$product) {
             return response()->json([
                 'success' => false,
-                'msg' => "Data tidak ditemukan"
+                'msg' => "Data tidak ditemukan",
             ]);
         }
 
@@ -106,7 +112,7 @@ class CartController extends Controller
         if (!$product) {
             return response()->json([
                 'success' => false,
-                'msg' => "Data tidak ditemukan"
+                'msg' => "Data tidak ditemukan",
             ]);
         }
 

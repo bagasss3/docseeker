@@ -12,20 +12,12 @@
             <p class="h2">Order Summary</p>
         </div>
         <div class="line" style="margin-top: .25rem;margin-bottom: .5rem;"></div>
-        <?php
-        $total = 0;
-        ?>
+        <?php $total = 0; ?>
         @foreach ($data as $product)
             <div class="d-flex justify-content-between align-items-center mb-4 mt-4">
                 <div class="box-shopping-item shadow">
                     <div class="my-2">
-                        @if ($product->product_cat == 0)
-                            <img src="../assets/img/shoes.svg" alt="" height="48px" />
-                        @elseif($product->product_cat == 1)
-                            <img src="../assets/img/bag.svg" alt="" height="48px" />
-                        @else
-                            <img src="../assets/img/glasses.svg" alt="" height="48px" />
-                        @endif
+                        <img src="{{$product->images->image}}" alt="" height="48px" />
                     </div>
                 </div>
                 <div class=" name-shopping-item w-25">
@@ -48,9 +40,7 @@
                 <div class="price-shopping-cart ">
                     <p class="text-primary h3 " style="margin-bottom: 0;">
                         {{ rupiah($product->product_harga * $product->qty) }}</p>
-                    <?php
-                    $total += $product->product_harga * $product->qty;
-                    ?>
+                    <?php $total += $product->product_harga * $product->qty; ?>
                 </div>
                 <div class="action-button d-flex" style="gap: 1em;">
                     @if ($product->product_cat == 0)

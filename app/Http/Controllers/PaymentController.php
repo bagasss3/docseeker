@@ -16,12 +16,8 @@ class PaymentController extends Controller
     //
     public function index(Request $request)
     {
-        $products = Cart::join(
-            'products',
-            'cart.product_id',
-            '=',
-            'products.id'
-        )
+        $products = Cart::with(['images'])
+            ->join('products', 'cart.product_id', '=', 'products.id')
             ->where('user_id', $request->user()->id)
             ->get([
                 'cart.*',

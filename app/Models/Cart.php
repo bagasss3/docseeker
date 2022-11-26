@@ -13,4 +13,9 @@ class Cart extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
     protected $fillable = ['user_id', 'product_id', 'qty'];
+
+    public function images()
+    {
+        return $this->hasOne(Image::class, 'product_id', 'product_id');
+    }
 }

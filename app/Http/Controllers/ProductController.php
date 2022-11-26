@@ -45,7 +45,6 @@ class ProductController extends Controller
                     ->withQueryString();
                 break;
         }
-        dd($products[0]->images->image);
         return view('item', [
             'title' => $category,
             'data' => $products,

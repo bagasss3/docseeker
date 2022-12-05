@@ -48,7 +48,14 @@ class UserController extends Controller
 
     public function show(Request $request, User $user)
     {
+        $user = $user->find($request->user()->id);
+        if (!$user) {
+            redirect()
+                ->back()
+                ->with('message', 'Error load profile');
+        }
         return view('profile', [
+            'user' => $user,
             'title' => 'PROFILE PAGE',
         ]);
     }

@@ -62,6 +62,43 @@ class UserController extends Controller
 
     public function showOrder(Request $request, User $user)
     {
+        $condition = [
+            'transaction_detail.user_id' => $request->user()->id,
+        ];
+        $filter = $request->status;
+        switch ($filter) {
+            case 'Accepted':
+                $condition = array_merge($condition, [
+                    'orders.status' => 'Accepted',
+                ]);
+                break;
+            case 'Send':
+                $condition = array_merge($condition, [
+                    'orders.status' => 'Send',
+                ]);
+                break;
+            case 'Canceled':
+                $condition = array_merge($condition, [
+                    'orders.status' => 'Canceled',
+                ]);
+                break;
+            case 'Returned':
+                $condition = array_merge($condition, [
+                    'orders.status' => 'Returned',
+                ]);
+                break;
+            case 'Packed':
+                $condition = array_merge($condition, [
+                    'orders.status' => 'Packed',
+                ]);
+                break;
+            case 'Finished':
+                $condition = array_merge($condition, [
+                    'orders.status' => 'Finished',
+                ]);
+                break;
+        }
+
         $orders = Orders::join(
             'transaction',
             'orders.transaction_id',
@@ -75,7 +112,7 @@ class UserController extends Controller
                 'transaction_detail.id'
             )
             ->join('products', 'transaction.product_id', '=', 'products.id')
-            ->where([['transaction_detail.user_id', '=', $request->user()->id]])
+            ->where($condition)
             ->get([
                 'orders.id',
                 'orders.status',

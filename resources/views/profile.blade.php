@@ -10,8 +10,8 @@
 
     <div class="profile-container">
         <div><img src={{ asset('assets/img/profile.png') }} alt=""></div>
-        <p class="profile-number">082267164747</p>
-        <p class="profile-name">Rizqy Nabila</p>
+        <p class="profile-number">{{ $user->email }}</p>
+        <p class="profile-name">{{ $user->first_name }} {{ $user->last_name }}</p>
 
         <div class="profile-voucher">
             <p>0</p>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Orders;
+use App\Models\Transaction;
+use App\Models\Transaction_Detail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -123,6 +125,45 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'data' => $orders,
+        ]);
+    }
+
+    public function editOrder($id, Request $request, Orders $orders)
+    {
+        $request->validate(
+            [
+                'status' => 'in:Canceled,Returned,Finished',
+            ],
+            [
+                'status' => 'Status tidak ada pada pilihan',
+            ]
+        );
+
+        $data = [
+            'status' => $request->status,
+        ];
+
+        $ordersID = $orders->find($id);
+        $transactionID = Transaction::where('id', $ordersID->id)->get();
+        $transactionDetailID = Transaction_Detail::where(
+            'id',
+            $transactionID->transaction_detail_id
+        )->get();
+        if ($transactionDetailID->user_id != $request->user()->id) {
+            return response()->json([
+                'success' => false,
+                'msg' => "Orders Forbidden",
+            ]);
+        }
+        if (!$orders::find($id)->update($data)) {
+            return response()->json([
+                'success' => false,
+                'msg' => "Data tidak berhasil diupdate",
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'msg' => "Data berhasil diupdate",
         ]);
     }
 }

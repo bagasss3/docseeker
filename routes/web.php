@@ -80,6 +80,11 @@ Route::get('/profile/orders', [UserController::class, 'showOrder'])->middleware(
     'auth'
 );
 
+Route::put('/profile/orders/{id}', [
+    UserController::class,
+    'editOrder',
+])->middleware('auth');
+
 //Payment Route
 Route::get('/checkout', [PaymentController::class, 'index'])->middleware(
     'auth'
@@ -161,6 +166,14 @@ Route::put('/admin/product/image2/{id}', [
     'updatePicture2',
 ])
     ->name('admin.updatePicture2')
+    ->middleware(['auth:admin', 'is_admin']);
+
+Route::put('/admin/orders', [AdminController::class, 'showOrderAsAdmin'])
+    ->name('admin.showOrderAsAdmin')
+    ->middleware(['auth:admin', 'is_admin']);
+
+Route::put('/admin/orders/{id}', [AdminController::class, 'editStatusOrder'])
+    ->name('admin.editStatusOrder')
     ->middleware(['auth:admin', 'is_admin']);
 
 //Payment Route

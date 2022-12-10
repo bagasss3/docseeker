@@ -178,6 +178,7 @@ Route::put('/admin/orders/{id}', [AdminController::class, 'editStatusOrder'])
 
 //Payment Route
 Route::post("/transaction", [PaymentController::class, 'show']);
+Route::delete("/transaction", [PaymentController::class, 'deleteToken']);
 Route::post('/transaction/midtrans-notification', [
     PaymentCallbackController::class,
     'receive',

@@ -131,4 +131,15 @@ class PaymentController extends Controller
         ]);
         //return view('orders.show', compact('payments', 'snapToken'));
     }
+
+    public function deleteToken(Request $request)
+    {
+        $token = $request->token;
+        $payments = Payments::where('snap_token', $token)->first();
+        $payments->delete();
+        return response()->json([
+            'success' => 'true',
+            'msg' => 'token berhasil di delete',
+        ]);
+    }
 }

@@ -476,7 +476,7 @@ payButton?.addEventListener("click", async function () {
         method: "POST",
         body: new URLSearchParams(data),
     }).then((response) => response.json());
-
+    console.log(token);
     window.snap.pay(token, {
         onSuccess: function (result) {
             /* You may add your own implementation here */
@@ -493,8 +493,15 @@ payButton?.addEventListener("click", async function () {
             alert("payment failed!");
             console.log(result);
         },
-        onClose: function () {
+        onClose: async function () {
             /* You may add your own implementation here */
+            const { msg } = await fetch(urlMidtrans, {
+                method: "DELETE",
+                body: new URLSearchParams({
+                    token,
+                }),
+            });
+            console.log(msg);
             alert("you closed the popup without finishing the payment");
         },
     });

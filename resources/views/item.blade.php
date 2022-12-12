@@ -7,6 +7,12 @@
 
     <!-- content -->
     <div class="container">
+        @if(session()->has('info'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('info') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+            </div>
+        @endif
         <div class="d-flex justify-content-center row">
             @foreach ($data as $product)
                 <div class="col-lg-4 col-sm-6 mt-5 text-center box-item row-relative shadow">

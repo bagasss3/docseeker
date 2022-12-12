@@ -7,16 +7,26 @@
 @include('templates.navbar')
 
 <!-- content -->
+
 <div class="container d-flex justify-content-center">
     <div class="box-login box-register shadow mt-4 mb-4 me-3 ms-2">
         <h1 class="text-center fw-bold">PERSONAL INFORMATION</h1>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{ route('user.store') }}" method="POST" class="mt-3">
             @csrf
             <div class="row">
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label for="fName" class="form-label">First Name</label>
-                        <input type="text" class="form-control form-control-login" name="first_name" id="fName" aria-describedby="fNameHelp" placeholder="Enter Firts Name">
+                        <input type="text" class="form-control form-control-login" name="first_name" id="fName" aria-describedby="fNameHelp" placeholder="Enter First Name">
                     </div>
                     <div class="mb-3">
                         <label for="lName" class="form-label">Last Name</label>

@@ -28,6 +28,21 @@
             <div class="card-header text-center">
                 <a href="../../index2.html" class="h1"><b>Docseeker</b></a>
             </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if(session()->has('info'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('info') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                </div>
+            @endif
             <div class="card-body">
                 <form action="{{route('authenticateAdmin')}}" method="POST">
                     @csrf

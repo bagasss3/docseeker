@@ -133,9 +133,8 @@ class AdminController extends Controller
 
         $store = Products::create($data);
         if (!$store) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak berhasil disimpan",
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat menyimpan product',
             ]);
         }
         $cloudinary = ImageController::store(
@@ -143,9 +142,8 @@ class AdminController extends Controller
             $store->id
         );
         if (!$cloudinary) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak berhasil disimpan",
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat menyimpan product',
             ]);
         }
 
@@ -170,7 +168,17 @@ class AdminController extends Controller
             (object) ["id" => 1, "name" => "Men"],
         ];
         $findProduct = $product->find($id);
+        if (!$findProduct) {
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat mencari product',
+            ]);
+        }
         $findImageProduct = Image::where('product_id', $findProduct->id)->get();
+        if (!$findImageProduct) {
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat mencari product',
+            ]);
+        }
         return view('dashboard.update-produk', [
             'title' => 'Update Product',
             'user' => Auth::guard('admin')->user(),
@@ -241,9 +249,8 @@ class AdminController extends Controller
         ];
 
         if (!$product::find($id)->update($data)) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak berhasil disimpan",
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat menyimpan product',
             ]);
         }
         return redirect('/admin/product');
@@ -258,9 +265,8 @@ class AdminController extends Controller
             $prodImage
         );
         if (!$cloudinary) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak berhasil disimpan",
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat merubah gambar product',
             ]);
         }
 
@@ -276,9 +282,8 @@ class AdminController extends Controller
             $prodImage
         );
         if (!$cloudinary) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak berhasil disimpan",
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat merubah gambar product',
             ]);
         }
 
@@ -297,16 +302,14 @@ class AdminController extends Controller
         $product = Products::find($id);
         //dd($product);
         if (!$product) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak ditemukan",
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat menghapus product',
             ]);
         }
 
         if (!$product->delete()) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data gagal didelete",
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat menghapus product',
             ]);
         }
         return redirect('/admin/product');
@@ -393,9 +396,8 @@ class AdminController extends Controller
         ];
 
         if (!$orders::find($id)->update($data)) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak berhasil diupdate",
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat mengupdate status order',
             ]);
         }
         return response()->json([

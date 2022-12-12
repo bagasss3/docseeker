@@ -42,7 +42,7 @@ class AuthController extends Controller
                 'password' => 'required|max:20',
             ],
             [
-                'name.required' => 'nama harus diisi',
+                'name.required' => 'Nama harus diisi',
                 'password.required' => 'Password harus diisi',
                 'password.max' => 'Password Maksimal 20 karakter',
             ]
@@ -52,10 +52,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('/admin/dashboard');
         } else {
-            return response()->json([
-                'success' => false,
-                'msg' => "Login gagal",
-            ]);
+            return back()->with(['info' => 'Email atau Password salah']);
         }
     }
 

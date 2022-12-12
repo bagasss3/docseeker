@@ -27,6 +27,12 @@
         </ul>
     </div>
 @endif
+@if(session()->has('info'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('info') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+    </div>
+@endif
 <div class="card">
     <div class="card-header">
         <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#modal-new">

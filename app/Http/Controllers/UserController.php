@@ -17,13 +17,17 @@ class UserController extends Controller
         $request->validate(
             [
                 'first_name' => 'required|min:3|max:100',
+                'last_name' => 'required|min:3|max:100',
                 'email' => 'required',
                 'password' => 'required|max:20',
             ],
             [
                 'first_name.required' => 'First name harus diisi',
-                'first_name.min' => 'Minimal 3 karakter',
-                'first_name.max' => 'Maksimal 100 karakter',
+                'first_name.min' => 'First Name minimal 3 karakter',
+                'first_name.max' => 'First Name maksimal 100 karakter',
+                'last_name.required' => 'Last name harus diisi',
+                'last_name.min' => 'Last name minimal 3 karakter',
+                'last_name.max' => 'Last name maksimal 100 karakter',
                 'email.required' => 'Email harus diisi',
                 'password.required' => 'Password harus diisi',
                 'password.max' => 'Password Maksimal 20 karakter',

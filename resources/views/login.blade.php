@@ -22,7 +22,7 @@
         <div class="col-lg-6 box-login shadow mt-4 mb-4 ms-2">
             <h1 class="fw-bold text-center">LOGIN</h1>
             @if(session()->has('info'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ session('info') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
             </div>

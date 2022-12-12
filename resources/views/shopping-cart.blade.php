@@ -11,6 +11,12 @@
             <p class="h2">Shopping Bag</p>
             <p class="h2">Order Summary</p>
         </div>
+        @if(session()->has('info'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('info') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+            </div>
+        @endif
         <div class="line" style="margin-top: .25rem;margin-bottom: .5rem;"></div>
         <?php $total = 0; ?>
         @foreach ($data as $product)

@@ -7,7 +7,12 @@
 
 <!-- content -->
 <div class="container">
-
+    @if(session()->has('info'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('info') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+            </div>
+    @endif
     <div class="profile-container">
         <div><img src={{ asset('assets/img/profile.png') }} alt=""></div>
         <p class="profile-number">{{ $user->email }}</p>

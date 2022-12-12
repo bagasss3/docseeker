@@ -21,6 +21,12 @@ class CartController extends Controller
                 'products.product_harga',
                 'products.weight',
             ]);
+
+        if (!$products) {
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat mengambil data product',
+            ]);
+        }
         return view('shopping-cart', [
             'title' => 'YOUR SHOPPING CART',
             'data' => $products,
@@ -42,9 +48,8 @@ class CartController extends Controller
         $product = Products::find($id);
         //dd($product);
         if (!$product) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak ditemukan",
+            return back()->with([
+                'info' => 'Data product tidak ditemukan',
             ]);
         }
 
@@ -66,9 +71,8 @@ class CartController extends Controller
         }
         $store = Cart::create($data);
         if (!$store) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak berhasil disimpan",
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat menyimpan product',
             ]);
         }
         return redirect()->intended('/shopping-cart');
@@ -89,9 +93,8 @@ class CartController extends Controller
         $product = Products::find($id);
         //dd($product);
         if (!$product) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak ditemukan",
+            return back()->with([
+                'info' => 'Data product tidak ditemukan',
             ]);
         }
 
@@ -99,9 +102,18 @@ class CartController extends Controller
             ->where('product_id', $id)
             ->first();
 
+        if (!$existProduct) {
+            return back()->with([
+                'info' => 'Data product tidak ditemukan',
+            ]);
+        }
         //dd($existProduct);
         $existProduct->qty = $request->qty;
-        $existProduct->save();
+        if (!$existProduct->save()) {
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat mengupdate jumlah roduct',
+            ]);
+        }
         return redirect()->intended('/shopping-cart');
     }
 
@@ -110,9 +122,8 @@ class CartController extends Controller
         $product = Products::find($id);
         //dd($product);
         if (!$product) {
-            return response()->json([
-                'success' => false,
-                'msg' => "Data tidak ditemukan",
+            return back()->with([
+                'info' => 'Data product tidak ditemukan',
             ]);
         }
 
@@ -120,7 +131,17 @@ class CartController extends Controller
             ->where('product_id', $id)
             ->first();
 
-        $existProduct->delete();
+        if (!$existProduct) {
+            return back()->with([
+                'info' => 'Data product tidak ditemukan',
+            ]);
+        }
+
+        if (!$existProduct->delete()) {
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat menghapus product',
+            ]);
+        }
         return redirect(route('cart.index'));
     }
 }

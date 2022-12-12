@@ -7,6 +7,12 @@
 
 <!-- content -->
 <div class="container">
+    @if(session()->has('info'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('info') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
+    @endif
     <div class="row">
         <div class="col-lg-6 mt-5 text-center d-flex justify-content-center">
             <!-- another content -->

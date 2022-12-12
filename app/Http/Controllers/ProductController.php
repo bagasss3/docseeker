@@ -55,7 +55,17 @@ class ProductController extends Controller
     {
         if (!$request->user()) {
             $product = $product->find($id);
+            if (!$product) {
+                return back()->with([
+                    'info' => 'Terjadi kesalahan saat mengambil data product',
+                ]);
+            }
             $images = Image::where('product_id', $product->id)->get();
+            if (!$images) {
+                return back()->with([
+                    'info' => 'Terjadi kesalahan saat mengambil data product',
+                ]);
+            }
             return view('selected-item', [
                 'title' => 'SELECTED ITEM',
                 'data' => $product->find($id),
@@ -77,6 +87,11 @@ class ProductController extends Controller
 
         if ($existProduct) {
             $images = Image::where('product_id', $existProduct->id)->get();
+            if (!$images) {
+                return back()->with([
+                    'info' => 'Terjadi kesalahan saat mengambil data product',
+                ]);
+            }
             return view('selected-item', [
                 'title' => 'Edit Item',
                 'data' => $existProduct,
@@ -86,7 +101,17 @@ class ProductController extends Controller
             ]);
         }
         $product = $product->find($id);
+        if (!$product) {
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat mengambil data product',
+            ]);
+        }
         $images = Image::where('product_id', $product->id)->get();
+        if (!$images) {
+            return back()->with([
+                'info' => 'Terjadi kesalahan saat mengambil data product',
+            ]);
+        }
         return view('selected-item', [
             'title' => 'SELECTED ITEM',
             'data' => $product,

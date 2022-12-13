@@ -99,6 +99,9 @@ Route::get('/cities/{id}', [CheckOngkirController::class, 'getCities']);
 Route::get('/product', [ProductController::class, 'index'])->name(
     'product.index'
 );
+Route::get('/search', [ProductController::class, 'search'])->name(
+    'product.search'
+);
 Route::get('/product/{id}', [ProductController::class, 'show'])->name(
     'product.show'
 );

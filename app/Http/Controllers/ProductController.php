@@ -51,6 +51,23 @@ class ProductController extends Controller
         ]);
     }
 
+    public function search(Products $product, Request $request)
+    {
+        // dd($request);
+        $search = $request->search;
+        $products = Products::where(
+            'product_title',
+            'like',
+            "%" . $search . "%"
+        )
+            ->latest()
+            ->simplePaginate(6);
+        return view('item', [
+            'title' => 'Product',
+            'data' => $products,
+        ]);
+    }
+
     public function show($id, Products $product, Request $request)
     {
         if (!$request->user()) {

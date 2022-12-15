@@ -12,8 +12,8 @@
                 <form>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter email">
+                            <label for="name">Email</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter email" value="{{$user->name}}" disabled>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>

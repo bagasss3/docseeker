@@ -89,6 +89,7 @@ Route::put('/profile/orders/{id}', [
 Route::get('/checkout', [PaymentController::class, 'index'])->middleware(
     'auth'
 );
+Route::post('/email', [PaymentController::class, 'testEmail']);
 
 //Ongkir Route
 Route::get('/cities/{id}', [CheckOngkirController::class, 'getCities']);

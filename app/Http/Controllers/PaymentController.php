@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderNotification;
 use App\Models\Cart;
 use App\Models\Payments;
 use App\Models\Transaction;
@@ -9,7 +10,9 @@ use App\Models\Transaction_Detail;
 use Illuminate\Http\Request;
 use App\Models\Province;
 use App\Services\Midtrans\CreateSnapTokenService;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -140,6 +143,16 @@ class PaymentController extends Controller
         return response()->json([
             'success' => 'true',
             'msg' => 'token berhasil di delete',
+        ]);
+    }
+
+    public function testEmail(Request $request)
+    {
+        $email = $request->email;
+        Mail::to($email)->send(new OrderNotification($email, 'Success', ''));
+        return response()->json([
+            'success' => true,
+            'msg' => 'Success send Mail',
         ]);
     }
 }

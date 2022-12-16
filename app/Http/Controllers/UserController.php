@@ -42,7 +42,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ];
 
-        $checkEmail = User::where('email', $request->email);
+        $checkEmail = User::where('email', $request->email)->first();
         if ($checkEmail) {
             return back()->with(['info' => 'Email sudah terdaftar!']);
         }

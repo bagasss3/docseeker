@@ -8,10 +8,10 @@
 <!-- content -->
 <div class="container">
     @if(session()->has('info'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('info') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-            </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('info') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+    </div>
     @endif
     <div class="profile-container">
         <div><img src={{ asset('assets/img/profile.png') }} alt=""></div>
@@ -34,7 +34,36 @@
                     <div class="profile-menu-orders">
                         <p class="my-orders">My orders(0)</p>
                         <p class="find-my-orders">Find my orders</p>
+                    </div>
+                    <div class="status-order">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID Order</th>
+                                    <th scope="col">Status Order</th>
+                                    <th scope="col">Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">12324242</th>
+                                    <td>Dikirim</td>
+                                    <td>
+                                        <a type="button" class="btn btn-primary" href="{{ url('detail-order') }}">Detail</a>
 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">12324242</th>
+                                    <td>Dikirim</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary">Detail</button>
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                     <div style="display: flex;justify-content: end;margin-top: 1rem">
                         <div class="options" id="options">

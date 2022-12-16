@@ -15,10 +15,6 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table
-                ->foreignId('transaction_id')
-                ->constrained('transaction')
-                ->cascadeOnDelete();
             $table->enum('status', [
                 'Accepted',
                 'Send',

@@ -39,23 +39,20 @@ class PaymentCallbackController extends Controller
                         'payments.id'
                     )
                     ->where([['payment_id', '=', $payments->id]])
-                    ->get(['transaction.id', 'transaction_detail.user_id']);
-                $data_transaction = [];
-                foreach ($transactions as $transaction) {
-                    $data_transaction[] = [
-                        'transaction_id' => $transaction->id,
-                        'status' => 'Accepted',
-                    ];
-                }
+                    ->get([
+                        'transaction.id',
+                        'transaction_detail.user_id',
+                        'transaction.orders_id',
+                    ]);
+
                 $user = $transactions[0]->user_id;
-                $orderId = Orders::insert($data_transaction);
                 Cart::where('user_id', $user)->delete();
                 $findUser = User::find($user);
                 Mail::to($findUser->email)->send(
                     new OrderNotification(
                         $findUser->email,
                         'Success',
-                        $transaction->id
+                        $transactions[0]->orders_id
                     )
                 );
             }
@@ -77,14 +74,21 @@ class PaymentCallbackController extends Controller
                         'payments.id'
                     )
                     ->where([['payment_id', '=', $payments->id]])
-                    ->get(['transaction.id', 'transaction_detail.user_id']);
+                    ->get([
+                        'transaction.id',
+                        'transaction_detail.user_id',
+                        'transaction.orders_id',
+                    ]);
                 $user = $transactions[0]->user_id;
                 $findUser = User::find($user);
+                Orders::where(['id', $transactions[0]->orders_id])->update([
+                    'status' => 'Canceled',
+                ]);
                 Mail::to($findUser->email)->send(
                     new OrderNotification(
                         $findUser->email,
                         'Expired',
-                        $transaction->id
+                        $transactions[0]->orders_id
                     )
                 );
             }
@@ -109,11 +113,14 @@ class PaymentCallbackController extends Controller
                     ->get(['transaction.id', 'transaction_detail.user_id']);
                 $user = $transactions[0]->user_id;
                 $findUser = User::find($user);
+                Orders::where(['id', $transactions[0]->orders_id])->update([
+                    'status' => 'Canceled',
+                ]);
                 Mail::to($findUser->email)->send(
                     new OrderNotification(
                         $findUser->email,
                         'Canceled',
-                        $transaction->id
+                        $transactions[0]->orders_id
                     )
                 );
             }

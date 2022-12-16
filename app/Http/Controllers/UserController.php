@@ -111,9 +111,9 @@ class UserController extends Controller
 
         $orders = Orders::join(
             'transaction',
-            'orders.transaction_id',
+            'orders.id',
             '=',
-            'transaction.id'
+            'transaction.orders_id'
         )
             ->join(
                 'transaction_detail',

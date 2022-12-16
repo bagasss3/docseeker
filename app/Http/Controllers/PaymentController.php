@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\OrderNotification;
 use App\Models\Cart;
+use App\Models\Orders;
 use App\Models\Payments;
 use App\Models\Transaction;
 use App\Models\Transaction_Detail;
@@ -38,7 +39,7 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function show(Payments $payments, Request $request)
+    public function show(Payments $payments, Orders $orders, Request $request)
     {
         $snapToken = $payments->snap_token;
         if (empty($snapToken)) {
@@ -110,13 +111,15 @@ class PaymentController extends Controller
                     'msg' => "Data Transaksi Detail tidak berhasil disimpan",
                 ]);
             }
-
+            $order = Orders::insertGetId(['status' => 'Accepted']);
+            Log::info($order);
             $data_transaction = [];
             foreach ($products as $product) {
                 $data_transaction[] = [
                     'transaction_detail_id' => $storeTransDetail->id,
                     'product_id' => $product->product_id,
                     'qty' => $product->qty,
+                    'orders_id' => $order,
                 ];
             }
             $storeTransaction = Transaction::insert($data_transaction);

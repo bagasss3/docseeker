@@ -104,6 +104,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href={{ url('/admin/orders', []) }} class="nav-link {{ $active_link == '/admin/orders' ? 'active' : null }}">
+                                <i class="nav-icon fas fa-box-open"></i>
+                                <p>
+                                    Status Pemesanan
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href={{ url('/admin/profile', []) }} class="nav-link {{ $active_link == '/admin/profile' ? 'active' : null }}">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>

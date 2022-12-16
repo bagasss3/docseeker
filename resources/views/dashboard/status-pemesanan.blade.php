@@ -34,96 +34,38 @@
 </div>
 @endif
 <div class="card">
-    <div class="card-header">
-        <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#modal-new">
-            <i class="fa fa-plus"> </i>
-            Masukkan Produk Baru
-        </a>
-    </div>
+
     <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
+        <table id="example2" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Category</th>
-                    <th>Gender</th>
-                    <th>Brand</th>
-                    <th>title</th>
-                    <th>Price</th>
-                    <th>Desc</th>
-                    <th>Stock</th>
-                    <th>Weight (Gram)</th>
-                    <th>Delete</th>
-                    <th>Update</th>
+                    <th>Id Pemesanan</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
                 </tr>
             </thead>
             <tbody>
-                @foreach ($products as $product)
                 <tr>
-                    <td>{{ $loop->index + 1 }} </td>
-                    <td>
-                        @if ($product->product_cat == 0)
-                        Shoes
-                        @elseif ($product->product_cat == 1)
-                        Glasses
-                        @else
-                        Bags
-                        @endif
-                    </td>
-
-                    <td>
-                        @if ($product->product_gender == 0)
-                        Wanita
-                        @else
-                        Pria
-                        @endif
-                    </td>
-                    <td>{{ $product->product_brand }}</td>
-                    <td>{{ $product->product_title }}</td>
-                    <td>{{ rupiah($product->product_harga) }}</td>
-                    <td>{{ $product->product_desc }}</td>
-                    <td>{{ $product->stock }}</td>
-                    <td>{{ $product->weight }}</td>
-                    {{-- Modal Delete --}}
-                    <div class="modal fade" id="modal-delete-{{$product->id}}" style="display: none;" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLongTitle">Hapus Produk</h5>
-
-                                </div>
-                                <div class="modal-body">
-                                    Apakah Kamu yakin ingin menghapus produk ini?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                    <form action="{{ route('admin.delete', ['id' => $product->id]) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" class="btn btn-danger" value="Delete">
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- /.modal-dialog -->
-                        </div>
-                    </div>
+                    <td>1</td>
+                    <td>31313131</td>
+                    <td>Accepted</td>
                     <td class="text-center">
-                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#modal-delete-{{$product->id}}">
-                            <i class="fas fa-trash"> </i>
-                        </a>
-                    </td>
-                    <td class="text-center" style="text-align: center;">
-                        <a href="{{ route('admin.show', ['id' => $product->id]) }}">
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-id="{{ $product->id }}">
-                                <i class="fas fa-pen">
-                                </i>
-                            </button>
-                        </a>
+                        <a type="button" class="btn btn-block btn-primary btn-sm">Detail</a>
+
                     </td>
                 </tr>
-                @endforeach
             </tbody>
         </table>
+
+
+
+
+
+
+
+
     </div>
 </div>
 

@@ -123,6 +123,34 @@ class UserController extends Controller
             )
             ->join('products', 'transaction.product_id', '=', 'products.id')
             ->where($condition)
+            ->get(['orders.id', 'orders.status']);
+        return response()->json([
+            'success' => true,
+            'data' => $orders,
+        ]);
+    }
+
+    public function detailOrder($id, Request $request)
+    {
+        $order = Orders::join(
+            'transaction',
+            'orders.transaction_id',
+            '=',
+            'transaction.id'
+        )
+            ->where([
+                'orders.id' => $id,
+            ])
+            ->join(
+                'transaction_detail',
+                'transaction.transaction_detail_id',
+                '=',
+                'transaction_detail.id'
+            )
+            ->join('products', 'transaction.product_id', '=', 'products.id')
+            ->where([
+                'transaction_detail.user_id' => $request->user()->id,
+            ])
             ->get([
                 'orders.id',
                 'orders.status',
@@ -130,9 +158,15 @@ class UserController extends Controller
                 'products.product_title',
                 'transaction.qty',
             ]);
+        if (!$order) {
+            return response()->json([
+                'success' => false,
+                'msg' => 'Not Found',
+            ]);
+        }
         return response()->json([
             'success' => true,
-            'data' => $orders,
+            'data' => $order,
         ]);
     }
 

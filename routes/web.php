@@ -226,7 +226,7 @@ Route::get('/cost-ongkir', function (Request $request) {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS =>
-            "origin=" .
+        "origin=" .
             $origin .
             "&destination=" .
             $destination .
@@ -329,3 +329,10 @@ Route::post('/payment-expired', function (Request $request) {
 
 // Image Route
 Route::resource('images', ImageController::class);
+
+// detail order
+Route::get('/detail-order', function () {
+    return view('detail-order', [
+        'title' => 'ORDER DETAIL',
+    ]);
+})->name('detail-order');

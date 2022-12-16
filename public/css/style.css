@@ -387,6 +387,15 @@ input {
     flex-direction: column;
 }
 
+.order-container {
+    margin: 20px 0 0 0;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #d9d9d9;
+
+    padding: 20px 40px;
+}
+
 .profile-number {
     font-weight: bold;
     font-size: 1.3rem;
@@ -579,5 +588,3 @@ ul {
 .select2-search__field {
     background-color: #f6f6f6;
 }
-
-

@@ -20,6 +20,12 @@
                 </ul>
             </div>
         @endif
+        @if(session()->has('info'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('info') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+            </div>
+        @endif
         <form action="{{ route('user.store') }}" method="POST" class="mt-3">
             @csrf
             <div class="row">

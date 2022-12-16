@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Admin;
@@ -373,9 +374,24 @@ class AdminController extends Controller
                 'products.product_title',
                 'transaction.qty',
             ]);
-        return response()->json([
+
+
+        return view('dashboard.status-pemesanan', [
+            'title' => 'Status Pemesanan',
+            'user' => Auth::guard('admin')->user(),
             'success' => true,
             'data' => $orders,
+            "active_link" => "/admin/orders",
+        ]);
+    }
+
+    public function showDetailAsAdmin(Request $request)
+    {
+
+        return view('dashboard.detail-order', [
+            'title' => 'Detail Order',
+            'user' => Auth::guard('admin')->user(),
+            "active_link" => "/admin/orders",
         ]);
     }
 
@@ -384,7 +400,7 @@ class AdminController extends Controller
         $request->validate(
             [
                 'status' =>
-                    'in:Accepted,Send,Canceled,Returned,Packed,Finished',
+                'in:Accepted,Send,Canceled,Returned,Packed,Finished',
             ],
             [
                 'status' => 'Status tidak ada pada pilihan',

@@ -177,8 +177,13 @@ Route::put('/admin/product/image2/{id}', [
     ->name('admin.updatePicture2')
     ->middleware(['auth:admin', 'is_admin']);
 
-Route::put('/admin/orders', [AdminController::class, 'showOrderAsAdmin'])
+
+Route::get('/admin/orders', [AdminController::class, 'showOrderAsAdmin'])
     ->name('admin.showOrderAsAdmin')
+    ->middleware(['auth:admin', 'is_admin']);
+
+Route::get('/admin/orders/detail', [AdminController::class, 'showDetailAsAdmin'])
+    ->name('admin.showDetailAsAdmin')
     ->middleware(['auth:admin', 'is_admin']);
 
 Route::put('/admin/orders/{id}', [AdminController::class, 'editStatusOrder'])

@@ -41,12 +41,16 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ];
-        $store = User::create($data);
 
+        $checkEmail = User::where('email', $request->email);
+        if ($checkEmail) {
+            return back()->with(['info' => 'Email sudah terdaftar!']);
+        }
+
+        $store = User::create($data);
         if (!$store) {
-            return response()->json([
-                'success' => false,
-                'msg' => "User tidak berhasil disimpan",
+            return back()->with([
+                'info' => 'Terjadi kesalahan di server kami, coba lagi',
             ]);
         }
         return redirect('/login');

@@ -80,6 +80,11 @@ Route::get('/profile/orders', [UserController::class, 'showOrder'])->middleware(
     'auth'
 );
 
+Route::get('/profile/orders/{id}', [
+    UserController::class,
+    'detailOrder',
+])->middleware('auth');
+
 Route::put('/profile/orders/{id}', [
     UserController::class,
     'editOrder',

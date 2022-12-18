@@ -149,7 +149,9 @@ class AdminController extends Controller
             ]);
         }
 
-        return redirect('/admin/product');
+        return back()->with([
+            'success' => 'Berhasil menyimpan product baru',
+        ]);
     }
 
     /**
@@ -187,8 +189,8 @@ class AdminController extends Controller
             'product' => $findProduct,
             'category' => $category,
             'gender' => $gender,
-            'image1' => $findImageProduct[0]->id,
-            'image2' => $findImageProduct[1]->id,
+            'image1' => $findImageProduct[0],
+            'image2' => $findImageProduct[1],
             "active_link" => "/admin/product",
         ]);
     }
@@ -255,7 +257,9 @@ class AdminController extends Controller
                 'info' => 'Terjadi kesalahan saat menyimpan product',
             ]);
         }
-        return redirect('/admin/product');
+        return back()->with([
+            'success' => 'Berhasil mengupdate product',
+        ]);
     }
 
     public function updatePicture1(Request $request, $id)
@@ -272,10 +276,12 @@ class AdminController extends Controller
             ]);
         }
 
-        return redirect('/admin/product');
+        return back()->with([
+            'success' => 'Berhasil mengupdate gambar pertama product',
+        ]);
     }
 
-    public function updatePicture2($request, $id)
+    public function updatePicture2(Request $request, $id)
     {
         //add data to arr
         $prodImage = Image::find($id);
@@ -289,7 +295,9 @@ class AdminController extends Controller
             ]);
         }
 
-        return redirect('/admin/product');
+        return back()->with([
+            'success' => 'Berhasil mengupdate gambar kedua product',
+        ]);
     }
 
     /**
@@ -314,7 +322,9 @@ class AdminController extends Controller
                 'info' => 'Terjadi kesalahan saat menghapus product',
             ]);
         }
-        return redirect('/admin/product');
+        return back()->with([
+            'success' => 'Berhasil menghapus product',
+        ]);
     }
 
     public function showOrderAsAdmin(Request $request)

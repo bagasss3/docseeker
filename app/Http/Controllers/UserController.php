@@ -73,15 +73,10 @@ class UserController extends Controller
     public function showOrder(Request $request, User $user)
     {
         $condition = [
-            'transaction_detail.user_id' => $request->user()->id,
+            'orders.created_by' => $request->user()->id,
         ];
         $filter = $request->status;
         switch ($filter) {
-            case 'Accepted':
-                $condition = array_merge($condition, [
-                    'orders.status' => 'Accepted',
-                ]);
-                break;
             case 'Send':
                 $condition = array_merge($condition, [
                     'orders.status' => 'Send',
@@ -107,23 +102,17 @@ class UserController extends Controller
                     'orders.status' => 'Finished',
                 ]);
                 break;
+            default:
+                $condition = array_merge($condition, [
+                    'orders.status' => 'Accepted',
+                ]);
+                break;
         }
 
-        $orders = Orders::join(
-            'transaction',
+        $orders = Orders::where($condition)->get([
             'orders.id',
-            '=',
-            'transaction.orders_id'
-        )
-            ->join(
-                'transaction_detail',
-                'transaction.transaction_detail_id',
-                '=',
-                'transaction_detail.id'
-            )
-            ->join('products', 'transaction.product_id', '=', 'products.id')
-            ->where($condition)
-            ->get(['orders.id', 'orders.status']);
+            'orders.status',
+        ]);
         return response()->json([
             'success' => true,
             'data' => $orders,
@@ -134,9 +123,9 @@ class UserController extends Controller
     {
         $order = Orders::join(
             'transaction',
-            'orders.transaction_id',
+            'orders.id',
             '=',
-            'transaction.id'
+            'transaction.orders_id'
         )
             ->where([
                 'orders.id' => $id,
@@ -153,10 +142,10 @@ class UserController extends Controller
             ])
             ->get([
                 'orders.id',
-                'orders.status',
                 'transaction.product_id',
                 'products.product_title',
                 'transaction.qty',
+                'products.product_harga',
             ]);
         if (!$order) {
             return response()->json([

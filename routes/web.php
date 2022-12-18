@@ -90,6 +90,11 @@ Route::put('/profile/orders/{id}', [
     'editOrder',
 ])->middleware('auth');
 
+Route::get('/profile/detail-order', function () {
+    return view('detail-order', [
+        'title' => 'ORDER DETAIL',
+    ]);
+})->name('detail-order');
 //Payment Route
 Route::get('/checkout', [PaymentController::class, 'index'])->middleware(
     'auth'
@@ -177,12 +182,11 @@ Route::put('/admin/product/image2/{id}', [
     ->name('admin.updatePicture2')
     ->middleware(['auth:admin', 'is_admin']);
 
-
 Route::get('/admin/orders', [AdminController::class, 'showOrderAsAdmin'])
     ->name('admin.showOrderAsAdmin')
     ->middleware(['auth:admin', 'is_admin']);
 
-Route::get('/admin/orders/detail', [AdminController::class, 'showDetailAsAdmin'])
+Route::get('/admin/orders/{id}', [AdminController::class, 'showDetailAsAdmin'])
     ->name('admin.showDetailAsAdmin')
     ->middleware(['auth:admin', 'is_admin']);
 
@@ -231,7 +235,7 @@ Route::get('/cost-ongkir', function (Request $request) {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS =>
-        "origin=" .
+            "origin=" .
             $origin .
             "&destination=" .
             $destination .
@@ -334,10 +338,3 @@ Route::post('/payment-expired', function (Request $request) {
 
 // Image Route
 Route::resource('images', ImageController::class);
-
-// detail order
-Route::get('/detail-order', function () {
-    return view('detail-order', [
-        'title' => 'ORDER DETAIL',
-    ]);
-})->name('detail-order');

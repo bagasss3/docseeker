@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\Province;
 use App\Services\Midtrans\CreateSnapTokenService;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -111,7 +112,11 @@ class PaymentController extends Controller
                     'msg' => "Data Transaksi Detail tidak berhasil disimpan",
                 ]);
             }
-            $order = Orders::insertGetId(['status' => 'Accepted']);
+            $order = Orders::insertGetId([
+                'status' => 'Accepted',
+                'created_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
+            ]);
             Log::info($order);
             $data_transaction = [];
             foreach ($products as $product) {

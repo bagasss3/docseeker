@@ -20,13 +20,13 @@ class ProductController extends Controller
                     ->simplePaginate(6)
                     ->withQueryString();
                 break;
-            case "bags":
+            case "glasses":
                 $products = Products::where('product_cat', "1")
                     ->latest()
                     ->simplePaginate(6)
                     ->withQueryString();
                 break;
-            case "glasses":
+            case "bags":
                 $products = Products::where('product_cat', "2")
                     ->latest()
                     ->simplePaginate(6)

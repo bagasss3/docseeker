@@ -19,9 +19,9 @@
                     @if ($product->product_cat == 0)
                         <a href="{{ route('product.show', ['id' => $product->id]) }}?category=shoes" class="text-dark">
                         @elseif($product->product_cat == 1)
-                            <a href="{{ route('product.show', ['id' => $product->id]) }}?category=bags" class="text-dark">
+                            <a href="{{ route('product.show', ['id' => $product->id]) }}?category=glasses" class="text-dark">
                             @else
-                                <a href="{{ route('product.show', ['id' => $product->id]) }}?category=glasses" class="text-dark">
+                                <a href="{{ route('product.show', ['id' => $product->id]) }}?category=bags" class="text-dark">
                     @endif
                     <div class="row-relative mx-auto">
                         <img src="{{$product->images->image}}" alt="" height="128px" />

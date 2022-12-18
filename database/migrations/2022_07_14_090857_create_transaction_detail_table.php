@@ -43,6 +43,6 @@ class CreateTransactionDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction');
+        Schema::dropIfExists('transaction_detail');
     }
 }

@@ -13,6 +13,7 @@ use App\Models\Province;
 use App\Services\Midtrans\CreateSnapTokenService;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -116,8 +117,9 @@ class PaymentController extends Controller
                 'status' => 'Accepted',
                 'created_by' => Auth::user()->id,
                 'updated_by' => Auth::user()->id,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ]);
-            Log::info($order);
             $data_transaction = [];
             foreach ($products as $product) {
                 $data_transaction[] = [
@@ -125,6 +127,8 @@ class PaymentController extends Controller
                     'product_id' => $product->product_id,
                     'qty' => $product->qty,
                     'orders_id' => $order,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
                 ];
             }
             $storeTransaction = Transaction::insert($data_transaction);
@@ -147,7 +151,17 @@ class PaymentController extends Controller
     {
         $token = $request->token;
         $payments = Payments::where('snap_token', $token)->first();
+        $transaction_detail = Transaction_Detail::where(
+            'payment_id',
+            $payments->id
+        )->first();
+        $transaction = Transaction::where(
+            'transaction_detail_id',
+            $transaction_detail->id
+        )->first();
+        $order = Orders::where('id', $transaction->orders_id)->first();
         $payments->delete();
+        $order->delete();
         return response()->json([
             'success' => 'true',
             'msg' => 'token berhasil di delete',

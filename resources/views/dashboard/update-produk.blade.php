@@ -8,6 +8,27 @@
 @endsection
 
 @section('content')
+@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+@if(session()->has('info'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ session('info') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+</div>
+@endif
+@if(session()->has('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+</div>
+@endif
 <div class="row">
     <!-- left column -->
     <div class="col-md-12">
@@ -92,13 +113,16 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form id="quickForm" method="POST" action="{{ route('admin.updatePicture1', ['id' => $image1]) }}" enctype="multipart/form-data">
+            <form id="quickForm" method="POST" action="{{ route('admin.updatePicture1', ['id' => $image1->id]) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
                     {{-- Input BOSSS --}}
 
                     <div class="form-group">
+                        <div class="row-relative mx-auto">
+                            <img src="{{$image1->image}}" alt="" height="128px" />
+                        </div>
                         <label for="exampleInputFile">Foto Produk 1</label>
                         <div class="input-group">
                             <div class="custom-file">
@@ -126,12 +150,15 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form id="quickForm" method="POST" action="{{ route('admin.updatePicture2', ['id' => $image2]) }}" enctype="multipart/form-data">
+            <form id="quickForm" method="POST" action="{{ route('admin.updatePicture2', ['id' => $image2->id]) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
                     {{-- Input BOSSS --}}
                     <div class="form-group">
+                        <div class="row-relative mx-auto">
+                            <img src="{{$image2->image}}" alt="" height="128px" />
+                        </div>
                         <label for="exampleInputFile">Foto Produk 2</label>
                         <div class="input-group">
                             <div class="custom-file">

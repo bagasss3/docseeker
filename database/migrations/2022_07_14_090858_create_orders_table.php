@@ -23,6 +23,8 @@ class CreateOrdersTable extends Migration
                 'Packed',
                 'Finished',
             ]);
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
             $table->timestamps();
         });
     }

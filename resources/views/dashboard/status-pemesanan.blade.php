@@ -47,15 +47,17 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($data as $order)
                 <tr>
-                    <td>1</td>
-                    <td>31313131</td>
-                    <td>Accepted</td>
+                    <td>{{ $loop->index +1 }}</td>
+                    <td>{{ $order->id }}</td>
+                    <td>{{ $order->status }}</td>
                     <td class="text-center">
-                        <a type="button" class="btn btn-block btn-primary btn-sm">Detail</a>
+                        <a href="{{ route('admin.showDetailAsAdmin',['id'=>$order->id]) }}" class="btn btn-block btn-primary btn-sm">Detail</a>
 
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
 

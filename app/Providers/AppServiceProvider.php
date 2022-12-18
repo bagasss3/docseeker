@@ -1,8 +1,12 @@
 <?php
 
 namespace App\Providers;
+
+use App\Models\Orders;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use App\Observers\OrdersObserver;
+use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Sanctum::ignoreMigrations();
     }
 
     /**

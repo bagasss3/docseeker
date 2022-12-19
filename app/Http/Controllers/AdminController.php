@@ -9,7 +9,9 @@ use App\Models\Products;
 use App\Http\Controllers\ImageController;
 use App\Models\Image;
 use App\Models\Orders;
+use App\Models\Payments;
 use App\Models\Transaction_Detail;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -31,10 +33,19 @@ class AdminController extends Controller
 
     public function dashboard()
     {
+        // return response()->json([
+        //     'success' => true,
+        //     'data' => Products::all()->count(),
+        // ]);
         return view('dashboard.main', [
             'user' => Auth::guard('admin')->user(),
             'title' => 'Dashboard',
-            "products" => Products::all(),
+            "products" => Products::all()->count(),
+            "users" => User::all()->count(),
+            "ordersNow" => Orders::all()
+                ->where('created_at', '>=', date('Y-m-d') . ' 00:00:00')
+                ->count(),
+            "Income" => Payments::sum('total_price'),
             "active_link" => "/admin/dashboard",
         ]);
     }

@@ -40,6 +40,42 @@
 </div>
 @endif
 <div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Detail Transaksi</h3>
+
+            </div>
+            <div class="card-body ">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">ID Transaksi</label>
+                    <label for="name" class="col-sm-10 col-form-label font-weight-normal">{{$payment->number}}</label>
+                </div>
+                <div class="form-group row">
+                    <label for="telepon" class="col-sm-2 col-form-label">Jumlah</label>
+                    <label for="telepon" class="col-sm-10 col-form-label font-weight-normal">{{rupiah($payment->total_price)}}</label>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-2 col-form-label">Waktu</label>
+                    <label for="email" class="col-sm-10 col-form-label font-weight-normal">{{local($payment->created_at)}}</label>
+                </div>
+                <div class="form-group row">
+                    <label for="alamat" class="col-sm-2 col-form-label">Status</label>
+                    @if($payment->payment_status == 1)
+                    <label for="alamat" class="col-sm-10 col-form-label font-weight-normal">Menunggu Pembayaran</label>
+                    @elseif($payment->payment_status==2)
+                    <label for="alamat" class="col-sm-10 col-form-label font-weight-normal">Sudah Dibayar</label>
+                    @else
+                    <label for="alamat" class="col-sm-10 col-form-label font-weight-normal">Pembayaran Kadaluarsa</label>
+                    @endif
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
@@ -78,12 +114,14 @@
             </div>
             
             <div class="card-body ">
-
                 <div class="d-flex align-items-center">
-
                     <div class=" mr-3">Status</div>
                     <div class="">
+                        @if($payment->payment_status == 2)
                         <select class="form-control" name="status">
+                        @else
+                        <select class="form-control" name="status" disabled>
+                        @endif
                             @foreach($status as $status)
                                     <option value="{{$status->status}}" {{ $data[0]->status == $status->status ? 'selected':'' }}>{{$status->status}}</option>
                             @endforeach
@@ -94,8 +132,13 @@
             <!-- /.card-body -->
 
             <div class="card-footer">
+                @if($payment->payment_status == 2)
                 <button type="submit" class="btn btn-default ">Kembali</button>
                 <button type="submit" class="btn btn-info">Simpan</button>
+                @else
+                <button type="submit" class="btn btn-default " disabled>Kembali</button>
+                <button type="submit" class="btn btn-info" disabled>Simpan</button>
+                @endif
             </div>
         </div>
         </form>
@@ -104,9 +147,6 @@
 
 <div class="row">
     <div class="col-lg-12">
-
-
-
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Detail Item</h3>
@@ -132,11 +172,37 @@
                             <td>
                                 {{$order->qty}}
                             </td>
+                            {{$total+=($order->product_harga*$order->qty)}}
                             <td class="">
-                                Rp. {{$order->product_harga}}
+                                {{rupiah($order->product_harga*$order->qty)}}
                             </td>
-
                         </tr>
+                        @if($loop->last)
+                            <tr>
+                                <td></td>
+                                <td>
+                                    Ongkir
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td class="">
+                                    {{rupiah($payment->total_price-$total)}}
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td><b>Total:</b></td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td class="">
+                                    {{rupiah($payment->total_price)}}
+                                </td>
+
+                            </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>

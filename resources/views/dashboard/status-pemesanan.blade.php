@@ -39,9 +39,13 @@
         <table id="example2" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>No</th>
                     <th>Id Pemesanan</th>
-                    <th>Status</th>
+                    <th>Waktu Pemesanan</th>
+                    <th>Status Pemesanan</th>
+                    <th>Id Transaksi</th>
+                    <th>Total Harga Pemesanan</th>
+                    <th>Status Transaksi</th>
+                    <th>Email Pembeli</th>
                     <th>Action</th>
 
                 </tr>
@@ -49,9 +53,19 @@
             <tbody>
                 @foreach($data as $order)
                 <tr>
-                    <td>{{ $loop->index +1 }}</td>
                     <td>{{ $order->id }}</td>
+                    <td>{{ local($order->created_at) }}</td>
                     <td>{{ $order->status }}</td>
+                    <td>{{ $order->number }}</td>
+                    <td>{{ rupiah($order->total_price) }}</td>
+                    @if($order->payment_status == 1)
+                        <td>Belum Dibayar</td>
+                    @elseif($order->payment_status==2)
+                        <td>Sudah Dibayar</td>
+                    @else
+                        <td>Kadaluarsa</td>
+                    @endif
+                    <td>{{ $order->email }}</td>
                     <td class="text-center">
                         <a href="{{ route('admin.showDetailAsAdmin',['id'=>$order->id]) }}" class="btn btn-block btn-primary btn-sm">Detail</a>
 

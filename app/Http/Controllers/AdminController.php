@@ -10,6 +10,7 @@ use App\Http\Controllers\ImageController;
 use App\Models\Image;
 use App\Models\Orders;
 use App\Models\Payments;
+use App\Models\Transaction;
 use App\Models\Transaction_Detail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -45,7 +46,9 @@ class AdminController extends Controller
             "ordersNow" => Orders::all()
                 ->where('created_at', '>=', date('Y-m-d') . ' 00:00:00')
                 ->count(),
-            "Income" => Payments::sum('total_price'),
+            "Income" => Payments::where('payment_status', '=', 2)->sum(
+                'total_price'
+            ),
             "active_link" => "/admin/dashboard",
         ]);
     }
@@ -375,13 +378,86 @@ class AdminController extends Controller
         //         break;
         // }
 
-        $orders = Orders::get(['orders.id', 'orders.status']);
-
+        // $orders = Orders::get(['orders.id', 'orders.status']);
+        // $transaction = Transaction::where('orders_id', $orders->id)->first();
+        // $transaction_detail = Transaction_Detail::find(
+        //     $transaction->transaction_detail_id
+        // );
+        // $payment = Payments::find($transaction_detail->payment_id);
+        // $transaction = Orders::all();
+        // return response()->json([
+        //     'success' => true,
+        //     'order' => $transaction,
+        // ]);
+        // $order = Orders::leftJoin(
+        //     'transaction',
+        //     'orders.id',
+        //     '=',
+        //     'transaction.orders_id'
+        // )
+        //     ->join(
+        //         'transaction_detail',
+        //         'transaction.transaction_detail_id',
+        //         '=',
+        //         'transaction_detail.id'
+        //     )
+        //     ->join(
+        //         'payments',
+        //         'transaction_detail.payment_id',
+        //         '=',
+        //         'payments.id'
+        //     )
+        //     ->groupBy('orders.id')
+        //     ->get([
+        //         'orders.id',
+        //         'orders.status',
+        //         'payments.number',
+        //         'payments.total_price',
+        //         'payments.payment_status',
+        //         'payments.created_at',
+        //         'transaction_detail.email',
+        //     ]);
+        $order = Orders::join(
+            'transaction',
+            'transaction.orders_id',
+            '=',
+            'orders.id'
+        )
+            ->join(
+                'transaction_detail',
+                'transaction.transaction_detail_id',
+                '=',
+                'transaction_detail.id'
+            )
+            ->join(
+                'payments',
+                'transaction_detail.payment_id',
+                '=',
+                'payments.id'
+            )
+            ->groupBy([
+                'orders.id',
+                'orders.status',
+                'payments.number',
+                'payments.total_price',
+                'payments.payment_status',
+                'payments.created_at',
+                'transaction_detail.email',
+            ])
+            ->get([
+                'orders.id',
+                'orders.status',
+                'payments.number',
+                'payments.total_price',
+                'payments.payment_status',
+                'payments.created_at',
+                'transaction_detail.email',
+            ]);
         return view('dashboard.status-pemesanan', [
             'title' => 'Status Pemesanan',
             'user' => Auth::guard('admin')->user(),
             'success' => true,
-            'data' => $orders,
+            'data' => $order,
             "active_link" => "/admin/orders",
         ]);
     }
@@ -427,6 +503,7 @@ class AdminController extends Controller
         $transactionDetail = Transaction_Detail::find(
             $order[0]->transaction_detail_id
         );
+        $payment = Payments::find($transactionDetail->payment_id);
         // 'transaction_detail.first_name',
         //     'transaction_detail.last_name',
         //     'transaction_detail.email',
@@ -450,6 +527,8 @@ class AdminController extends Controller
             'title' => 'Detail Order',
             'data' => $order,
             'buyer' => $transactionDetail,
+            'payment' => $payment,
+            'total' => 0,
             'status' => $status,
             'user' => Auth::guard('admin')->user(),
             "active_link" => "/admin/orders",

@@ -4,6 +4,7 @@ namespace App\Services\Midtrans;
 
 use App\Models\Payments;
 use App\Services\Midtrans\Midtrans;
+use Illuminate\Support\Facades\Log;
 use Midtrans\Notification;
 
 class CallbackService extends Midtrans

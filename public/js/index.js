@@ -455,7 +455,6 @@ var payButton = document.getElementById("btn-pay");
 payButton?.addEventListener("click", async function () {
     // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
     const data = {
-        user_id: 3,
         gross_amount: Number(subTotal) + costShipping,
         ongkir_service: selectedService,
         ongkir_courier: selectedCourier,

@@ -22,5 +22,6 @@ class VerifyCsrfToken extends Middleware
         '/payment-cancel',
         '/payment-expired',
         '/email',
+        '/address',
     ];
 }

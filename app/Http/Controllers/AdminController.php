@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Products;
 use App\Http\Controllers\ImageController;
+use App\Models\Address;
 use App\Models\Image;
 use App\Models\Orders;
 use App\Models\Payments;
@@ -343,80 +344,6 @@ class AdminController extends Controller
 
     public function showOrderAsAdmin(Request $request)
     {
-        // $condition = [];
-        // $filter = $request->status;
-        // switch ($filter) {
-        //     case 'Accepted':
-        //         $condition = array_merge($condition, [
-        //             'orders.status' => 'Accepted',
-        //         ]);
-        //         break;
-        //     case 'Send':
-        //         $condition = array_merge($condition, [
-        //             'orders.status' => 'Send',
-        //         ]);
-        //         break;
-        //     case 'Canceled':
-        //         $condition = array_merge($condition, [
-        //             'orders.status' => 'Canceled',
-        //         ]);
-        //         break;
-        //     case 'Returned':
-        //         $condition = array_merge($condition, [
-        //             'orders.status' => 'Returned',
-        //         ]);
-        //         break;
-        //     case 'Packed':
-        //         $condition = array_merge($condition, [
-        //             'orders.status' => 'Packed',
-        //         ]);
-        //         break;
-        //     case 'Finished':
-        //         $condition = array_merge($condition, [
-        //             'orders.status' => 'Finished',
-        //         ]);
-        //         break;
-        // }
-
-        // $orders = Orders::get(['orders.id', 'orders.status']);
-        // $transaction = Transaction::where('orders_id', $orders->id)->first();
-        // $transaction_detail = Transaction_Detail::find(
-        //     $transaction->transaction_detail_id
-        // );
-        // $payment = Payments::find($transaction_detail->payment_id);
-        // $transaction = Orders::all();
-        // return response()->json([
-        //     'success' => true,
-        //     'order' => $transaction,
-        // ]);
-        // $order = Orders::leftJoin(
-        //     'transaction',
-        //     'orders.id',
-        //     '=',
-        //     'transaction.orders_id'
-        // )
-        //     ->join(
-        //         'transaction_detail',
-        //         'transaction.transaction_detail_id',
-        //         '=',
-        //         'transaction_detail.id'
-        //     )
-        //     ->join(
-        //         'payments',
-        //         'transaction_detail.payment_id',
-        //         '=',
-        //         'payments.id'
-        //     )
-        //     ->groupBy('orders.id')
-        //     ->get([
-        //         'orders.id',
-        //         'orders.status',
-        //         'payments.number',
-        //         'payments.total_price',
-        //         'payments.payment_status',
-        //         'payments.created_at',
-        //         'transaction_detail.email',
-        //     ]);
         $order = Orders::join(
             'transaction',
             'transaction.orders_id',
@@ -428,6 +355,12 @@ class AdminController extends Controller
                 'transaction.transaction_detail_id',
                 '=',
                 'transaction_detail.id'
+            )
+            ->join(
+                'addresses',
+                'transaction_detail.addresses_id',
+                '=',
+                'addresses.id'
             )
             ->join(
                 'payments',
@@ -443,7 +376,7 @@ class AdminController extends Controller
                 'payments.total_price',
                 'payments.payment_status',
                 'payments.created_at',
-                'transaction_detail.email',
+                'addresses.email',
             ])
             ->get([
                 'orders.id',
@@ -453,7 +386,7 @@ class AdminController extends Controller
                 'payments.total_price',
                 'payments.payment_status',
                 'payments.created_at',
-                'transaction_detail.email',
+                'addresses.email',
             ]);
         return view('dashboard.status-pemesanan', [
             'title' => 'Status Pemesanan',
@@ -506,6 +439,7 @@ class AdminController extends Controller
         $transactionDetail = Transaction_Detail::find(
             $order[0]->transaction_detail_id
         );
+        $addresses = Address::find($transactionDetail->addresses_id);
         $payment = Payments::find($transactionDetail->payment_id);
         // 'transaction_detail.first_name',
         //     'transaction_detail.last_name',
@@ -529,7 +463,7 @@ class AdminController extends Controller
         return view('dashboard.detail-order', [
             'title' => 'Detail Order #' . $order[0]->custom_id,
             'data' => $order,
-            'buyer' => $transactionDetail,
+            'buyer' => $addresses,
             'payment' => $payment,
             'total' => 0,
             'status' => $status,

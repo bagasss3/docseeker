@@ -43,6 +43,9 @@
                                <a class="dropdown-item" type="button" href={{ url('/profile') }}>Profile</a>
                            </li>
                            <li>
+                               <a class="dropdown-item" type="button" href={{ url('/address') }}>Daftar Alamat</a>
+                           </li>
+                           <li>
                                <button type="submit" class="dropdown-item">Logout</button>
                            </li>
                        </ul>

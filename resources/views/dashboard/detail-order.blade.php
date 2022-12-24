@@ -163,8 +163,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $total = 0; ?>
-                        @foreach($data as $order)
+                    <?php $total = 0; ?>
+                    @foreach($data as $order)
                         <tr>
                             <td>{{$loop->index+1}}</td>
                             <td>

@@ -25,32 +25,24 @@
             </div>
             <form action="" style="background-color: #dadada; border-radius: 1rem; padding: 2.5rem 1.5rem; min-height: 30rem;" name="formBiodata">
                 <div class="d-none" data-form-sections="1">
-                    <div class="mb-4">
-                        <input type="email" class="form-control form-control-checkout" name="email" id="email" aria-describedby="emailHelp" placeholder="E-mail" data-error-message="ini ngak boleh kosong" value="">
-                    </div>
-                    <div class="mb-4">
-                        <input type="number" class="form-control form-control-checkout" name="number" id="number" placeholder="Number">
-                    </div>
-                    <div class="mb-4 d-flex justify-content-between" style="gap: 1em;">
-                        <input type="text" class="form-control form-control-checkout" name="fName" id="firstName" placeholder="Firts Name">
-                        <input type="text" class="form-control form-control-checkout" name="lName" id="lName" placeholder="Last Name">
-                    </div>
-                    <div class="mb-4">
-                        <input type="text" class="form-control form-control-checkout" name="country" id="country" placeholder="Indonesia" disabled>
-                    </div>
-                    <div class="mb-4">
-                        <textarea class="form-control form-control-checkout" id="streetAddres" name="streetAddres" placeholder="Street Address"></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <input type="number" class="form-control form-control-checkout" name="zipCode" id="zipCode" placeholder="Zip Code">
-                    </div>
-                    <div class=" d-flex justify-content-between" style="gap: 1em;">
-                        <select class="province-select js-states form-control-checkout" style="width: 65%;" name="province" id="province">
-                            <option value=""></option>
-                        </select>
-                        <select class="city-select js-states form-control-checkout" style="width: 55%;" name="city" id="city">
-                            <option value=""></option>
-                        </select>
+                    <div class="card">
+                        <h5 class="card-header">Alamat Pengiriman</h5>
+                        <div class="card-body">
+                            @if(!$address)
+                            <h5 class="card-title">Tidak ada alamat yang aktif, silahkan aktifkan terlebih dahulu</h5>
+                            @else
+                            <input type="hidden" id="addresses_id" name="addresses_id" value="{{$address->id}}">
+                            <h5 class="card-title">{{$address->first_name}} {{$address->last_name}}</h5>
+                            <h6 class="card-title">{{$address->email}} | {{$address->phone}}</h6>
+                            <p class="card-text">{{$address->street_address}}</p>
+                            <input type="hidden" id="cityId" name="cityId" value="{{$address->city_id}}">
+                            <p class="card-text" id="city">{{$address->city_name}}</p>
+                            <input type="hidden" id="provinceId" name="provinceId" value="{{$address->province_id}}">
+                            <p class="card-text" id="province">{{$address->province_name}}</p>
+                            <p class="card-text">{{$address->zip_code}}</p>
+                            @endif
+                            <a href="/address?checkout=true" class="btn btn-primary">Ganti alamat</a>
+                        </div>
                     </div>
                 </div>
 

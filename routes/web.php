@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -191,6 +192,31 @@ Route::put('/admin/orders/{id}', [AdminController::class, 'editStatusOrder'])
     ->name('admin.editStatusOrder')
     ->middleware(['auth:admin', 'is_admin']);
 
+// Address Route
+Route::get('/address', [AddressController::class, 'index'])->name(
+    'address.index'
+);
+Route::get('/create-address', [AddressController::class, 'create'])
+    ->name('address.create')
+    ->middleware('auth');
+Route::post('/address', [AddressController::class, 'store'])
+    ->name('address.store')
+    ->middleware('auth');
+Route::get('/address/{id}', [AddressController::class, 'show'])
+    ->name('address.show')
+    ->middleware('auth');
+Route::put('/address/{id}', [AddressController::class, 'update'])
+    ->name('address.update')
+    ->middleware('auth');
+Route::put('/address/active/{id}', [AddressController::class, 'edit'])
+    ->name('address.active')
+    ->middleware('auth');
+Route::put('/address/nonactive/{id}', [AddressController::class, 'nonactive'])
+    ->name('address.nonactive')
+    ->middleware('auth');
+Route::delete('/address/{id}', [AddressController::class, 'destroy'])
+    ->name('address.destroy')
+    ->middleware('auth');
 //Payment Route
 Route::post("/transaction", [PaymentController::class, 'show']);
 Route::delete("/transaction", [PaymentController::class, 'deleteToken']);

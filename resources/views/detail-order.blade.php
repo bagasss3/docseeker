@@ -14,7 +14,10 @@
                 <a type="button" class="btn btn-primary" href="{{ url('profile') }}">Kembali</a>
             </div>
             <div class="id-product-order d-flex justify-content-center align-items-center">
-                <h4 class="fw-normal">Order ID: <span class="fw-bold">2121212</span> </h4>
+                @foreach($data as $order)
+                <h4 class="fw-normal">Order ID: <span class="fw-bold">{{ $order->id }}</span> </h4>
+                @endforeach
+
             </div>
         </div>
 
@@ -30,49 +33,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="">
-                    <td scope="row" class="">1</td>
-                    <!-- <td>
-                        <div class="box-shopping-item shadow d-flex justify-content-center align-items-center">
-                            <div class="">
-                                <img src="./assets/img/AdminLTELogo.png" alt="" height="48px" />
-                            </div>
-                        </div>
-                    </td> -->
+                @foreach($data as $order)
+                <tr>
+                    <td>{{$loop->index+1}}</td>
                     <td>
-                        Makanan Kucing
+                        {{$order->product_title}}
                     </td>
                     <td>
-                        <div class="inline-group input-group p-0">
-                            <input class="form-control  text-center" min="0" name="quantity" value="2" type="number" disabled>
-                        </div>
+                        {{$order->qty}}
                     </td>
-                    <td>
-                        122222
+                    <td class="">
+                        Rp. {{$order->product_harga}}
                     </td>
-                </tr>
-                <tr class="">
-                    <td scope="row" class="">1</td>
-                    <!-- <td>
-                        <div class="box-shopping-item shadow d-flex justify-content-center align-items-center">
-                            <div class="">
-                                <img src="./assets/img/AdminLTELogo.png" alt="" height="48px" />
-                            </div>
-                        </div>
-                    </td> -->
-                    <td>
-                        Makanan Kucing
-                    </td>
-                    <td>
-                        <div class="inline-group input-group p-0">
-                            <input class="form-control  text-center" min="0" name="quantity" value="2" type="number" disabled>
-                        </div>
-                    </td>
-                    <td>
-                        122222
-                    </td>
-                </tr>
 
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

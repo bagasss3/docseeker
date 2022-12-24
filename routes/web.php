@@ -76,25 +76,22 @@ Route::post('/register', [UserController::class, 'store'])->name('user.store');
 
 Route::get('/profile', [UserController::class, 'show'])->middleware('auth');
 
-Route::get('/profile/orders', [UserController::class, 'showOrder'])->middleware(
+Route::post('/profile/orders', [UserController::class, 'showOrder'])->middleware(
     'auth'
 );
 
 Route::get('/profile/orders/{id}', [
     UserController::class,
     'detailOrder',
-])->middleware('auth');
+])
+    ->name('user.detailOrder')
+    ->middleware('auth');
 
 Route::put('/profile/orders/{id}', [
     UserController::class,
     'editOrder',
 ])->middleware('auth');
 
-Route::get('/profile/detail-order', function () {
-    return view('detail-order', [
-        'title' => 'ORDER DETAIL',
-    ]);
-})->name('detail-order');
 //Payment Route
 Route::get('/checkout', [PaymentController::class, 'index'])->middleware(
     'auth'
@@ -235,7 +232,7 @@ Route::get('/cost-ongkir', function (Request $request) {
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS =>
-            "origin=" .
+        "origin=" .
             $origin .
             "&destination=" .
             $destination .

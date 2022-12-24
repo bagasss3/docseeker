@@ -152,7 +152,7 @@ class PaymentController extends Controller
         return response()->json([
             'token' => $snapToken,
             'redirect-url' =>
-                "https://app.sandbox.midtrans.com/snap/v2/vtweb/" . $snapToken,
+            "https://app.sandbox.midtrans.com/snap/v2/vtweb/" . $snapToken,
         ]);
         //return view('orders.show', compact('payments', 'snapToken'));
     }

@@ -1,6 +1,13 @@
 // Dropdown
 let options = document.getElementById("options");
-let optionList = ["belum bayar", "dikemas", "di kirim"];
+let optionList = [
+    "Send",
+    "Canceled",
+    "Returned",
+    "Packed",
+    "Finished",
+    "Accepted",
+];
 
 let isOpen = false;
 
@@ -15,7 +22,10 @@ function addToUIOptions(e) {
         if (options.firstElementChild.classList.contains("hide-option")) {
             options.removeChild(options.firstElementChild);
         }
-        options.insertAdjacentElement("afterbegin", pickedOption);
+        let div = document.createElement("div");
+        div.innerHTML = pickedOption.innerHTML;
+        div.classList.add("option");
+        options.insertAdjacentElement("afterbegin", div);
 
         deleteOptions();
         controlOptions(e);
@@ -40,22 +50,71 @@ function deleteOptions() {
     }
 }
 
+let selectedOption = "";
 function createOptions() {
-    optionList.forEach((element) => {
-        if (options.firstElementChild.textContent !== element) {
+    optionList.forEach((selectedOption) => {
+        if (options.firstElementChild.textContent !== selectedOption) {
             let option = document.createElement("div");
-            option.className = "option";
-            option.textContent = element;
-
+            option.className = "option asd";
+            option.textContent = selectedOption;
             options.firstElementChild.insertAdjacentElement("afterend", option);
         }
     });
 }
 
+document.addEventListener(
+    "click",
+    /**
+     * @param {Event & {target: HTMLDivElement}} e
+     */ async (e) => {
+        // console.log(e.target.classList.contains("asd"));
+        if (e.target.classList.contains("asd") == false) return;
+
+        // variabel isi
+        let selectOption = { status: e.target.innerHTML };
+
+        fetchTest(selectOption);
+    }
+);
+
+let urlFilterOrders = "/profile/orders";
+const fetchTest = async (pilihan) => {
+    const data = await fetch(urlFilterOrders, {
+        body: JSON.stringify(pilihan),
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
+        },
+    }).then((response) => response.json());
+
+    const tabelTBody = document.querySelector(".order-body");
+
+    tabelTBody.innerHTML = "";
+
+    for (const item of data.data) {
+        console.log(item);
+
+        let template = `         <tr>
+        <!-- <th scope="row" data-id="">12324242</th> -->
+        <th> ${item.id}</th>
+        <td> ${item.status}</td>
+        <td>
+            <a type="button" class="btn btn-primary" href="profile/orders/${item.id}">Detail</a>
+        </td>
+    </tr>`;
+
+        tabelTBody.insertAdjacentHTML("afterbegin", template);
+    }
+};
+
 const listNav = document.querySelectorAll(".profile-nav-menu li");
 const listMenu = document.querySelectorAll("[data-menu-profile]");
 
-console.log(listMenu);
+// console.log(listMenu);
 // menu nav
 document.addEventListener("click", (e) => {
     /**

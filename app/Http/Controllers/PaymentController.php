@@ -84,9 +84,18 @@ class PaymentController extends Controller
                 ]);
             }
             $addresses = Address::find($request->addresses_id);
-            $order_id = rand();
+            $year = date('y');
+            $month = date('m');
+            $day = date('d');
+            $latestRecord = Orders::orderBy('id', 'desc')->first();
+            if (!$latestRecord) {
+                $id = 1;
+            } else {
+                $id = $latestRecord->id + 1;
+            }
+            $customId = 'NR' . $year . $month . $day . sprintf('%03d', $id);
             $data = [
-                'order_id' => $order_id,
+                'order_id' => $customId,
                 'gross_amount' => (int) $request->gross_amount,
                 'ongkir_courier' => $request->ongkir_courier,
                 'ongkir_service' => $request->ongkir_service,
@@ -105,7 +114,7 @@ class PaymentController extends Controller
             $midtrans = new CreateSnapTokenService($data);
             $snapToken = $midtrans->getSnapToken();
             $payments->snap_token = $snapToken;
-            $payments->number = $order_id;
+            $payments->number = $customId;
             $payments->total_price = (int) $request->gross_amount;
             $payments->save();
 

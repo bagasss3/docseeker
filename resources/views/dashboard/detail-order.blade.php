@@ -163,6 +163,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php $total = 0; ?>
                     @foreach($data as $order)
                         <tr>
                             <td>{{$loop->index+1}}</td>
@@ -172,7 +173,8 @@
                             <td>
                                 {{$order->qty}}
                             </td>
-                            {{$total+=($order->product_harga*$order->qty)}}
+                            <?php $total +=
+                                $order->product_harga * $order->qty; ?>
                             <td class="">
                                 {{rupiah($order->product_harga*$order->qty)}}
                             </td>

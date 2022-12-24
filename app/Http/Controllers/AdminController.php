@@ -437,6 +437,7 @@ class AdminController extends Controller
             )
             ->groupBy([
                 'orders.id',
+                'orders.custom_id',
                 'orders.status',
                 'payments.number',
                 'payments.total_price',
@@ -446,6 +447,7 @@ class AdminController extends Controller
             ])
             ->get([
                 'orders.id',
+                'orders.custom_id',
                 'orders.status',
                 'payments.number',
                 'payments.total_price',
@@ -493,6 +495,7 @@ class AdminController extends Controller
             ])
             ->get([
                 'orders.id',
+                'orders.custom_id',
                 'orders.status',
                 'transaction.product_id',
                 'products.product_title',
@@ -524,7 +527,7 @@ class AdminController extends Controller
         //     'buyer' => $transactionDetail,
         // ]);
         return view('dashboard.detail-order', [
-            'title' => 'Detail Order',
+            'title' => 'Detail Order #' . $order[0]->custom_id,
             'data' => $order,
             'buyer' => $transactionDetail,
             'payment' => $payment,

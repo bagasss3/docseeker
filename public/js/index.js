@@ -23,10 +23,6 @@ function numberWithCommas(x) {
     let rp = "Rp ";
     return rp + x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
-// const numberToFormat = document.querySelectorAll(".number-format");
-// numberToFormat.forEach((item) => {
-//     item.innerHTML = `IDR ${numberWithCommas(item.innerHTML)},-`;
-// });
 
 // multi step form
 
@@ -44,49 +40,12 @@ const btnpay = document.querySelector(".btn-pay-multistep-form");
 // const backBtnForm = document.querySelector(".btn-back-multistep-form");
 let firstRender = true;
 
-const dataFormOne = [
-    {
-        key: "#email",
-        fn: ["required"],
-    },
-    {
-        key: "#number",
-        fn: ["required"],
-    },
-    {
-        key: "#firstName",
-        fn: ["required"],
-    },
-    {
-        key: "#lName",
-        fn: ["required"],
-    },
-    // {
-    //     key: "#country",
-    //     fn: ["required"],
-    // },
-    {
-        key: "#streetAddres",
-        fn: ["required"],
-    },
-    {
-        key: "#zipCode",
-        fn: ["required"],
-    },
-    {
-        key: "#city",
-        fn: ["required"],
-    },
-    {
-        key: "#province",
-        fn: ["required"],
-    },
-];
+let addressID = document.getElementById("#addresses_id");
 const reRenderForm = () => {
     // Pertama render g ush validasi
     let valid;
     if (firstRender === false) {
-        valid = validateForm(dataFormOne);
+        valid = validateForm(addressID);
         // valid = true;
         formPositions = valid ? parseInt(formPositions) : --formPositions;
     }
@@ -200,27 +159,7 @@ nextBtnForm?.addEventListener(
         }
     }
 );
-// backBtnForm?.addEventListener("click", () => {
-//     formPositions--;
-//     reRenderForm();
-// });
 
-// Hapus item ketika tombol ditekan
-// const buttonsDeleteItem = document.querySelectorAll(
-//     '[data-actions="delete-item"]'
-// );
-// document.addEventListener("click", (e) => {
-//     const isNotBtnDelete = !e.target.closest('[data-actions="delete-item"]');
-
-//     if (isNotBtnDelete) return;
-//     const btnDelete = e.target.closest('[data-actions="delete-item"]');
-
-//     btnDelete
-//         .closest(".d-flex.justify-content-between.align-items-center.mb-4.mt-4")
-//         .remove();
-// });
-
-// bisa ganti gambar qty
 // side-image
 // main-image
 const sideImage = document.querySelectorAll(".side-image");
@@ -256,29 +195,19 @@ document.addEventListener("click", (e) => {
 
 function validateForm(props) {
     let result = true;
+    switch (props) {
+        case "required":
+            const isElementEmpty = element.value === "";
+            // element.toggle("invalid", isElementEmpty);
+            if (isElementEmpty === true) {
+                element.classList.add("invalid");
+                result = false;
+            } else element.classList.remove("invalid");
 
-    for (const { key, fn } of props) {
-        /**
-         * @type {HTMLInputElement} element
-         */
-        const element = document.querySelector(key);
-        for (const fnName of fn) {
-            switch (fnName) {
-                case "required":
-                    const isElementEmpty = element.value === "";
-                    // element.toggle("invalid", isElementEmpty);
-                    if (isElementEmpty === true) {
-                        element.classList.add("invalid");
-                        result = false;
-                    } else element.classList.remove("invalid");
-
-                    break;
-                default:
-                    break;
-            }
-        }
+            break;
+        default:
+            break;
     }
-
     return result;
 }
 
@@ -289,7 +218,7 @@ const /**@typeof ${HTMLSelectElement} */ inputProvience =
 const /**@typeof ${HTMLSelectElement} */ inputCity =
         document.querySelector(".city-select");
 // raja ongkir
-
+const fixCityID = document.getElementById("cityId")?.value;
 $(inputProvience).select2({
     placeholder: " Select Province",
 });
@@ -406,7 +335,6 @@ const fetchRajaOngkirCosts = async (url) => {
     opt.innerHTML = "Pilih Service";
     opt.selected = true;
     btnSelectService.appendChild(opt);
-    // console.log(data);
 
     const elementService = data.raja_ongkir?.rajaongkir.results[0].costs;
 
@@ -441,7 +369,7 @@ btnSelectCourier?.addEventListener("change", (e) => {
     let urlRajaOngkirCost =
         "/cost-ongkir?" +
         new URLSearchParams({
-            destination: kota,
+            destination: fixCityID,
             weight: totalBerat,
             courier,
         });
@@ -459,38 +387,36 @@ payButton?.addEventListener("click", async function () {
         ongkir_service: selectedService,
         ongkir_courier: selectedCourier,
         ongkir_cost: costShipping,
-        first_name: fName,
-        last_name: lName,
-        email: email,
-        phone: number,
-        address: streetAddres,
-        zip_code: zipCode,
-        cities: selectedCity,
-        province: selectedProvince,
-        country: "Indonesia",
+        // first_name: fName,
+        // last_name: lName,
+        // email: email,
+        // phone: number,
+        // address: streetAddres,
+        // zip_code: zipCode,
+        // cities: selectedCity,
+        // province: selectedProvince,
+        // country: "Indonesia",
     };
-    console.log(data);
 
     const { token } = await fetch(urlMidtrans, {
         method: "POST",
         body: new URLSearchParams(data),
     }).then((response) => response.json());
-    console.log(token);
     window.snap.pay(token, {
         onSuccess: function (result) {
             /* You may add your own implementation here */
             alert("payment success!");
-            console.log(result);
+            // console.log(result);
         },
         onPending: function (result) {
             /* You may add your own implementation here */
             alert("wating your payment!");
-            console.log(result);
+            // console.log(result);
         },
         onError: function (result) {
             /* You may add your own implementation here */
             alert("payment failed!");
-            console.log(result);
+            // console.log(result);
         },
         onClose: async function () {
             /* You may add your own implementation here */
@@ -500,7 +426,7 @@ payButton?.addEventListener("click", async function () {
                     token,
                 }),
             });
-            console.log(msg);
+            // console.log(msg);
             alert("you closed the popup without finishing the payment");
         },
     });

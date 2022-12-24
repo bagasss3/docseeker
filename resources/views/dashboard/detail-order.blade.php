@@ -105,42 +105,42 @@
     </div>
     <div class="col-lg-6">
         <form action="{{route('admin.editStatusOrder',['id'=>$data[0]->id])}}" method="post">
-        @csrf
-        @method('PUT')
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Status Pemesanan</h3>
+            @csrf
+            @method('PUT')
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Status Pemesanan</h3>
 
-            </div>
-            
-            <div class="card-body ">
-                <div class="d-flex align-items-center">
-                    <div class=" mr-3">Status</div>
-                    <div class="">
-                        @if($payment->payment_status == 2)
-                        <select class="form-control" name="status">
-                        @else
-                        <select class="form-control" name="status" disabled>
-                        @endif
-                            @foreach($status as $status)
+                </div>
+
+                <div class="card-body ">
+                    <div class="d-flex align-items-center">
+                        <div class=" mr-3">Status</div>
+                        <div class="">
+                            @if($payment->payment_status == 2)
+                            <select class="form-control" name="status">
+                                @else
+                                <select class="form-control" name="status" disabled>
+                                    @endif
+                                    @foreach($status as $status)
                                     <option value="{{$status->status}}" {{ $data[0]->status == $status->status ? 'selected':'' }}>{{$status->status}}</option>
-                            @endforeach
-                        </select>
+                                    @endforeach
+                                </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- /.card-body -->
+                <!-- /.card-body -->
 
-            <div class="card-footer">
-                @if($payment->payment_status == 2)
-                <button type="submit" class="btn btn-default ">Kembali</button>
-                <button type="submit" class="btn btn-info">Simpan</button>
-                @else
-                <button type="submit" class="btn btn-default " disabled>Kembali</button>
-                <button type="submit" class="btn btn-info" disabled>Simpan</button>
-                @endif
+                <div class="card-footer">
+                    @if($payment->payment_status == 2)
+                    <button type="submit" class="btn btn-default ">Kembali</button>
+                    <button type="submit" class="btn btn-info">Simpan</button>
+                    @else
+                    <button type="submit" class="btn btn-default " disabled>Kembali</button>
+                    <button type="submit" class="btn btn-info" disabled>Simpan</button>
+                    @endif
+                </div>
             </div>
-        </div>
         </form>
     </div>
 </div>
@@ -163,8 +163,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $total = 0; ?>
-                    @foreach($data as $order)
+                        <?php $total = 0; ?>
+                        @foreach($data as $order)
                         <tr>
                             <td>{{$loop->index+1}}</td>
                             <td>
@@ -180,32 +180,32 @@
                             </td>
                         </tr>
                         @if($loop->last)
-                            <tr>
-                                <td></td>
-                                <td>
-                                    Ongkir
-                                </td>
-                                <td>
-                                    1
-                                </td>
-                                <td class="">
-                                    {{rupiah($payment->total_price-$total)}}
-                                </td>
+                        <tr>
+                            <td></td>
+                            <td>
+                                Ongkir
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td class="">
+                                {{rupiah($payment->total_price-$total)}}
+                            </td>
 
-                            </tr>
-                            <tr>
-                                <td><b>Total:</b></td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td class="">
-                                    {{rupiah($payment->total_price)}}
-                                </td>
+                        </tr>
+                        <tr>
+                            <td><b>Total:</b></td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td class="">
+                                {{rupiah($payment->total_price)}}
+                            </td>
 
-                            </tr>
+                        </tr>
                         @endif
-                    @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -58,14 +58,26 @@ class UserController extends Controller
 
     public function show(Request $request, User $user)
     {
+        $status = [
+            (object) ["status" => "Accepted"],
+            (object) ["status" => "Send"],
+            (object) ["status" => "Canceled"],
+            (object) ["status" => "Returned"],
+            (object) ["status" => "Packed"],
+            (object) ["status" => "Finished"],
+        ];
         $user = $user->find($request->user()->id);
         if (!$user) {
             redirect()
                 ->back()
                 ->with('message', 'Error load profile');
         }
+        $orders = Orders::get(['orders.id', 'orders.status']);
+
         return view('profile', [
             'user' => $user,
+            'data' => $orders,
+            'status' => $status,
             'title' => 'PROFILE PAGE',
         ]);
     }
@@ -75,7 +87,7 @@ class UserController extends Controller
         $condition = [
             'orders.created_by' => $request->user()->id,
         ];
-        $filter = $request->status;
+        $filter = $request->input('status');
         switch ($filter) {
             case 'Send':
                 $condition = array_merge($condition, [
@@ -153,7 +165,9 @@ class UserController extends Controller
                 'msg' => 'Not Found',
             ]);
         }
-        return response()->json([
+
+        return view('detail-order', [
+            'title' => 'detail-order',
             'success' => true,
             'data' => $order,
         ]);

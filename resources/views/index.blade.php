@@ -8,9 +8,9 @@
 
 <!-- content -->
 <div class="container ">
-    @if(session()->has('message')) 
-    <p class="alert alert-success">{{session('message')}}</p> 
-    @endif 
+    @if(session()->has('message'))
+    <p class="alert alert-success">{{session('message')}}</p>
+    @endif
     @if(session()->has('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}

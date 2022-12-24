@@ -543,7 +543,7 @@ class AdminController extends Controller
         $request->validate(
             [
                 'status' =>
-                    'in:Accepted,Send,Canceled,Returned,Packed,Finished',
+                'in:Accepted,Send,Canceled,Returned,Packed,Finished',
             ],
             [
                 'status' => 'Status tidak ada pada pilihan',

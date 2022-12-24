@@ -156,32 +156,32 @@ let lName = document.querySelector("#lName");
 let streetAddres = document.querySelector("#streetAddres");
 let zipCode = document.querySelector("#zipCode");
 
-email.addEventListener("input", function (e) {
+email?.addEventListener("input", function (e) {
     email = e.target.value;
     // console.log(email);
 });
 
-number.addEventListener("input", function (e) {
+number?.addEventListener("input", function (e) {
     number = e.target.value;
     // console.log(number);
 });
 
-fName.addEventListener("input", function (e) {
+fName?.addEventListener("input", function (e) {
     fName = e.target.value;
     // console.log(fName);
 });
 
-lName.addEventListener("input", function (e) {
+lName?.addEventListener("input", function (e) {
     lName = e.target.value;
     // console.log(lName);
 });
 
-streetAddres.addEventListener("input", function (e) {
+streetAddres?.addEventListener("input", function (e) {
     streetAddres = e.target.value;
     // console.log(streetAddres);
 });
 
-zipCode.addEventListener("input", function (e) {
+zipCode?.addEventListener("input", function (e) {
     zipCode = e.target.value;
     // console.log(zipCode);
 });

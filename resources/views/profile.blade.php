@@ -33,7 +33,6 @@
                 <div data-menu-profile="My orders" class="d-none">
                     <div class="profile-menu-orders">
                         <p class="my-orders">My orders(0)</p>
-                        <p class="find-my-orders">Find my orders</p>
                     </div>
                     <div class="status-order">
                         <table class="table table-striped table-hover">
@@ -44,28 +43,22 @@
                                     <th scope="col">Detail</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="list-order order-body">
+                                @foreach($data as $order)
                                 <tr>
-                                    <th scope="row">12324242</th>
-                                    <td>Dikirim</td>
+                                    <!-- <th scope="row" data-id="">12324242</th> -->
+                                    <th>{{ $order->id }}</th>
+                                    <td>{{ $order->status }}</td>
                                     <td>
-                                        <a type="button" class="btn btn-primary" href="{{ url('detail-order') }}">Detail</a>
-
+                                        <a type="button" class="btn btn-primary" href="{{ route('user.detailOrder',['id'=>$order->id]) }}">Detail</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">12324242</th>
-                                    <td>Dikirim</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary">Detail</button>
-
-                                    </td>
-                                </tr>
-
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <div style="display: flex;justify-content: end;margin-top: 1rem">
+                    <div style="margin-top: 1rem" class="d-flex justify-content-end align-items-center">
+                        <p class="find-my-orders me-2">Find my orders</p>
                         <div class="options" id="options">
                             <div class="hide-option option" id="hide-option">Order Status
                                 <i class="fa fa-caret-down"></i>

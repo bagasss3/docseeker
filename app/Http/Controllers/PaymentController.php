@@ -11,10 +11,7 @@ use App\Models\Transaction_Detail;
 use Illuminate\Http\Request;
 use App\Models\Province;
 use App\Services\Midtrans\CreateSnapTokenService;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
@@ -113,7 +110,20 @@ class PaymentController extends Controller
                     'msg' => "Data Transaksi Detail tidak berhasil disimpan",
                 ]);
             }
+
+            $year = date('y');
+            $month = date('m');
+            $day = date('d');
+            $latestRecord = Orders::orderBy('id', 'desc')->first();
+            if (!$latestRecord) {
+                $id = 1;
+            } else {
+                $id = $latestRecord->id + 1;
+            }
+            $customId = 'NR' . $year . $month . $day . sprintf('%03d', $id);
+
             $order = Orders::insertGetId([
+                'custom_id' => $customId,
                 'status' => 'Accepted',
                 'created_by' => Auth::user()->id,
                 'updated_by' => Auth::user()->id,

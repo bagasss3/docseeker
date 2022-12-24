@@ -53,7 +53,7 @@
             <tbody>
                 @foreach($data as $order)
                 <tr>
-                    <td>{{ $order->id }}</td>
+                    <td>{{ $order->custom_id }}</td>
                     <td>{{ local($order->created_at) }}</td>
                     <td>{{ $order->status }}</td>
                     <td>{{ $order->number }}</td>

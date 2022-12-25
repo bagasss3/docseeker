@@ -26,9 +26,9 @@ function custom_id($table)
     $month = date('m');
     $day = date('d');
     $now = Carbon::now();
-    $hour = $now->hour;
-    $minute = $now->minute;
-    $second = $now->second;
+    $hour = sprintf('%02d', $now->hour);
+    $minute = sprintf('%02d', $now->minute);
+    $second = sprintf('%02d', $now->second);
 
     switch ($table) {
         case 'orders':

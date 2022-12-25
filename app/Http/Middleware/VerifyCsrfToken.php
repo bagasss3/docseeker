@@ -23,5 +23,6 @@ class VerifyCsrfToken extends Middleware
         '/payment-expired',
         '/email',
         '/address',
+        '/cost-ongkir',
     ];
 }

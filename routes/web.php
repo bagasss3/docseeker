@@ -77,14 +77,12 @@ Route::post('/register', [UserController::class, 'store'])->name('user.store');
 
 Route::get('/profile', [UserController::class, 'show'])->middleware('auth');
 
-Route::post('/profile/orders', [UserController::class, 'showOrder'])->middleware(
-    'auth'
-);
-
-Route::get('/profile/orders/{id}', [
+Route::post('/profile/orders', [
     UserController::class,
-    'detailOrder',
-])
+    'showOrder',
+])->middleware('auth');
+
+Route::get('/profile/orders/{id}', [UserController::class, 'detailOrder'])
     ->name('user.detailOrder')
     ->middleware('auth');
 
@@ -101,8 +99,9 @@ Route::post('/email', [PaymentController::class, 'testEmail']);
 
 //Ongkir Route
 Route::get('/cities/{id}', [CheckOngkirController::class, 'getCities']);
+Route::get('/province', [CheckOngkirController::class, 'getProvince']);
 
-// Route::get('/cost-ongkir', [CheckOngkirController::class, 'check_ongkir']);
+Route::get('/cost-ongkir', [CheckOngkirController::class, 'check_ongkir']);
 
 //Product Route
 Route::get('/product', [ProductController::class, 'index'])->name(
@@ -242,71 +241,71 @@ Route::get('/weight', function (Request $request) {
     return $total;
 });
 
-Route::get('/cost-ongkir', function (Request $request) {
-    $curl = curl_init();
-    $origin = "11";
-    $destination = $request->get('destination');
-    $weight = $request->get('weight');
-    $courier = $request->get('courier');
+// Route::get('/cost-ongkir', function (Request $request) {
+//     $curl = curl_init();
+//     $origin = "11";
+//     $destination = $request->get('destination');
+//     $weight = $request->get('weight');
+//     $courier = $request->get('courier');
 
-    curl_setopt_array($curl, [
-        CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS =>
-        "origin=" .
-            $origin .
-            "&destination=" .
-            $destination .
-            "&weight=" .
-            $weight .
-            "&courier=" .
-            $courier,
-        // CURLOPT_POSTFIELDS => "origin=501&destination=114&weight=1700&courier=jne",
-        CURLOPT_HTTPHEADER => [
-            "content-type: application/x-www-form-urlencoded",
-            "key:2d4b91321f678b4462e99881e449e426",
-        ],
-    ]);
+//     curl_setopt_array($curl, [
+//         CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+//         CURLOPT_RETURNTRANSFER => true,
+//         CURLOPT_ENCODING => "",
+//         CURLOPT_MAXREDIRS => 10,
+//         CURLOPT_TIMEOUT => 30,
+//         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//         CURLOPT_CUSTOMREQUEST => "POST",
+//         CURLOPT_POSTFIELDS =>
+//             "origin=" .
+//             $origin .
+//             "&destination=" .
+//             $destination .
+//             "&weight=" .
+//             $weight .
+//             "&courier=" .
+//             $courier,
+//         // CURLOPT_POSTFIELDS => "origin=501&destination=114&weight=1700&courier=jne",
+//         CURLOPT_HTTPHEADER => [
+//             "content-type: application/x-www-form-urlencoded",
+//             "key:2d4b91321f678b4462e99881e449e426",
+//         ],
+//     ]);
 
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
+//     $response = curl_exec($curl);
+//     $err = curl_error($curl);
 
-    curl_close($curl);
+//     curl_close($curl);
 
-    if ($err) {
-        echo "cURL Error #:" . $err;
-    } else {
-        $products = Cart::join(
-            'products',
-            'cart.product_id',
-            '=',
-            'products.id'
-        )
-            ->where('user_id', $request->user()->id)
-            ->get([
-                'cart.*',
-                'products.product_title',
-                'products.product_cat',
-                'products.product_harga',
-                'products.weight',
-            ]);
+//     if ($err) {
+//         echo "cURL Error #:" . $err;
+//     } else {
+//         $products = Cart::join(
+//             'products',
+//             'cart.product_id',
+//             '=',
+//             'products.id'
+//         )
+//             ->where('user_id', $request->user()->id)
+//             ->get([
+//                 'cart.*',
+//                 'products.product_title',
+//                 'products.product_cat',
+//                 'products.product_harga',
+//                 'products.weight',
+//             ]);
 
-        $total = 0;
-        foreach ($products as $product) {
-            $total += $product->product_harga * $product->qty;
-        }
+//         $total = 0;
+//         foreach ($products as $product) {
+//             $total += $product->product_harga * $product->qty;
+//         }
 
-        return [
-            "total_harga" => $total,
-            "raja_ongkir" => json_decode($response),
-        ];
-    }
-});
+//         return [
+//             "total_harga" => $total,
+//             "raja_ongkir" => json_decode($response),
+//         ];
+//     }
+// });
 
 Route::get('/total-cost', function (Request $request) {
     $products = Cart::join('products', 'cart.product_id', '=', 'products.id')

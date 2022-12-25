@@ -30,8 +30,9 @@
 @if(session()->has('info'))
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
     {{ session('info') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-</div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+        <span aria-hidden="true">&times;</span>
+    </button></div>
 @endif
 <div class="card">
 

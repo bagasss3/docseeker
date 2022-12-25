@@ -227,7 +227,7 @@ let selectedProvince = "";
 $(inputProvience).on("change", function (e) {
     // Do something
     // console.log(this.value);
-    let urlRajaOngkirCity = `/api/city/${this.value}`;
+    let urlRajaOngkirCity = `/cities/${this.value}`;
 
     selectedProvince = e.target.options[e.target.selectedIndex].innerHTML;
     // console.log(selectedProvince);
@@ -249,35 +249,45 @@ $(inputCity).on("change", function (e) {
 const fetchNewCity = async (url) => {
     const data = await fetch(url, {}).then((response) => response.json());
 
-    const {
-        rajaongkir: { results: city },
-    } = data;
+    // const {
+    //     rajaongkir: { results: city },
+    // } = data;
     inputCity.textContent = "";
-    kota = city[0].city_id;
-    for (const { city_name, city_id } of city) {
+    // kota = city[0].city_id;
+    for (const key in data) {
         const option = document.createElement("option");
-        option.innerHTML = city_name;
-        option.setAttribute("value", city_id);
+        option.innerHTML = data[key];
+        option.setAttribute("value", key);
         inputCity.appendChild(option);
     }
+    // for (const { city_name, city_id } of city) {
+    //     const option = document.createElement("option");
+    //     option.innerHTML = city_name;
+    //     option.setAttribute("value", city_id);
+    //     inputCity.appendChild(option);
+    // }
 };
 
-let urlRajaOngkirProvince = "/api/province";
+let urlRajaOngkirProvince = "/province";
 
 const fetchProvince = async () => {
     const data = await fetch(urlRajaOngkirProvince, {}).then((response) =>
         response.json()
     );
 
-    const {
-        rajaongkir: { results: province },
-    } = data;
-    for (const { province: province_name, province_id } of province) {
+    for (const key in data) {
         const option = document.createElement("option");
-        option.innerHTML = province_name;
-        option.setAttribute("value", province_id);
+        option.innerHTML = data[key];
+        option.setAttribute("value", key);
         inputProvience?.appendChild(option);
     }
+
+    // for (const { data: province_name, province_id } of data) {
+    //     const option = document.createElement("option");
+    //     option.innerHTML = province_name;
+    //     option.setAttribute("value", province_id);
+    //     inputProvience?.appendChild(option);
+    // }
     // console.log(inputProvience);
 };
 
@@ -327,7 +337,7 @@ const btnSelectCourier = document.querySelector(".select-courier");
 
 const fetchRajaOngkirCosts = async (url) => {
     const data = await fetch(url, {}).then((resp) => resp.json());
-
+    console.log(data[0]?.costs);
     //
     btnSelectService.classList.remove("d-none");
     btnSelectService.innerHTML = "";
@@ -336,7 +346,7 @@ const fetchRajaOngkirCosts = async (url) => {
     opt.selected = true;
     btnSelectService.appendChild(opt);
 
-    const elementService = data.raja_ongkir?.rajaongkir.results[0].costs;
+    const elementService = data[0]?.costs;
 
     // console.log(data);
     // console.log(elementService);
@@ -373,12 +383,16 @@ btnSelectCourier?.addEventListener("change", (e) => {
             weight: totalBerat,
             courier,
         });
+
     // console.log(kota, totalBerat, courier);
     fetchRajaOngkirCosts(urlRajaOngkirCost);
 });
 
 // midtrans
 let urlMidtrans = "/transaction";
+const reqAddrId = document.getElementById("addresses_id")?.value;
+console.log("ini addresses id ", reqAddrId);
+
 var payButton = document.getElementById("btn-pay");
 payButton?.addEventListener("click", async function () {
     // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
@@ -387,6 +401,7 @@ payButton?.addEventListener("click", async function () {
         ongkir_service: selectedService,
         ongkir_courier: selectedCourier,
         ongkir_cost: costShipping,
+        addresses_id: reqAddrId,
         // first_name: fName,
         // last_name: lName,
         // email: email,

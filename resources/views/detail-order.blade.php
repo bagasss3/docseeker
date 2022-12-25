@@ -14,10 +14,7 @@
                 <a type="button" class="btn btn-primary" href="{{ url('profile') }}">Kembali</a>
             </div>
             <div class="id-product-order d-flex justify-content-center align-items-center">
-                @foreach($data as $order)
-                <h4 class="fw-normal">Order ID: <span class="fw-bold">{{ $order->id }}</span> </h4>
-                @endforeach
-
+                <h4 class="fw-normal">Order ID: <span class="fw-bold">{{ $data[0]->id }}</span></h4>
             </div>
         </div>
 

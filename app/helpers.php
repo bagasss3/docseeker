@@ -3,6 +3,7 @@
 use App\Models\Orders;
 use App\Models\Payments;
 use App\Models\Products;
+use Illuminate\Support\Carbon;
 
 function rupiah($angka)
 {
@@ -24,6 +25,11 @@ function custom_id($table)
     $year = date('y');
     $month = date('m');
     $day = date('d');
+    $now = Carbon::now();
+    $hour = $now->hour;
+    $minute = $now->minute;
+    $second = $now->second;
+
     switch ($table) {
         case 'orders':
             $latestRecord = Orders::orderBy('id', 'desc')->first();
@@ -43,6 +49,14 @@ function custom_id($table)
     } else {
         $id = $latestRecord->id + 1;
     }
-    $customId = $code . $year . $month . $day . sprintf('%03d', $id);
+    $customId =
+        $code .
+        $year .
+        $month .
+        $day .
+        $hour .
+        $minute .
+        $second .
+        sprintf('%03d', $id);
     return $customId;
 }

@@ -11,7 +11,9 @@ let optionList = [
 
 let isOpen = false;
 
-options.addEventListener("click", addToUIOptions);
+if (options) {
+    options.addEventListener("click", addToUIOptions);
+}
 
 function addToUIOptions(e) {
     if (e.target.classList.contains("hide-option")) {

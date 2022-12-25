@@ -16,7 +16,7 @@
                BAGS
            </a>
            <a href="{{ url('/') }}" class="my-auto nav__menu active" data-intersection="welcome">
-               <img src="../assets/img/Logo.png" alt="" height="48px" />
+               <img src="{{url('../assets/img/Logo.png')}}" alt="" height="48px" />
            </a>
 
            <a href="{{ url('/product/?category=shoes') }}" class="text-white my-auto nav__menu h6" data-target="shoes"

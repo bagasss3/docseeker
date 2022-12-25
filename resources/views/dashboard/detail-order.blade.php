@@ -53,7 +53,7 @@
             <div class="card-body ">
                 <div class="form-group row">
                     <label for="name" class="col-sm-2 col-form-label">ID Transaksi</label>
-                    <label for="name" class="col-sm-10 col-form-label font-weight-normal">{{$payment->number}}</label>
+                    <label for="name" class="col-sm-10 col-form-label font-weight-normal">{{$payment->custom_id}}</label>
                 </div>
                 <div class="form-group row">
                     <label for="telepon" class="col-sm-2 col-form-label">Jumlah</label>

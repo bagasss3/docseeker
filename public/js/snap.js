@@ -320,11 +320,10 @@
                                                   overflow:
                                                       document.body.style
                                                           .overflow,
-                                                  width:
-                                                      document.body.style.width,
-                                                  height:
-                                                      document.body.style
-                                                          .height,
+                                                  width: document.body.style
+                                                      .width,
+                                                  height: document.body.style
+                                                      .height,
                                                   pageXOffset:
                                                       window.pageXOffset,
                                                   pageYOffset:

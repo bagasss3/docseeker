@@ -57,7 +57,7 @@
                     <td>{{ $order->custom_id }}</td>
                     <td>{{ local($order->created_at) }}</td>
                     <td>{{ $order->status }}</td>
-                    <td>{{ $order->number }}</td>
+                    <td>{{ $order->payment_id }}</td>
                     <td>{{ rupiah($order->total_price) }}</td>
                     @if($order->payment_status == 1)
                     <td>Belum Dibayar</td>
@@ -68,8 +68,7 @@
                     @endif
                     <td>{{ $order->email }}</td>
                     <td class="text-center">
-                        <a href="{{ route('admin.showDetailAsAdmin',['id'=>$order->id]) }}" class="btn btn-block btn-primary btn-sm">Detail</a>
-
+                        <a href="{{ route('admin.showDetailAsAdmin',['id'=>$order->custom_id]) }}" class="btn btn-block btn-primary btn-sm">Detail</a>
                     </td>
                 </tr>
                 @endforeach

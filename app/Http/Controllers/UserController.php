@@ -72,7 +72,11 @@ class UserController extends Controller
                 ->back()
                 ->with('message', 'Error load profile');
         }
-        $orders = Orders::get(['orders.id', 'orders.status']);
+        $orders = Orders::where('created_by', $request->user()->id)->get([
+            'orders.id',
+            'orders.custom_id',
+            'orders.status',
+        ]);
 
         return view('profile', [
             'user' => $user,
@@ -133,6 +137,14 @@ class UserController extends Controller
 
     public function detailOrder($id, Request $request)
     {
+        $getOrderId = Orders::where([
+            'custom_id' => $id,
+            'created_by' => $request->user()->id,
+        ])->first();
+        if (!$getOrderId) {
+            return back()->with(['info' => 'Order tidak ada!']);
+        }
+
         $order = Orders::join(
             'transaction',
             'orders.id',
@@ -140,7 +152,7 @@ class UserController extends Controller
             'transaction.orders_id'
         )
             ->where([
-                'orders.id' => $id,
+                'orders.id' => $getOrderId->id,
             ])
             ->join(
                 'transaction_detail',
@@ -159,17 +171,16 @@ class UserController extends Controller
                 'transaction.qty',
                 'products.product_harga',
             ]);
+        // dd($order);
         if (!$order) {
-            return response()->json([
-                'success' => false,
-                'msg' => 'Not Found',
-            ]);
+            return back()->with(['info' => 'Order tidak ada!']);
         }
 
         return view('detail-order', [
             'title' => 'detail-order',
             'success' => true,
             'data' => $order,
+            'orderId' => $id,
         ]);
     }
 

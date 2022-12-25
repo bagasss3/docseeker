@@ -63,7 +63,7 @@ class CallbackService extends Midtrans
 
     protected function _createLocalSignatureKey()
     {
-        $paymentId = $this->payments->number;
+        $paymentId = $this->payments->custom_id;
         $statusCode = $this->notification->status_code;
         $grossAmount = $this->payments->total_price;
         $serverKey = $this->serverKey;
@@ -78,7 +78,7 @@ class CallbackService extends Midtrans
         $notification = new Notification();
 
         $paymentsNumber = $notification->order_id;
-        $payments = Payments::where('number', $paymentsNumber)->first();
+        $payments = Payments::where('custom_id', $paymentsNumber)->first();
 
         $this->notification = $notification;
         $this->payments = $payments;

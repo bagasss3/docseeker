@@ -136,8 +136,10 @@ class AdminController extends Controller
             ]
         );
 
+        $productCustomId = custom_id('products');
         //add data to arr
         $data = [
+            'custom_id' => $productCustomId,
             'product_cat' => $request->product_cat,
             'product_gender' => $request->product_gender,
             'product_brand' => $request->product_brand,
@@ -186,7 +188,7 @@ class AdminController extends Controller
             (object) ["id" => 0, "name" => "Women"],
             (object) ["id" => 1, "name" => "Men"],
         ];
-        $findProduct = $product->find($id);
+        $findProduct = $product->where('custom_id', $id)->first();
         if (!$findProduct) {
             return back()->with([
                 'info' => 'Terjadi kesalahan saat mencari product',
@@ -199,7 +201,7 @@ class AdminController extends Controller
             ]);
         }
         return view('dashboard.update-produk', [
-            'title' => 'Update Product',
+            'title' => 'Update Product #' . $id,
             'user' => Auth::guard('admin')->user(),
             'product' => $findProduct,
             'category' => $category,
@@ -372,7 +374,7 @@ class AdminController extends Controller
                 'orders.id',
                 'orders.custom_id',
                 'orders.status',
-                'payments.number',
+                'payments.custom_id',
                 'payments.total_price',
                 'payments.payment_status',
                 'payments.created_at',
@@ -382,7 +384,7 @@ class AdminController extends Controller
                 'orders.id',
                 'orders.custom_id',
                 'orders.status',
-                'payments.number',
+                'payments.custom_id as payment_id',
                 'payments.total_price',
                 'payments.payment_status',
                 'payments.created_at',
@@ -407,6 +409,7 @@ class AdminController extends Controller
             (object) ["status" => "Packed"],
             (object) ["status" => "Finished"],
         ];
+        $getIdByCustomId = Orders::where('custom_id', $id)->first();
         $order = Orders::join(
             'transaction',
             'orders.id',
@@ -414,7 +417,7 @@ class AdminController extends Controller
             'transaction.orders_id'
         )
             ->where([
-                'orders.id' => $id,
+                'orders.id' => $getIdByCustomId->id,
             ])
             ->join(
                 'transaction_detail',
@@ -423,9 +426,6 @@ class AdminController extends Controller
                 'transaction_detail.id'
             )
             ->join('products', 'transaction.product_id', '=', 'products.id')
-            ->where([
-                'transaction_detail.user_id' => $request->user()->id,
-            ])
             ->get([
                 'orders.id',
                 'orders.custom_id',
@@ -436,30 +436,18 @@ class AdminController extends Controller
                 'products.product_harga',
                 'transaction.transaction_detail_id',
             ]);
+        if (!$order) {
+            return back()->with([
+                'info' => 'Data order tidak ditemukan',
+            ]);
+        }
+
         $transactionDetail = Transaction_Detail::find(
             $order[0]->transaction_detail_id
         );
         $addresses = Address::find($transactionDetail->addresses_id);
         $payment = Payments::find($transactionDetail->payment_id);
-        // 'transaction_detail.first_name',
-        //     'transaction_detail.last_name',
-        //     'transaction_detail.email',
-        //     'transaction_detail.phone',
-        //     'transaction_detail.street_address',
-        //     'transaction_detail.zip_code',
-        //     'transaction_detail.city',
-        //     'transaction_detail.province'
-        if (!$order) {
-            return response()->json([
-                'success' => false,
-                'msg' => 'Not Found',
-            ]);
-        }
-        // return response()->json([
-        //     'success' => true,
-        //     'data' => $order,
-        //     'buyer' => $transactionDetail,
-        // ]);
+
         return view('dashboard.detail-order', [
             'title' => 'Detail Order #' . $order[0]->custom_id,
             'data' => $order,
@@ -477,7 +465,7 @@ class AdminController extends Controller
         $request->validate(
             [
                 'status' =>
-                'in:Accepted,Send,Canceled,Returned,Packed,Finished',
+                    'in:Accepted,Send,Canceled,Returned,Packed,Finished',
             ],
             [
                 'status' => 'Status tidak ada pada pilihan',

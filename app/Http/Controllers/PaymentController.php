@@ -84,18 +84,9 @@ class PaymentController extends Controller
                 ]);
             }
             $addresses = Address::find($request->addresses_id);
-            $year = date('y');
-            $month = date('m');
-            $day = date('d');
-            $latestRecord = Orders::orderBy('id', 'desc')->first();
-            if (!$latestRecord) {
-                $id = 1;
-            } else {
-                $id = $latestRecord->id + 1;
-            }
-            $customId = 'NR' . $year . $month . $day . sprintf('%03d', $id);
+            $paymentCustomId = custom_id('payments');
             $data = [
-                'order_id' => $customId,
+                'order_id' => $paymentCustomId,
                 'gross_amount' => (int) $request->gross_amount,
                 'ongkir_courier' => $request->ongkir_courier,
                 'ongkir_service' => $request->ongkir_service,
@@ -114,7 +105,7 @@ class PaymentController extends Controller
             $midtrans = new CreateSnapTokenService($data);
             $snapToken = $midtrans->getSnapToken();
             $payments->snap_token = $snapToken;
-            $payments->number = $customId;
+            $payments->custom_id = $paymentCustomId;
             $payments->total_price = (int) $request->gross_amount;
             $payments->save();
 
@@ -134,19 +125,9 @@ class PaymentController extends Controller
                 ]);
             }
 
-            $year = date('y');
-            $month = date('m');
-            $day = date('d');
-            $latestRecord = Orders::orderBy('id', 'desc')->first();
-            if (!$latestRecord) {
-                $id = 1;
-            } else {
-                $id = $latestRecord->id + 1;
-            }
-            $customId = 'NR' . $year . $month . $day . sprintf('%03d', $id);
-
+            $orderCustomId = custom_id('orders');
             $order = Orders::insertGetId([
-                'custom_id' => $customId,
+                'custom_id' => $orderCustomId,
                 'status' => 'Accepted',
                 'created_by' => Auth::user()->id,
                 'updated_by' => Auth::user()->id,

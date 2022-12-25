@@ -15,7 +15,7 @@ class CreatePaymentTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('number', 16);
+            $table->string('custom_id');
             $table->decimal('total_price', 13, 2);
             $table
                 ->enum('payment_status', ['1', '2', '3', '4'])

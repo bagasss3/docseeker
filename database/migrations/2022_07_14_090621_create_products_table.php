@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('custom_id');
             $table->enum('product_cat', ['0', '1', '2']);
             $table->enum('product_gender', ['0', '1']);
             $table->integer('product_brand');

@@ -71,7 +71,7 @@ class ProductController extends Controller
     public function show($id, Products $product, Request $request)
     {
         if (!$request->user()) {
-            $product = $product->find($id);
+            $product = $product->where('custom_id', $id)->first();
             if (!$product) {
                 return back()->with([
                     'info' => 'Terjadi kesalahan saat mengambil data product',
@@ -117,7 +117,7 @@ class ProductController extends Controller
                 'is_edit' => true,
             ]);
         }
-        $product = $product->find($id);
+        $product = $product->where('custom_id', $id)->first();
         if (!$product) {
             return back()->with([
                 'info' => 'Terjadi kesalahan saat mengambil data product',

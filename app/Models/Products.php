@@ -13,6 +13,7 @@ class Products extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
     protected $fillable = [
+        'custom_id',
         'product_cat',
         'product_gender',
         'product_brand',

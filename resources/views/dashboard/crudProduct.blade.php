@@ -54,13 +54,12 @@
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>ID</th>
                     <th>Category</th>
                     <th>Gender</th>
                     <th>Brand</th>
                     <th>title</th>
                     <th>Price</th>
-                    <th>Desc</th>
                     <th>Stock</th>
                     <th>Weight (Gram)</th>
                     <th>Delete</th>
@@ -70,7 +69,7 @@
             <tbody>
                 @foreach ($products as $product)
                 <tr>
-                    <td>{{ $loop->index + 1 }} </td>
+                    <td>{{ $product->custom_id }}</td>
                     <td>
                         @if ($product->product_cat == 0)
                         Shoes
@@ -91,7 +90,6 @@
                     <td>{{ $product->product_brand }}</td>
                     <td>{{ $product->product_title }}</td>
                     <td>{{ rupiah($product->product_harga) }}</td>
-                    <td>{{ $product->product_desc }}</td>
                     <td>{{ $product->stock }}</td>
                     <td>{{ $product->weight }}</td>
                     {{-- Modal Delete --}}
@@ -123,7 +121,7 @@
                         </a>
                     </td>
                     <td class="text-center" style="text-align: center;">
-                        <a href="{{ route('admin.show', ['id' => $product->id]) }}">
+                        <a href="{{ route('admin.show', ['id' => $product->custom_id]) }}">
                             <button type="button" class="btn btn-success" data-toggle="modal" data-id="{{ $product->id }}">
                                 <i class="fas fa-pen">
                                 </i>

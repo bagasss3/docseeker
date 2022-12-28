@@ -36,6 +36,10 @@ class PaymentController extends Controller
                 'info' => 'Tidak ada product',
             ]);
         }
+        $total = 0;
+        foreach ($products as $product) {
+            $total += $product->weight * $product->qty;
+        }
         $address = Address::join(
             'provinces',
             'addresses.province_id',
@@ -56,6 +60,7 @@ class PaymentController extends Controller
             'title' => 'Your Order',
             'data' => $products,
             'address' => $address,
+            'totalWeight' => $total,
         ]);
     }
 

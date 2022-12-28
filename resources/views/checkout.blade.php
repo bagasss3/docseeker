@@ -118,6 +118,7 @@
                 <div class="line" style="margin-top: .25rem;margin-bottom: .5rem;"></div>
             </div>
             <?php $total = 0; ?>
+            <input type="hidden" id="totalId" name="totalId" value="{{$totalWeight}}">
             @foreach ($data as $product)
             <div class="d-flex mb-3" style="gap: 1em;">
                 <div class="box-shopping-item shadow">

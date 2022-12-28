@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->integer('stock');
             $table->decimal('weight');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

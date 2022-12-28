@@ -168,6 +168,7 @@ class UserController extends Controller
                 'orders.id',
                 'transaction.product_id',
                 'products.product_title',
+                'products.deleted_at',
                 'transaction.qty',
                 'products.product_harga',
             ]);

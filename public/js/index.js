@@ -292,13 +292,13 @@ const fetchProvince = async () => {
 };
 
 fetchProvince();
-let totalBerat;
-
-fetch("/weight", {})
-    .then((resp) => resp.json())
-    .then((weight) => {
-        totalBerat = weight;
-    });
+const totalBerat = document.getElementById("totalId")?.value;
+// let totalBerat;
+// fetch("/weight", {})
+//     .then((resp) => resp.json())
+//     .then((weight) => {
+//         totalBerat = weight;
+//     });
 
 const btnSelectService = document.querySelector(".select-service");
 

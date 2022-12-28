@@ -171,9 +171,15 @@
                     @foreach($data as $order)
                         <tr>
                             <td>{{$loop->index+1}}</td>
+                            @if($order->deleted_at)
+                            <td>
+                                {{$order->product_title}} (PRODUK TELAH DIHAPUS DARI TOKO)
+                            </td>
+                            @else
                             <td>
                                 {{$order->product_title}}
                             </td>
+                            @endif
                             <td>
                                 {{$order->qty}}
                             </td>

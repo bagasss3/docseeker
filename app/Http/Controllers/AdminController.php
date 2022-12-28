@@ -432,6 +432,7 @@ class AdminController extends Controller
                 'orders.status',
                 'transaction.product_id',
                 'products.product_title',
+                'products.deleted_at',
                 'transaction.qty',
                 'products.product_harga',
                 'transaction.transaction_detail_id',

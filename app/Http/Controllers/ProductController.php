@@ -85,13 +85,12 @@ class ProductController extends Controller
             }
             return view('selected-item', [
                 'title' => 'SELECTED ITEM',
-                'data' => $product->find($id),
+                'data' => $product->where('custom_id', $id)->first(),
                 'image1' => $images[0]->image,
                 'image2' => $images[1]->image,
                 'is_edit' => false,
             ]);
         }
-
         $existProduct = Cart::join(
             'products',
             'cart.product_id',

@@ -40,16 +40,16 @@
     <div class="card-body">
 
         <!-- search -->
-        <form action="">
+        <form action="/admin/orders" method="GET">
             <div class="row">
                 <div class="form-group row">
                     <label for="date" class="col-form-label col-sm-2">Waktu Awal Pemesanan</label>
                     <div class="col-sm-3">
-                        <input type="date" class="form-control input-sm" id="fromDate" name="fromDate" required />
+                        <input type="date" class="form-control input-sm" id="fromDate" name="fromDate"/>
                     </div>
                     <label for="date" class="col-form-label col-sm-2">Waktu Akhir Pemesanan</label>
                     <div class="col-sm-3">
-                        <input type="date" class="form-control input-sm" id="toDate" name="toDate" required />
+                        <input type="date" class="form-control input-sm" id="toDate" name="toDate"/>
                     </div>
                     <div class="col-sm-2">
                         <button type="submit" class="btn btn-success" name="search" title="Search">

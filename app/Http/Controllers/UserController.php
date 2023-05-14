@@ -76,6 +76,7 @@ class UserController extends Controller
             'orders.id',
             'orders.custom_id',
             'orders.status',
+            'orders.resi',
         ]);
 
         return view('profile', [
@@ -127,6 +128,7 @@ class UserController extends Controller
 
         $orders = Orders::where($condition)->get([
             'orders.id',
+            'orders.resi',
             'orders.status',
         ]);
         return response()->json([

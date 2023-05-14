@@ -133,6 +133,7 @@ class PaymentController extends Controller
             $orderCustomId = custom_id('orders');
             $order = Orders::insertGetId([
                 'custom_id' => $orderCustomId,
+                'resi' => '',
                 'status' => 'Accepted',
                 'created_by' => Auth::user()->id,
                 'updated_by' => Auth::user()->id,

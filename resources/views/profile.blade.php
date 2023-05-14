@@ -39,6 +39,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID Order</th>
+                                    <th scope="col">Resi</th>
                                     <th scope="col">Status Order</th>
                                     <th scope="col">Detail</th>
                                 </tr>
@@ -48,6 +49,7 @@
                                 <tr>
                                     <!-- <th scope="row" data-id="">12324242</th> -->
                                     <th>{{ $order->custom_id }}</th>
+                                    <td>{{ $order->resi }}</td>
                                     <td>{{ $order->status }}</td>
                                     <td>
                                         <a type="button" class="btn btn-primary" href="{{ route('user.detailOrder',['id'=>$order->custom_id]) }}">Detail</a>

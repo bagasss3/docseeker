@@ -346,7 +346,7 @@ class AdminController extends Controller
 
     public function showOrderAsAdmin(Request $request)
     {
-        $order = Orders::join(
+        $query = Orders::join(
             'transaction',
             'transaction.orders_id',
             '=',
@@ -370,6 +370,16 @@ class AdminController extends Controller
                 '=',
                 'payments.id'
             )
+            ->select(
+                'orders.id',
+                'orders.custom_id',
+                'orders.status',
+                'payments.custom_id as payment_id',
+                'payments.total_price',
+                'payments.payment_status',
+                'payments.created_at',
+                'addresses.email'
+            )
             ->groupBy([
                 'orders.id',
                 'orders.custom_id',
@@ -379,22 +389,23 @@ class AdminController extends Controller
                 'payments.payment_status',
                 'payments.created_at',
                 'addresses.email',
-            ])
-            ->get([
-                'orders.id',
-                'orders.custom_id',
-                'orders.status',
-                'payments.custom_id as payment_id',
-                'payments.total_price',
-                'payments.payment_status',
-                'payments.created_at',
-                'addresses.email',
             ]);
+        if (
+            $request->input('fromDate') !== null &&
+            $request->input('toDate') !== null
+        ) {
+            $fromDate = $request->input('fromDate');
+            $toDate = $request->input('toDate');
+            // Filter orders by date range
+            $query->whereBetween('payments.created_at', [$fromDate, $toDate]);
+        }
+
+        $orders = $query->get();
         return view('dashboard.status-pemesanan', [
             'title' => 'Status Pemesanan',
             'user' => Auth::guard('admin')->user(),
             'success' => true,
-            'data' => $order,
+            'data' => $orders,
             "active_link" => "/admin/orders",
         ]);
     }

@@ -3,18 +3,18 @@
 @section('css')
 <link rel="stylesheet" href={{ asset('css/vendor/datatables.css') }}>
 <!-- DataTables -->
-{{-- <link rel="stylesheet" href={{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}>
-<link rel="stylesheet" href={{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}>
-<link rel="stylesheet" href={{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}> --}}
+<link href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/date-1.4.1/r-2.4.1/sc-2.1.1/datatables.min.css" rel="stylesheet" />
+
 @endsection
 
 
 
 @section('js')
-<script src={{ asset('js/vendor/datatables.js') }}></script>
-
 
 <script src={{ asset('js/crudProduct.js') }}></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/date-1.4.1/r-2.4.1/sc-2.1.1/datatables.min.js"></script>
 @endsection
 
 @section('content')

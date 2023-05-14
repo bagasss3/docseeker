@@ -5,7 +5,32 @@ $(function () {
             responsive: true,
             lengthChange: false,
             autoWidth: false,
-            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            buttons: [
+                { extend: "copy" },
+                { extend: "csv", title: "Product" },
+                {
+                    extend: "excel",
+                    title: "Product",
+                    autoFilter: true,
+                    exportOptions: {
+                        columns: ":visible",
+                    },
+                },
+                { extend: "pdf", title: "Product" },
+                {
+                    extend: "print",
+                    customize: function (win) {
+                        $(win.document.body).addClass("white-bg");
+                        $(win.document.body).css("font-size", "10px");
+
+                        $(win.document.body)
+                            .find("table")
+                            .addClass("compact")
+                            .css("font-size", "inherit");
+                    },
+                },
+                "colvis",
+            ],
         })
         .buttons()
         .container()
@@ -16,7 +41,32 @@ $(function () {
             responsive: true,
             lengthChange: false,
             autoWidth: false,
-            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            buttons: [
+                { extend: "copy" },
+                { extend: "csv", title: "Status Pemesanan" },
+                {
+                    extend: "excel",
+                    title: "Status Pemesanan",
+                    autoFilter: true,
+                    exportOptions: {
+                        columns: ":visible",
+                    },
+                },
+                { extend: "pdf", title: "Status Pemesanan" },
+                {
+                    extend: "print",
+                    customize: function (win) {
+                        $(win.document.body).addClass("white-bg");
+                        $(win.document.body).css("font-size", "10px");
+
+                        $(win.document.body)
+                            .find("table")
+                            .addClass("compact")
+                            .css("font-size", "inherit");
+                    },
+                },
+                "colvis",
+            ],
         })
         .buttons()
         .container()

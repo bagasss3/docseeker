@@ -132,6 +132,12 @@
                                 </select>
                         </div>
                     </div>
+                    <div class="d-flex align-items-center mt-3">
+                        <div class=" mr-3">Resi Number</div>
+                        <div class="">
+                            <input type="text" name="resi" id="" value="{{$data[0]->resi}}">
+                        </div>
+                    </div>
                 </div>
                 <!-- /.card-body -->
 

@@ -430,6 +430,7 @@ class AdminController extends Controller
                 'orders.id',
                 'orders.custom_id',
                 'orders.status',
+                'orders.resi',
                 'transaction.product_id',
                 'products.product_title',
                 'products.deleted_at',
@@ -475,6 +476,7 @@ class AdminController extends Controller
 
         $data = [
             'status' => $request->status,
+            'resi' => $request->resi,
             'updated_by' => Auth::user()->id,
         ];
 

@@ -135,7 +135,12 @@
                     <div class="d-flex align-items-center mt-3">
                         <div class=" mr-3">Resi Number</div>
                         <div class="">
+                            @if($data[0]->status === "Send")
                             <input type="text" name="resi" id="" value="{{$data[0]->resi}}">
+                            @else
+                            <input type="hidden" name="resi" value="{{$data[0]->resi}}">
+                            <input type="text" id="" value="{{$data[0]->resi}}" disabled>
+                            @endif
                         </div>
                     </div>
                 </div>

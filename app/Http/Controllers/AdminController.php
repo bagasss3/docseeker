@@ -358,6 +358,7 @@ class AdminController extends Controller
                 '=',
                 'transaction_detail.id'
             )
+            ->join('products', 'transaction.product_id', '=', 'products.id')
             ->join(
                 'addresses',
                 'transaction_detail.addresses_id',
@@ -369,7 +370,19 @@ class AdminController extends Controller
                 'transaction_detail.payment_id',
                 '=',
                 'payments.id'
-            )
+            );
+        if (
+            $request->input('fromDate') !== null &&
+            $request->input('toDate') !== null
+        ) {
+            $fromDate = $request->input('fromDate');
+            $toDate = $request->input('toDate');
+            // Filter orders by date range
+            $query->whereBetween('payments.created_at', [$fromDate, $toDate]);
+        }
+        $orders = $query->get();
+
+        $shownOrders = $query
             ->select(
                 'orders.id',
                 'orders.custom_id',
@@ -389,22 +402,14 @@ class AdminController extends Controller
                 'payments.payment_status',
                 'payments.created_at',
                 'addresses.email',
-            ]);
-        if (
-            $request->input('fromDate') !== null &&
-            $request->input('toDate') !== null
-        ) {
-            $fromDate = $request->input('fromDate');
-            $toDate = $request->input('toDate');
-            // Filter orders by date range
-            $query->whereBetween('payments.created_at', [$fromDate, $toDate]);
-        }
+            ])
+            ->get();
 
-        $orders = $query->get();
         return view('dashboard.status-pemesanan', [
             'title' => 'Status Pemesanan',
             'user' => Auth::guard('admin')->user(),
             'success' => true,
+            'dataShown' => $shownOrders,
             'data' => $orders,
             "active_link" => "/admin/orders",
         ]);

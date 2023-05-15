@@ -59,7 +59,54 @@
                 </div>
             </div>
         </form>
-        <table id="example2" class="table table-bordered table-striped">
+        <table id="example3" class="table table-bordered table-striped position-absolute mb-4 invisible">
+            <thead>
+                <tr>
+                    <th>Id Pemesanan</th>
+                    <th>Waktu Pemesanan</th>
+                    <th>Nama Customer</th>
+                    <th>No HP</th>
+                    <th>Email</th>
+                    <th>Alamat</th>
+                    <th>Item</th>
+                    <th>Harga Item</th>
+                    <th>Quantity</th>
+                    <th>Total Harga Item</th>
+                    <th>Status Pemesanan</th>
+                    <th>Total Harga Transaksi</th>
+                    <th>Status Transaksi</th>
+                    <th>Email Pembeli</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach($data as $order)
+                <tr>
+                    <td>{{ $order->custom_id }}</td>
+                    <td>{{ local($order->created_at) }}</td>
+                    <td>{{ $order->first_name }} {{ $order-> last_name}}</td>
+                    <td>{{ $order->phone }}</td>
+                    <td>{{ $order->email }}</td>
+                    <td>{{ $order->street_address }}</td>
+                    <td>{{ $order->product_title }}</td>
+                    <td>{{ rupiah($order->product_harga) }}</td>
+                    <td>{{ $order->qty }}</td>
+                    <td>{{ rupiah($order->product_harga*$order->qty) }}</td>
+                    <td>{{ $order->status }}</td>
+                    <td>{{ rupiah($order->total_price) }}</td>
+                    @if($order->payment_status == 1)
+                    <td>Belum Dibayar</td>
+                    @elseif($order->payment_status==2)
+                    <td>Sudah Dibayar</td>
+                    @else
+                    <td>Kadaluarsa</td>
+                    @endif
+                    <td>{{ $order->email }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <table id="example2" class="table table-bordered mt-4 table-striped">
             <thead>
                 <tr>
                     <th>Id Pemesanan</th>
@@ -74,7 +121,7 @@
 
             </thead>
             <tbody>
-                @foreach($data as $order)
+                @foreach($dataShown as $order)
                 <tr>
                     <td>{{ $order->custom_id }}</td>
                     <td>{{ local($order->created_at) }}</td>
@@ -96,8 +143,6 @@
                 @endforeach
             </tbody>
         </table>
-
-
     </div>
 </div>
 

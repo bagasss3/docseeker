@@ -116,7 +116,7 @@ class AdminController extends Controller
                 'product_cat' => 'required|in:0,1,2',
                 'product_gender' => 'required|in:0,1',
                 'product_brand' => 'required',
-                'product_title' => 'required',
+                'product_title' => 'required|min:3|max:50',
                 'product_harga' => 'required',
                 'image' => 'required',
                 'stock' => 'required',
@@ -133,6 +133,8 @@ class AdminController extends Controller
                 'image.required' => 'image harus diisi',
                 'stock.required' => 'Stock harus diisi',
                 'weight.required' => 'weight harus diisi',
+                'product_title.min' => 'Nama product minimal 3 karakter',
+                'product_title.max' => 'Nama product maksimal 50 karakter',
             ]
         );
 
@@ -238,7 +240,7 @@ class AdminController extends Controller
                 'product_cat' => 'in:0,1,2',
                 'product_gender' => 'in:0,1',
                 'product_brand' => 'required',
-                'product_title' => 'required',
+                'product_title' => 'required|min:3|max:50',
                 'product_harga' => 'required',
                 // 'product_image' => 'required',
                 'stock' => 'required',
@@ -248,11 +250,13 @@ class AdminController extends Controller
                 'product_cat' => 'Product_cat harus diisi',
                 'product_gender' => 'Product_gender harus diisi',
                 'product_brand' => 'Product_brand harus diisi',
-                'product_title' => 'Product_title harus diisi',
+                'product_title.required' => 'Product_title harus diisi',
                 'product_harga' => 'Product_harga harus diisi',
                 // 'product_image' => 'Product_image harus diisi',
                 'stock' => 'Stock harus diisi',
                 'weight' => 'weight harus diisi',
+                'product_title.min' => 'Nama product minimal 3 karakter',
+                'product_title.max' => 'Nama product maksimal 50 karakter',
             ]
         );
 

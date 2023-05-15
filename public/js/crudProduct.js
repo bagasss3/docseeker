@@ -36,41 +36,58 @@ $(function () {
         .container()
         .appendTo("#example1_wrapper .col-md-6:eq(0)");
 
-    $("#example2")
-        .DataTable({
-            responsive: true,
-            lengthChange: false,
-            autoWidth: false,
-            buttons: [
-                { extend: "copy" },
-                { extend: "csv", title: "Status Pemesanan" },
-                {
-                    extend: "excel",
-                    title: "Status Pemesanan",
-                    autoFilter: true,
-                    exportOptions: {
-                        columns: ":visible",
-                    },
-                },
-                { extend: "pdf", title: "Status Pemesanan" },
-                {
-                    extend: "print",
-                    customize: function (win) {
-                        $(win.document.body).addClass("white-bg");
-                        $(win.document.body).css("font-size", "10px");
+    $("#example2").DataTable({
+        responsive: true,
+        lengthChange: false,
+        autoWidth: false,
+        searching: false,
+    });
 
-                        $(win.document.body)
-                            .find("table")
-                            .addClass("compact")
-                            .css("font-size", "inherit");
-                    },
+    // Initialize DataTable for example3
+    let table3 = $("#example3").DataTable({
+        responsive: true,
+        lengthChange: false,
+        autoWidth: false,
+        searching: false,
+        paging: false,
+        info: false,
+        buttons: [
+            { extend: "copy" },
+            { extend: "csv", title: "Status Pemesanan" },
+            {
+                extend: "excel",
+                title: "Status Pemesanan",
+                autoFilter: true,
+                exportOptions: {
+                    columns: ":visible",
                 },
-                "colvis",
-            ],
-        })
+            },
+            { extend: "pdf", title: "Status Pemesanan" },
+            {
+                extend: "print",
+                customize: function (win) {
+                    $(win.document.body).addClass("white-bg");
+                    $(win.document.body).css("font-size", "10px");
+
+                    $(win.document.body)
+                        .find("table")
+                        .addClass("compact")
+                        .css("font-size", "inherit");
+                },
+            },
+            "colvis",
+        ],
+    });
+
+    // Move DataTable buttons container for example3 into example2
+    // Create new container for DataTable buttons for example3
+    let buttons3 = table3
         .buttons()
         .container()
-        .appendTo("#example2_wrapper .col-md-6:eq(0)");
+        .appendTo($("<div/>").addClass("dt-buttons"));
+
+    // Append new container to the same location as the container for example2
+    $("#example3_wrapper .col-md-6:eq(0)").append(buttons3);
 });
 
 // Modal delete

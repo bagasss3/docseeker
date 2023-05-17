@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('custom_id');
-            $table->string('resi');
+            $table->string('resi')->nullable();
             $table->enum('status', [
                 'Accepted',
                 'Send',

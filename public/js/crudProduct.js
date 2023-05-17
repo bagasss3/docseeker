@@ -45,7 +45,7 @@ $(function () {
 
     // Initialize DataTable for example3
     let table3 = $("#example3").DataTable({
-        responsive: true,
+        responsive: false,
         lengthChange: false,
         autoWidth: false,
         searching: false,
@@ -53,16 +53,16 @@ $(function () {
         info: false,
         buttons: [
             { extend: "copy" },
-            { extend: "csv", title: "Status Pemesanan" },
+            { extend: "csv", title: "Order" },
             {
                 extend: "excel",
-                title: "Status Pemesanan",
+                title: "Order",
                 autoFilter: true,
                 exportOptions: {
                     columns: ":visible",
                 },
             },
-            { extend: "pdf", title: "Status Pemesanan" },
+            { extend: "pdf", title: "Order" },
             {
                 extend: "print",
                 customize: function (win) {

@@ -12,6 +12,8 @@
 
 @section('js')
 <script src={{ asset('/js/crudProduct.js') }}></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.css"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/date-1.4.1/r-2.4.1/sc-2.1.1/datatables.min.js"></script>
@@ -75,7 +77,6 @@
                     <th>Status Pemesanan</th>
                     <th>Total Harga Transaksi</th>
                     <th>Status Transaksi</th>
-                    <th>Email Pembeli</th>
                 </tr>
 
             </thead>
@@ -101,7 +102,6 @@
                     @else
                     <td>Kadaluarsa</td>
                     @endif
-                    <td>{{ $order->email }}</td>
                 </tr>
                 @endforeach
             </tbody>

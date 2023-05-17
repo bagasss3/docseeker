@@ -410,7 +410,7 @@ class AdminController extends Controller
             ->get();
 
         return view('dashboard.status-pemesanan', [
-            'title' => 'Status Pemesanan',
+            'title' => 'Order',
             'user' => Auth::guard('admin')->user(),
             'success' => true,
             'dataShown' => $shownOrders,

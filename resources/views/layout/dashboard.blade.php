@@ -106,7 +106,7 @@
                             <a href={{ url('/admin/orders', []) }} class="nav-link {{ $active_link == '/admin/orders' ? 'active' : null }}">
                                 <i class="nav-icon fas fa-box-open"></i>
                                 <p>
-                                    Status Pemesanan
+                                    Order
                                 </p>
                             </a>
                         </li>

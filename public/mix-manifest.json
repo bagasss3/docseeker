@@ -1,0 +1,8 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/vendor/adminLte.core.js": "/js/vendor/adminLte.core.js",
+    "/js/vendor/datatables.js": "/js/vendor/datatables.js",
+    "/css/vendor/adminLte.core.css": "/css/vendor/adminLte.core.css",
+    "/css/vendor/datatables.css": "/css/vendor/datatables.css",
+    "/css/app.css": "/css/app.css"
+}
